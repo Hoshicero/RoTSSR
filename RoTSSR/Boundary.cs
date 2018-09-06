@@ -2,7 +2,7 @@
 namespace ConsoleApp1
 
 /* The Boundary class stores allows for the initialization of various boundaries throughout the game.
- *  WONK 9/6/18
+
  ******Variables******
  * 
  * Position <-> The position variable of type char serves as a representaton of the four different directional orientations of the room object:
