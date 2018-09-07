@@ -235,6 +235,8 @@ namespace ConsoleApp1
 
 
 
+
+
                 do
                 {
                     /*IS THE DECK GREATER THAN ZERO AND IS THE FLOOR LESS THAN = 3? IF SO THEN CONTINUE*/
@@ -287,7 +289,8 @@ namespace ConsoleApp1
                             CurrentRoom = String.Concat(CurrentDeck.ToString(), Floortracker.ToString()); /*CurrentRoom reflects the title of the Currentroom*/
 
                             NorthNeighbor = String.Concat(CurrentDeck.ToString(), (Floortracker - 1).ToString(), Roomtracker.ToString()); /*North Neighbor = The Currentroom - 1*/
-
+                            SouthNeighbor = String.Concat(CurrentDeckController(DeckMonitor - 1).ToString(), (Floortracker + 1).ToString(), Roomtracker.ToString()); /*SouthNeighbor equals the result of the CurrentDeck controller method with the variable of the current deck -1*/
+                            /*This doesnt work, we need additional statements yo.*/
 
                             /*******
                              * 
@@ -299,7 +302,6 @@ namespace ConsoleApp1
 
 
 
-                        }
                             /******
                              * 
                              * First and last room position finder.
@@ -353,17 +355,19 @@ namespace ConsoleApp1
                                 }
 
 
-                                /*Switch statement that manually detects when to chnage particular neighbors of neighboring decks*/
+                                /*Switch statement that manually detects when to change particular neighbors of neighboring decks*/
 
                                 switch (CurrentRoom)
                                 {
 
 
+                                //IF YOU ARE ON THE THIRD FLOOR OF THE THIRD DECK, BELOW YOU IS B1
 
                                     case "A3":
                                         SouthNeighbor = "B1" + "(" + Roomtracker + ")";
                                         break;
 
+                                    //IF YOU ARE ON THE THIRD FLOOR OF THE SECOND DECK, THE NEIGHBOR BELOW YOU IS C1.
 
                                     case "B3":
                                         SouthNeighbor = "C1" + "(" + Roomtracker + ")";
@@ -473,7 +477,20 @@ namespace ConsoleApp1
                 } while (DoLoopControl <= Amt);
 
 
+                public char CurrentDeckController(int num)
+                {
+                    switch (num)
 
+                        case: 1
+                            return 'C'
+                        case: 2
+                            return 'B'
+                        case: 3
+                            return 'A'
+
+                        return
+
+                }
 
 
 
@@ -483,11 +500,13 @@ namespace ConsoleApp1
 
 
 
-
+           
 
 
 
         }
+
+       
     }
 
 }
