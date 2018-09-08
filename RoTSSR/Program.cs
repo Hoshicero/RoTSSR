@@ -189,16 +189,16 @@ namespace ConsoleApp1
 
             List<Room> StationCreator(int Amt)
 
-                /* Station Creator is a long ass method. I may at a later date break it up into smaller pieces, but for right now the goal is to dynamically automate the population of decks, and floors.
-                   I will do this by reading in the amt from the Amt variable, dividing the read-in amt by the Roomdivisor, and then proceeding through a series of loops that will check each room as it's being created,
-                   and associate the proper neighbor credentials to it. I will have a few control systems in place. The first will monitor decks, and as soon as it recieves word that three floors are filled it will trigger itself to begin another deck
-                   The second control system is the floor system which will monitor floors, as soon as a floor reaches the value stored in Roomamt it will reset itself to zero, increment the floor control, and continue. 
-             */
+            /* Station Creator is a long ass method. I may at a later date break it up into smaller pieces, but for right now the goal is to dynamically automate the population of decks, and floors.
+               I will do this by reading in the amt from the Amt variable, dividing the read-in amt by the Roomdivisor, and then proceeding through a series of loops that will check each room as it's being created,
+               and associate the proper neighbor credentials to it. I will have a few control systems in place. The first will monitor decks, and as soon as it recieves word that three floors are filled it will trigger itself to begin another deck
+               The second control system is the floor system which will monitor floors, as soon as a floor reaches the value stored in Roomamt it will reset itself to zero, increment the floor control, and continue. 
+         */
             {
 
                 /***************CONTROL VARIABLES****************/
-                int FloorControl = 0; /*The total amount of Floors desired Since we are counting down from Floormonitor, the zero means that we want three rooms*/
-                int DeckControl = 3;/*The total amount of Decks desired*/
+                int ControlNumMin = 1; /*The total amount of Floors desired Since we are counting down from Floormonitor, the zero means that we want three rooms*/
+                int ControlNumMax = 3;/*The total amount of Decks desired*/
                 bool Decktrigger = false; /*Decktrigger activates(true) when it is time to go to a new Deck*/
                 int Roomdivisor = 9;/*Room Divisor is the total amount of floors on the gameboard. For our game the board consists of three decks with three floors each, thus netting a total 9 floors*/
                 int Roomamt = Amt / Roomdivisor; /*By dividing the toatal of Amt by the total number of floors, we can arrive at the total number of rooms requested for the gameboard.*/
@@ -207,6 +207,7 @@ namespace ConsoleApp1
 
 
                 /***************CONTAINER VARIABLES*******************************/
+
                 String NorthNeighbor = null;
                 String SouthNeighbor = null;
                 String EastNeighbor = null;
@@ -214,20 +215,21 @@ namespace ConsoleApp1
                 String CurrentRoom = null;
                 char CurrentDeck = new char();  /*CurrentDeck marks the Deck letter the room is on*/
                 char Comparisonfloor;
+                char N_NeighborDeck = '|';
 
                 /************************COUNTER VARIABLES*************************************/
 
                 int Roomtracker = 0; /*Floortracker is a counter that keeps track of how many rooms have been made, it will be used to trigger the next floor*/
-                int Floortracker = 0; /*Floortrigger keeps track of how many floors that have been made. Every fitieth floor, the trigger goes up by one, after three it resets.*/
+                int Floortracker = 1; /*Floortrigger keeps track of how many floors that have been made. Every fitieth floor, the trigger goes up by one, after three it resets.*/
                 int FloorMonitor = 3; /*Keeps track of the current level of floor It starts out as three because the numbers go up in ascending order*/
-                int DeckMonitor = 0; /*Keeps track of the current Deck*/
+                int DeckMonitor = 1; /*Keeps track of the current Deck*/
                 int DoLoopControl = 0; /*The control that keeps track of how many times the loop has ran. */
-               
-            
-              /*****************************************************************************/
-      
 
-                
+
+                /*****************************************************************************/
+
+
+
 
                 List<Room> RoomList = new List<Room>();
 
@@ -239,54 +241,77 @@ namespace ConsoleApp1
 
                 do
                 {
-                    /*IS THE DECK GREATER THAN ZERO AND IS THE FLOOR LESS THAN = 3? IF SO THEN CONTINUE*/
+                    /*IS THE DECK L THAN ONE AND IS THE FLOOR LESS THAN = 3? IF SO THEN CONTINUE*/
 
 
 
-                    if (DeckMonitor <= DeckControl && FloorMonitor > FloorControl)
+                    // if (DeckMonitor <= ControlNumMax && FloorMonitor > FloorControl)
+                    //{
+
+                    /*ARE WE ON THE FIRST FLOOR OF A DECK AND IS THAT DECK NOT THE LAST DECK? IF SO THEN WE KNOW OUR NORTH NEIGHBOR WILL BE A NEW DECK.
+                     * 
+                     * RESET FLOOR MONITOR AND ACTIVATE DECKTRIGGER TO CHANGE DECKS*/
+
+
+                    Decktrigger = false; //Decktrigger needs to be reset. 
+
+                    if (FloorMonitor == ControlNumMin && DeckMonitor >= ControlNumMin)
                     {
 
-                        /*ARE WE ON THE FIRST FLOOR OF A DECK AND IS THAT DECK NOT THE LAST DECK? IF SO RESET FLOOR MONITOR AND ACTIVATE DECKTRIGGER TO CHANGE DECKS*/
 
-                        if(FloorMonitor == FloorControl && DeckMonitor < DeckControl)
+                        FloorMonitor = 1;
+                        Decktrigger = true; //Decktrigger is set to be true. 
+
+
+
+
+                    }
+
+
+                    /****************************NORTH FLOOR CALCULATIONS*******************************/
+
+                    /*IS DECK TRIGGER TRUE? IF SO ASSIGN THE North Neighbor floor THE APPROPRIATE CHARACTER*/
+                    if (Decktrigger)
+                    {
+
+
+                        N_NeighborDeck = CurrentDeckController(DeckMonitor - 1);
+
+
+
+
+
+                    }
+                    /*IF YOU ARE WITHIN THE BOUNDS OF THE STATION CONTINUE*/
+                    if (DeckMonitor >= ControlNumMin)
+                    {
+
+
+                        /*IF YOU ARE ON THE FIRST DECK ON THE FIRST FLOOR, YOU HAVE NO NORTH*/
+                        if (DeckMonitor == ControlNumMin && FloorMonitor == ControlNumMin)
                         {
 
-
-                            FloorMonitor = 0;
-                            Decktrigger = true;
-
-
-
+                            N_NeighborDeck = CurrentDeckController(88); //88 is a garbage value, meant to return the garbage 'x' value from the CDC method.
 
                         }
+                        else
+                            N_NeighborDeck = CurrentDeckController(DeckMonitor);
 
+                    }
 
-                        /*IS DECK TRIGGER TRUE? IF SO ASSIGN THE CURRENTDECK VALUE THE APPROPRIATE CHARACTER*/
-                     if (Decktrigger)
-                        {
+              
 
-                            Decktrigger = false; /*Deck Trigger reset*/
+           
 
-                            switch (DeckMonitor)
-                            {
-
-                                case 1:
-                                    CurrentDeck = 'C';
-                                    break;
-                                case 2:
-                                    CurrentDeck = 'B';
-                                    break;
-                                case 3:
-                                    CurrentDeck = 'A';
-                                    break;
-
-
-                            }
+                    /****************************SOUTH FLOOR CALCULATIONS*******************************/
 
 
 
 
-                            CurrentRoom = String.Concat(CurrentDeck.ToString(), Floortracker.ToString()); /*CurrentRoom reflects the title of the Currentroom*/
+
+
+
+                    CurrentRoom = String.Concat(CurrentDeck.ToString(), Floortracker.ToString()); /*CurrentRoom reflects the title of the Currentroom*/
 
                             NorthNeighbor = String.Concat(CurrentDeck.ToString(), (Floortracker - 1).ToString(), Roomtracker.ToString()); /*North Neighbor = The Currentroom - 1*/
                             SouthNeighbor = String.Concat(CurrentDeckController(DeckMonitor - 1).ToString(), (Floortracker + 1).ToString(), Roomtracker.ToString()); /*SouthNeighbor equals the result of the CurrentDeck controller method with the variable of the current deck -1*/
@@ -361,7 +386,7 @@ namespace ConsoleApp1
                                 {
 
 
-                                //IF YOU ARE ON THE THIRD FLOOR OF THE THIRD DECK, BELOW YOU IS B1
+                                    //IF YOU ARE ON THE THIRD FLOOR OF THE THIRD DECK, BELOW YOU IS B1
 
                                     case "A3":
                                         SouthNeighbor = "B1" + "(" + Roomtracker + ")";
@@ -378,7 +403,7 @@ namespace ConsoleApp1
 
 
 
-                            /*Base neighbor calculation*/
+                                /*Base neighbor calculation*/
 
 
 
@@ -460,8 +485,39 @@ namespace ConsoleApp1
 
 
 
+
+
+                        char CurrentDeckController(int num)
+                        {
+
+                            switch (num)
+                            {
+
+
+                                case 1:
+                                    return 'A';
+
+                                case 2:
+                                    return 'B';
+                                case 3:
+                                    return 'C';
+
+                                default:
+                                    return 'X';
+
+
                             }
+
                         }
+
+
+
+
+
+
+
+                    }
+                }
 
 
 
@@ -471,26 +527,20 @@ namespace ConsoleApp1
 
 
 
-                    
 
 
+
+                    //}
                 } while (DoLoopControl <= Amt);
 
 
-                public char CurrentDeckController(int num)
-                {
-                    switch (num)
+            
 
-                        case: 1
-                            return 'C'
-                        case: 2
-                            return 'B'
-                        case: 3
-                            return 'A'
 
-                        return
 
-                }
+                     
+                            
+                
 
 
 
