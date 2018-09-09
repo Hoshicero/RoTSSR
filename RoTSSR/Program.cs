@@ -197,32 +197,30 @@ namespace ConsoleApp1
             {
 
                 /***************CONTROL VARIABLES****************/
-                int ControlNumMin = 1; /*The total amount of Floors desired Since we are counting down from Floormonitor, the zero means that we want three rooms*/
-                int ControlNumMax = 3;/*The total amount of Decks desired*/
-                bool Decktrigger = false; /*Decktrigger activates(true) when it is time to go to a new Deck*/
-                int Roomdivisor = 9;/*Room Divisor is the total amount of floors on the gameboard. For our game the board consists of three decks with three floors each, thus netting a total 9 floors*/
-                int Roomamt = Amt / Roomdivisor; /*By dividing the toatal of Amt by the total number of floors, we can arrive at the total number of rooms requested for the gameboard.*/
+                int Fl_ControlNumMin = 1; /*The least amount of floors desired.*/
+                int Fl_ControlNumMax = 3;/*The amount of  desired*/
+                int Dk_ControlNumMin = 1; /*The least amount of Decks desired*/
+                int Dk_ControlNumMax = 3; /*The Most amount of Decks desired. */
+                bool Dk_Trigger = false; /*Dktrigger activates(true) when it is time to go to a new Deck*/
+                int Rm_Divisor = 9;/*Room Divisor is the total amount of floors on the gameboard. For our game the board consists of three decks with three floors each, thus netting a total 9 floors*/
+                int Rm_Amount = Amt / Rm_Divisor; /*By dividing the toatal of Amt by the total number of floors, we can arrive at the total number of rooms requested for the gameboard.*/
                 const int Maxnumber = 50; //The maximum number a room can be at any given time.
                 const int Leastnumber = 0;//The least number a room can be at any given time.
 
 
                 /***************CONTAINER VARIABLES*******************************/
 
-                String NorthNeighbor = null;
-                String SouthNeighbor = null;
-                String EastNeighbor = null;
-                String WestNeighbor = null;
-                String CurrentRoom = null;
-                char CurrentDeck = new char();  /*CurrentDeck marks the Deck letter the room is on*/
-                char Comparisonfloor;
-                char N_NeighborDeck = '|';
+
+                char Dk_Current = new char();  /*CurrentDeck marks the Deck letter the room is on*/
+                char Fl_Comparison;
+                char Dk_NNeighbor = '|';
 
                 /************************COUNTER VARIABLES*************************************/
 
-                int Roomtracker = 0; /*Floortracker is a counter that keeps track of how many rooms have been made, it will be used to trigger the next floor*/
-                int Floortracker = 1; /*Floortrigger keeps track of how many floors that have been made. Every fitieth floor, the trigger goes up by one, after three it resets.*/
-                int FloorMonitor = 3; /*Keeps track of the current level of floor It starts out as three because the numbers go up in ascending order*/
-                int DeckMonitor = 1; /*Keeps track of the current Deck*/
+                int Rm_Tracker = 0; /*Floortracker is a counter that keeps track of how many rooms have been made, it will be used to trigger the next floor*/
+                int Fl_Tracker = 0; /**/
+                int Fl_Monitor = 3; /*Keeps track of the current level of floor It starts out as three because the numbers go up in ascending order*/
+                int Dk_Monitor = 3; /*Keeps track of the current Deck*/
                 int DoLoopControl = 0; /*The control that keeps track of how many times the loop has ran. */
 
 
@@ -241,67 +239,58 @@ namespace ConsoleApp1
 
                 do
                 {
-                    /*IS THE DECK L THAN ONE AND IS THE FLOOR LESS THAN = 3? IF SO THEN CONTINUE*/
+                    /*A new Current_Room Object is created: int, char, int*/
+                    Current_Room HolderRoom = new Current_Room(Fl_Monitor, Dk_Monitor, Dk_Monitor);
 
 
+                    /*Now it's time to initialize a method that has Current_Room check itself to see if it matches any special room requirements. */
 
-                    // if (DeckMonitor <= ControlNumMax && FloorMonitor > FloorControl)
-                    //{
+                    HolderRoom.Fl_Minmaxcheck(Fl_ControlNumMin, Fl_ControlNumMax);
+                    HolderRoom.Dk_Minmaxcheck(Dk_ControlNumMin, Dk_ControlNumMax);
 
-                    /*ARE WE ON THE FIRST FLOOR OF A DECK AND IS THAT DECK NOT THE LAST DECK? IF SO THEN WE KNOW OUR NORTH NEIGHBOR WILL BE A NEW DECK.
-                     * 
-                     * RESET FLOOR MONITOR AND ACTIVATE DECKTRIGGER TO CHANGE DECKS*/
-
-
-                    Decktrigger = false; //Decktrigger needs to be reset. 
-
-                    if (FloorMonitor == ControlNumMin && DeckMonitor >= ControlNumMin)
-                    {
-
-
-                        FloorMonitor = 1;
-                        Decktrigger = true; //Decktrigger is set to be true. 
-
-
-
-
-                    }
 
 
                     /****************************NORTH FLOOR CALCULATIONS*******************************/
 
-                    /*IS DECK TRIGGER TRUE? IF SO ASSIGN THE North Neighbor floor THE APPROPRIATE CHARACTER*/
-                    if (Decktrigger)
+                    /*"X" Is a default value that I set to act as a gatekeeper*/
+
+
+                    if (HolderRoom.NorthNeighbor == "X")
                     {
-
-
-                        N_NeighborDeck = CurrentDeckController(DeckMonitor - 1);
-
-
-
-
-
-                    }
-                    /*IF YOU ARE WITHIN THE BOUNDS OF THE STATION CONTINUE*/
-                    if (DeckMonitor >= ControlNumMin)
-                    {
-
 
                         /*IF YOU ARE ON THE FIRST DECK ON THE FIRST FLOOR, YOU HAVE NO NORTH*/
-                        if (DeckMonitor == ControlNumMin && FloorMonitor == ControlNumMin)
+
+                        if (HolderRoom.Dk_Min && HolderRoom.Fl_Min)
                         {
 
-                            N_NeighborDeck = CurrentDeckController(88); //88 is a garbage value, meant to return the garbage 'x' value from the CDC method.
+
+                            HolderRoom.NorthNeighbor = "X";
+
 
                         }
+
+                        /*OR IF you are on the highest floor of your deck,
+                        Your N_Neighbor will be equal to a string that is a concatenation of the result of your current Deck Minus one,
+                         The Max Floor Control value, and your current room number. 
+                         Ex: CurrentRoom is B123, B123's North Neighbor would be: (*B*(2) - 1) = (1)*A*), Fl_Max = 3, and 123 giving a total value of : A3123 *
+                         */
+
+                        else if (HolderRoom.Fl_Min)
+                        {
+                        
+
+                            HolderRoom.NorthNeighbor = String.Concat(Dk_Retriever(HolderRoom.Get_Dk() - 1).ToString(), Fl_ControlNumMax.ToString(), HolderRoom.CurrentRoom.ToString());
+
+                        }
+
+                        //OTHERWISE YOUR NORTH NEIGHBOR CONSISTS OF YOUR DECK, YOUR FLOOR - 1, AND YOUR CURRENT ROOM NUMBER. 
+
                         else
-                            N_NeighborDeck = CurrentDeckController(DeckMonitor);
+                            HolderRoom.NorthNeighbor = String.Concat(Dk_Retriever(HolderRoom.Get_Dk()).ToString(), (HolderRoom.Get_Fl()- 1).ToString(), HolderRoom.CurrentRoom.ToString());
 
                     }
 
-              
 
-           
 
                     /****************************SOUTH FLOOR CALCULATIONS*******************************/
 
@@ -313,202 +302,179 @@ namespace ConsoleApp1
 
                     CurrentRoom = String.Concat(CurrentDeck.ToString(), Floortracker.ToString()); /*CurrentRoom reflects the title of the Currentroom*/
 
-                            NorthNeighbor = String.Concat(CurrentDeck.ToString(), (Floortracker - 1).ToString(), Roomtracker.ToString()); /*North Neighbor = The Currentroom - 1*/
-                            SouthNeighbor = String.Concat(CurrentDeckController(DeckMonitor - 1).ToString(), (Floortracker + 1).ToString(), Roomtracker.ToString()); /*SouthNeighbor equals the result of the CurrentDeck controller method with the variable of the current deck -1*/
-                            /*This doesnt work, we need additional statements yo.*/
+                    NorthNeighbor = String.Concat(CurrentDeck.ToString(), (Floortracker - 1).ToString(), Roomtracker.ToString()); /*North Neighbor = The Currentroom - 1*/
+                    SouthNeighbor = String.Concat(CurrentDeckController(DeckMonitor - 1).ToString(), (Floortracker + 1).ToString(), Roomtracker.ToString()); /*SouthNeighbor equals the result of the CurrentDeck controller method with the variable of the current deck -1*/
+                                                                                                                                                             /*This doesnt work, we need additional statements yo.*/
 
-                            /*******
-                             * 
-                             * 
-                             * CONDITIONAL STATEMENTS 
-                             * 
-                             */
+                    /*******
+                     * 
+                     * 
+                     * CONDITIONAL STATEMENTS 
+                     * 
+                     */
 
 
 
 
-                            /******
-                             * 
-                             * First and last room position finder.
-                             * 
-                             * 
-                             * 
-                             * 
-                            ****/
-                            if (Roomtracker == Leastnumber)
-                            {
+                    /******
+                     * 
+                     * First and last room position finder.
+                     * 
+                     * 
+                     * 
+                     * 
+                    ****/
+                    if (Roomtracker == Leastnumber)
+                    {
 
-                                //If the room begins at zero of any floor, then it's west neighbor is equal to nothing. 
+                        //If the room begins at zero of any floor, then it's west neighbor is equal to nothing. 
 
-                                WestNeighbor = null;
+                        WestNeighbor = null;
 
 
-                                if (Roomtracker == Maxnumber)
-                                {
-
-                                    //If the room begins at maxnumber the one to its right is null.
-
-                                    EastNeighbor = null;
-
-
-
-
-                                }
-
-
-                                /**************************************If you are on the first floor, you have no south neighbor******************************************************/
-
-                                if (CurrentRoom == "C3")
-                                {
-
-
-                                    SouthNeighbor = null;
-
-
-                                }
-
-
-                                /********************************************If you are on the last deck, you have no north neighbor******************************************************/
-
-
-                                if (CurrentRoom == "A1")
-                                {
-
-                                    NorthNeighbor = null;
-
-
-                                }
-
-
-                                /*Switch statement that manually detects when to change particular neighbors of neighboring decks*/
-
-                                switch (CurrentRoom)
-                                {
-
-
-                                    //IF YOU ARE ON THE THIRD FLOOR OF THE THIRD DECK, BELOW YOU IS B1
-
-                                    case "A3":
-                                        SouthNeighbor = "B1" + "(" + Roomtracker + ")";
-                                        break;
-
-                                    //IF YOU ARE ON THE THIRD FLOOR OF THE SECOND DECK, THE NEIGHBOR BELOW YOU IS C1.
-
-                                    case "B3":
-                                        SouthNeighbor = "C1" + "(" + Roomtracker + ")";
-                                        break;
-
-
-                                }
-
-
-
-                                /*Base neighbor calculation*/
-
-
-
-
-
-
-                                RoomList.Add(new Room(Na: Currentfloorletter + "(" + Floortrigger + ")" + Roomcounter, NN: "B" + Roomcounter, NE: "C" + (Roomcounter + 1), NW: "C" + (counter - 1), NS: "P"));
-
-
-                                System.Console.WriteLine("Pass" + Roomcounter);
-
-                                int N_wall = rnd.Next(1, 7);
-                                int S_wall = rnd.Next(1, 7);
-                                int E_wall = rnd.Next(1, 7);
-                                int W_wall = rnd.Next(1, 7);
-
-
-                                Boundary Boundpoop = new Boundary();
-                                Boundpoop = RoomList[0].GetBoundary('N');
-                                System.Console.WriteLine("Counter is" + Roomcounter);
-                                System.Console.WriteLine("Roomlist is" + Boundpoop.GetPosition());
-                                /* Random Number Generator sequences */
-
-                                if (N_wall >= 5)
-                                {
-
-                                    //System.Console.WriteLine("North wall is" + N_wall);
-
-                                    //RoomList[count].GetBoundary('N').SetDoor();
-
-                                }
-                                else //RoomList[count].GetBoundary('N').SetBulkhead();
-
-
-
-
-                                if (S_wall >= 5)
-                                {
-
-                                    RoomList[0].GetBoundary('S').SetDoor();
-
-
-                                    //System.Console.WriteLine("S wall is" + S_wall);
-
-                                }
-                                else RoomList[0].GetBoundary('S').SetBulkhead();
-
-
-
-
-
-
-                                if (W_wall >= 5)
-                                {
-
-                                    RoomList[Roomcounter].GetBoundary('W').SetDoor();
-
-
-                                    //System.Console.WriteLine("W wall is" + W_wall);
-
-
-                                }
-                                else RoomList[Roomcounter].GetBoundary('W').SetBulkhead();
-
-
-
-                                if (W_wall >= 5)
-                                {
-
-                                    RoomList[Roomcounter].GetBoundary('E').SetDoor();
-
-                                    //System.Console.WriteLine("E wall is" + E_wall);
-
-                                }
-                                else RoomList[Roomcounter].GetBoundary('E').SetBulkhead();
-
-
-
-
-
-
-
-
-                        char CurrentDeckController(int num)
+                        if (Roomtracker == Maxnumber)
                         {
 
-                            switch (num)
-                            {
+                            //If the room begins at maxnumber the one to its right is null.
+
+                            EastNeighbor = null;
 
 
-                                case 1:
-                                    return 'A';
 
-                                case 2:
-                                    return 'B';
-                                case 3:
-                                    return 'C';
-
-                                default:
-                                    return 'X';
-
-
-                            }
 
                         }
+
+
+                        /**************************************If you are on the first floor, you have no south neighbor******************************************************/
+
+                        if (CurrentRoom == "C3")
+                        {
+
+
+                            SouthNeighbor = null;
+
+
+                        }
+
+
+                        /********************************************If you are on the last deck, you have no north neighbor******************************************************/
+
+
+                        if (CurrentRoom == "A1")
+                        {
+
+                            NorthNeighbor = null;
+
+
+                        }
+
+
+                        /*Switch statement that manually detects when to change particular neighbors of neighboring decks*/
+
+                        switch (CurrentRoom)
+                        {
+
+
+                            //IF YOU ARE ON THE THIRD FLOOR OF THE THIRD DECK, BELOW YOU IS B1
+
+                            case "A3":
+                                SouthNeighbor = "B1" + "(" + Roomtracker + ")";
+                                break;
+
+                            //IF YOU ARE ON THE THIRD FLOOR OF THE SECOND DECK, THE NEIGHBOR BELOW YOU IS C1.
+
+                            case "B3":
+                                SouthNeighbor = "C1" + "(" + Roomtracker + ")";
+                                break;
+
+
+                        }
+
+
+
+                        /*Base neighbor calculation*/
+
+
+
+
+
+
+                        RoomList.Add(new Room(Na: Currentfloorletter + "(" + Floortrigger + ")" + Roomcounter, NN: "B" + Roomcounter, NE: "C" + (Roomcounter + 1), NW: "C" + (counter - 1), NS: "P"));
+
+
+                        System.Console.WriteLine("Pass" + Roomcounter);
+
+                        int N_wall = rnd.Next(1, 7);
+                        int S_wall = rnd.Next(1, 7);
+                        int E_wall = rnd.Next(1, 7);
+                        int W_wall = rnd.Next(1, 7);
+
+
+                        Boundary Boundpoop = new Boundary();
+                        Boundpoop = RoomList[0].GetBoundary('N');
+                        System.Console.WriteLine("Counter is" + Roomcounter);
+                        System.Console.WriteLine("Roomlist is" + Boundpoop.GetPosition());
+                        /* Random Number Generator sequences */
+
+                        if (N_wall >= 5)
+                        {
+
+                            //System.Console.WriteLine("North wall is" + N_wall);
+
+                            //RoomList[count].GetBoundary('N').SetDoor();
+
+                        }
+                        else //RoomList[count].GetBoundary('N').SetBulkhead();
+
+
+
+
+                        if (S_wall >= 5)
+                        {
+
+                            RoomList[0].GetBoundary('S').SetDoor();
+
+
+                            //System.Console.WriteLine("S wall is" + S_wall);
+
+                        }
+                        else RoomList[0].GetBoundary('S').SetBulkhead();
+
+
+
+
+
+
+                        if (W_wall >= 5)
+                        {
+
+                            RoomList[Roomcounter].GetBoundary('W').SetDoor();
+
+
+                            //System.Console.WriteLine("W wall is" + W_wall);
+
+
+                        }
+                        else RoomList[Roomcounter].GetBoundary('W').SetBulkhead();
+
+
+
+                        if (W_wall >= 5)
+                        {
+
+                            RoomList[Roomcounter].GetBoundary('E').SetDoor();
+
+                            //System.Console.WriteLine("E wall is" + E_wall);
+
+                        }
+                        else RoomList[Roomcounter].GetBoundary('E').SetBulkhead();
+
+
+
+
+
+
+
 
 
 
@@ -517,11 +483,130 @@ namespace ConsoleApp1
 
 
                     }
+
+                } while (DoLoopControl <= Amt);
+
+
+
+                return RoomList;
+
+
+                char Dk_Retriever(int num)
+                {
+
+                    switch (num)
+                    {
+
+
+                        case 1:
+                            return 'A';
+
+                        case 2:
+                            return 'B';
+                        case 3:
+                            return 'C';
+
+                        default:
+                            return 'X';
+
+
+                    }
+
+                } 
+            struct Current_Room {
+
+            public String NorthNeighbor;
+            public String SouthNeighbor;
+            public String EastNeighbor;
+            public String WestNeighbor;
+            public int CurrentRoom;
+            private int Floor {get; set; }
+            private int Deck { get; set; }
+            public bool Fl_Min;
+            public bool Fl_Max;
+            public bool Dk_Min;
+            public bool Dk_Max;
+
+            
+            public int Get_Fl() { return Floor;}
+            public int Get_Dk() { return Deck;}
+            public void Set_Fl(int Fl) { Floor = Fl;}
+            public void Set_Dk(int Dk) { Deck = Dk;}
+
+            public void Fl_Minmaxcheck(int Min, int max)
+            {
+                if(Floor == Min)
+                {
+
+                    Fl_Min = true;
+
+                }
+                else if (Floor == max)
+                {
+
+                    Fl_Max = true;
+
+                }
+
+                
+
+            }
+
+
+            public void Dk_Minmaxcheck(int Min, int max)
+            {
+                if (Deck == Min)
+                {
+
+                    Dk_Min = true;
+
+                }
+                else if (Deck == max)
+                {
+
+                    Dk_Max = true;
+
                 }
 
 
 
-                        return RoomList;
+            }
+
+
+
+
+            public Current_Room (int Fl, int Dk, int Ro)
+            {
+
+
+                Floor = Fl;
+                Deck = Dk;
+                CurrentRoom = Ro;
+
+
+
+                NorthNeighbor = null;
+                SouthNeighbor = "X";
+                EastNeighbor = "X";
+                WestNeighbor = "X";
+                
+               
+                Fl_Min = false;
+                Fl_Max = false;
+                Dk_Min = false;
+                Dk_Max = false;
+
+
+
+
+
+            }
+
+
+
+
+
+        }
 
 
 
@@ -529,9 +614,8 @@ namespace ConsoleApp1
 
 
 
-
-                    //}
-                } while (DoLoopControl <= Amt);
+                //}
+            } 
 
 
             
