@@ -106,8 +106,7 @@ namespace ConsoleApp1
             Position = Pos;
         }
 
-        ~Boundary() { }
-
+      
 
 
 

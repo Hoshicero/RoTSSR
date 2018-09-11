@@ -44,8 +44,8 @@ namespace ConsoleApp1
         private String Name;
         private String North_Neighbor;
         private String South_Neighbor;
-        private String East_Neighbor;
-        private String West_Neighbor;
+        private String East_Neighbor ;
+        private String West_Neighbor ;
 
         private Boundary NorthBound;
         private Boundary SouthBound;
@@ -141,7 +141,7 @@ namespace ConsoleApp1
         }
 
 
-        ~Room() { }
+       
 
 
 
