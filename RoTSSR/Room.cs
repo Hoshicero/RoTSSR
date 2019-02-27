@@ -36,7 +36,7 @@ namespace ConsoleApp1
 
 
 
-    public class Room
+    public struct Room
     {
 
 
@@ -103,7 +103,7 @@ namespace ConsoleApp1
             return null;
 
         }
-
+        /*
         public Room()
         {
 
@@ -140,7 +140,7 @@ namespace ConsoleApp1
 
         }
 
-
+    */
        
 
 

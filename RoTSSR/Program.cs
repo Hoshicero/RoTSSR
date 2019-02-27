@@ -6,9 +6,24 @@ using System.Collections.Generic;
 
 namespace ConsoleApp1
 {
-    public class MClass : StationCreator {
-        public static object Fl_control { get; private set; }
+    public class ClassCreator : StationCreator {
+        public ClassCreator (int Flmin, int Flmax, int Rmmin, int Rmmax, int Dkmin, int Dkmax, int RmDiv, int Rmperfl, int Rm_Amt, int lnum)
+        {
 
+            Fl_ControlNumMin = Flmin;
+            Fl_ControlNumMax = Flmax;
+            Rm_ControlNumMin = Rmmin;
+            Rm_ControlNumMax = Rmmax;
+            Dk_ControlNumMin = Dkmin;
+            Dk_ControlNumMax = Dkmax;
+            Rm_Divisor = RmDiv;
+            Rm_PerFloor = Rmperfl;
+            Leastnumber = lnum;
+
+        }
+        public static object Fl_control { get; private set; }
+        
+    }
         public static void Main(string[] args)
 
  /*
@@ -22,14 +37,12 @@ namespace ConsoleApp1
 */
         {
 
-           
             int RoomSize = 100;
-            MClass.Rm_ControlNumMin = 100;
             int IndexHolder = 0; 
             IDictionary<String, int> valueTable = new Dictionary<String, int>();
             Room Roomtester = new Room();
             
-
+           
             List<Room> RoomPopulator = new List<Room>();
 
             RoomPopulator = StationCreator(RoomSize);

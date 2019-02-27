@@ -23,21 +23,21 @@ namespace ConsoleApp1
             
 
                /***************CONTROL VARIABLES****************/
-       public int Fl_ControlNumMin { get; set;}
+       public int Fl_ControlNumMin { get;  set;}
        public  int Fl_ControlNumMax { get; set;}
        public  int Rm_ControlNumMin { get; set;}
-       public int Rm_ControlNumMax { get;set;}
+       public int Rm_ControlNumMax { get;  set;}
        public int Dk_ControlNumMin { get; set;}
        public int Dk_ControlNumMax { get; set;}
-       public int Rm_Divisor { get; set;}
+       public int Rm_Divisor { get;  set;}
        public int Rm_PerFloor { get; set;} /*By dividing the total amount of rooms by the total number of floors, we can arrive at the total number of rooms per floor.*/
-       public int Rm_Amt { get; set;}
-       public int Leastnumber{get; set;}//The least number a room can be at any given time.
+       public int Rm_Amt { get;  set;}
+       public int Leastnumber{get;  set;}//The least number a room can be at any given time.
        public StationCreator() { } /*Constructor*\
 
         /***************CONTAINER VARIABLES*******************************/
 
-        /*
+        
              public StationCreator(int Flmin, int Flmax, int Rmmin, int Rmmax, int Dkmin, int Dkmax, int RmDiv, int Rmperfl, int Rm_Amt, int lnum)
              {
 
@@ -53,7 +53,9 @@ namespace ConsoleApp1
 
              }
 
-     */
+    
+
+     
 
 
         /************************COUNTER VARIABLES*************************************/
