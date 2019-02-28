@@ -36,7 +36,7 @@ namespace ConsoleApp1
 
 
 
-    public struct Room
+    public class Room
     {
 
 
@@ -103,7 +103,7 @@ namespace ConsoleApp1
             return null;
 
         }
-        /*
+        
         public Room()
         {
 
@@ -140,15 +140,144 @@ namespace ConsoleApp1
 
         }
 
-    */
+    
        
 
 
 
     }
+    public class Llist
+    {
+       public Node head { get; set; } //head of list
+       public  Node rear { get; set; } //rear of list
+        public Llist()
+        {
+            head = new Node();
+            rear = new Node();
+        }
+
+        public class Node
+        {
+
+            public Node previous { get; set; }
+            public Node next { get; set; }
+            public Room room;
+            public Node(Room Room)
+            {
+                room = Room;
+                next = null;
+                previous = null;
+            }
+            public Node()
+            {
+                next = null;
+                previous = null;
+            }
 
 
 
+            public void N_Node(Room room, Node next, Node previous)
+            {
+                this.room = room;
+                this.next = next;
+                this.previous = previous;
+            }
+
+           
+
+           
+
+        }
+        public void printList()
+        {
+            Node n = head;
+            Node p = rear;
+
+            while (n != null)
+            {
+                Console.Write(n.room.GetName() + " ");
+                n = n.next;
+
+            }
+
+           while (p != null)
+            {
+                Console.Write(p.room.GetName() + " ");
+                p = p.previous;
+            }
+
+
+        }
+
+        public Room Search(String key)
+        {
+            
+            Room room = new Room();
+            if(head == null)
+
+            {
+                Console.WriteLine("Error -- Linked List not initialized");
+                return room;
+
+            }
+
+            Node current = head;
+            while (current != null)
+            {
+                
+                if (current.room.GetName() == key)
+                {
+                    Console.WriteLine("The Name is" + current.room.GetName());
+                    Console.WriteLine("The North Neighbor is" + current.room.GetNeighbor_N());
+                    Console.WriteLine("The South Neighbor is" + current.room.GetNeighbor_S());
+                    Console.WriteLine("The East Neighbor is" + current.room.GetNeighbor_E());
+                    Console.WriteLine("The West Neighbor is" + current.room.GetNeighbor_W());
+
+                    return current.room;
+                }
+
+                if (current.next != null)
+                {
+                    current = current.next;
+                }
+                else
+                    break;
+                   
+
+            }
+
+            return new Room();
+
+
+        }
+
+        public void Start(Room room)
+        {
+
+            Node node = new Node(room);
+            head = node;
+            rear = node;
+
+        }
+
+        public void Front_Add(Room room)
+        {
+            
+            Node node = new Node(room);
+            node.next = head;
+            head.previous = node;
+            head = node;
+
+        }
+
+        public void Rear_Add(Room room)
+        {
+            Node node = new Node(room);
+            node.previous = rear;
+            rear.next = node;
+            rear = node;
+        }
+    }
 
 
 }

@@ -6,8 +6,9 @@ using System.Collections.Generic;
 
 namespace ConsoleApp1
 {
-    public class ClassCreator : StationCreator {
-        public ClassCreator (int Flmin, int Flmax, int Rmmin, int Rmmax, int Dkmin, int Dkmax, int RmDiv, int Rmperfl, int Rm_Amt, int lnum)
+    public class ClassCreator : StationCreator
+    {
+        public ClassCreator(int Flmin, int Flmax, int Rmmin, int Rmmax, int Dkmin, int Dkmax, int RmDiv, int Rmperfl, int Rm_Amt, int lnum)
         {
 
             Fl_ControlNumMin = Flmin;
@@ -22,161 +23,182 @@ namespace ConsoleApp1
 
         }
         public static object Fl_control { get; private set; }
-        
-    }
-        public static void Main(string[] args)
 
- /*
- Title: Main
- Type: Void
- Function: To facilitate the execution of appropriate class methods.
- Variables: 
- *(int)RoomSize -- The amount of Rooms a user would like to be included into the final board. 
- *(int)IndexHolder -- A variable designed to help the Hashtable keep track of it's indexes.
- *(Hashtable) valueTable The Hash table that stores a key and value.
-*/
-        {
+    
+    public static void Main (string[] args)
 
-            int RoomSize = 100;
-            int IndexHolder = 0; 
-            IDictionary<String, int> valueTable = new Dictionary<String, int>();
+    /*
+    Title: Main
+    Type: Void
+    Function: To facilitate the execution of appropriate class methods.
+    Variables: 
+    *(int)RoomSize -- The amount of Rooms a user would like to be included into the final board. 
+    *(int)IndexHolder -- A variable designed to help the Hashtable keep track of it's indexes.
+    *(Hashtable) valueTable The Hash table that stores a key and value.
+   */
+    {
+
+        int RoomSize = 100;
+        int IndexHolder = 0;
+        IDictionary<String, int> valueTable = new Dictionary<String, int>();
             Room Roomtester = new Room();
-            
-           
-            List<Room> RoomPopulator = new List<Room>();
+            Llist Linker = new Llist();
 
-            RoomPopulator = StationCreator(RoomSize);
+            Roomtester.SetName("A1");
+            Roomtester.SetNorth_Neighbor("I'm weenie A1");
 
-           
+            Linker.Start(Roomtester);
 
-          
+            Roomtester.SetName("A2");
+            Roomtester.SetNorth_Neighbor("I'm weenie A2");
 
+            Linker.Front_Add(Roomtester);
 
+            Roomtester.SetName("A3");
+            Roomtester.SetNorth_Neighbor("I'm weenie A3");
+
+            Linker.Front_Add(Roomtester);
+
+            //Linker.printList();
+            Linker.Search("A3");
             Console.ReadLine();
 
 
-            List<Room> StationCreator(int Amt)
-         
-                
-        
+        /*
+         List<Room> RoomPopulator = new List<Room>();
 
-
-
-                            if (Dk_Retriever(HolderRoom.Get_Dk()) != 'X')
-                            {   
-                                RoomList.Add(new Room(Na: HolderRoom.Get_N(), NN: HolderRoom.NorthNeighbor, NE: HolderRoom.EastNeighbor, NW: HolderRoom.WestNeighbor, NS: HolderRoom.SouthNeighbor));
-                                valueTable.Add(HolderRoom.Get_N(), IndexHolder);
-                                //Console.Write(HolderRoom.Get_N());
-                                //Console.Write(IndexHolder);
-
-                                IndexHolder++;
-                                
-                                // System.Console.WriteLine(String.Concat(HolderRoom.Get_N(), "-", "(", HolderRoom.NorthNeighbor, ")", "(", HolderRoom.EastNeighbor, ")", "(", HolderRoom.WestNeighbor, ")", "(", HolderRoom.SouthNeighbor, ")"));
-                            }
-
-                          
-
-                            Rm_Tracker++;
-
-
-
-                        }
-
-                        Fl_Tracker--;
-                    }
-
-                    Dk_Monitor--;
-                }
-
-                return RoomList;
-
-
-
-                char Dk_Retriever(int num)
-                {
-
-                    switch (num)
-                    {
-
-
-                        case 1:
-                            return 'A';
-
-                        case 2:
-                            return 'B';
-                        case 3:
-                            return 'C';
-
-                        default:
-                            return 'X';
-
-
-                    }
-
-                }
+         RoomPopulator = StationCreator(RoomSize);
 
 
 
 
 
 
+         Console.ReadLine();
+
+
+         List<Room> StationCreator(int Amt)
 
 
 
 
 
-            }
 
-        }
+                         if (Dk_Retriever(HolderRoom.Get_Dk()) != 'X')
+                         {   
+                             RoomList.Add(new Room(Na: HolderRoom.Get_N(), NN: HolderRoom.NorthNeighbor, NE: HolderRoom.EastNeighbor, NW: HolderRoom.WestNeighbor, NS: HolderRoom.SouthNeighbor));
+                             valueTable.Add(HolderRoom.Get_N(), IndexHolder);
+                             //Console.Write(HolderRoom.Get_N());
+                             //Console.Write(IndexHolder);
+
+                             IndexHolder++;
+
+                             // System.Console.WriteLine(String.Concat(HolderRoom.Get_N(), "-", "(", HolderRoom.NorthNeighbor, ")", "(", HolderRoom.EastNeighbor, ")", "(", HolderRoom.WestNeighbor, ")", "(", HolderRoom.SouthNeighbor, ")"));
+                         }
 
 
 
+                         Rm_Tracker++;
 
-        public static Room Rm_Get(String ind, List<Room> rm_List, IDictionary<String, int>hTable)
-        //Searches Room list for a Room by first searching the k&v pair in the Dictionary object called "htable" by
-        // the String key variable called "ind" and using the int value from that lookup as the index for the room to return.
+
+
+                     }
+
+                     Fl_Tracker--;
+                 }
+
+                 Dk_Monitor--;
+             }
+
+             return RoomList;
+
+
+ */
+        char Dk_Retriever(int num)
         {
-            var vTable = new Dictionary<string, int>(hTable);
-     
-        
-            int xmFile = 0;
-            xmFile = hTable[ind];
-            return rm_List[xmFile];
 
-
-
-        }
-
-
-
-        public static void Screen_Draw(List<Room> Materials, IDictionary<string, int> tTable)
-        { 
-            IDictionary<String, int> valueTable = new Dictionary<String, int>(tTable);
-            // var tempTable = new Dictionary<string, int>(tTable);
-            int Columns = 11;
-            const int rows = 0;
-            for (int x = 0; x <= 3; x++)
+            switch (num)
             {
-                for (int y = 0; y <= Columns; y++)
-                {
-                    Console.Write($"{Columns,rows}", "Hello");
 
 
+                case 1:
+                    return 'A';
 
+                case 2:
+                    return 'B';
+                case 3:
+                    return 'C';
 
-
-                }
-
-
+                default:
+                    return 'X';
 
 
             }
 
         }
 
-      
+
+
+
+
+
+
+
+
+
+
     }
 
+
+
+
+
+    /*
+            public static Room Rm_Get(String ind, List<Room> rm_List, IDictionary<String, int>hTable)
+            //Searches Room list for a Room by first searching the k&v pair in the Dictionary object called "htable" by
+            // the String key variable called "ind" and using the int value from that lookup as the index for the room to return.
+            {
+                var vTable = new Dictionary<string, int>(hTable);
+
+
+                int xmFile = 0;
+                xmFile = hTable[ind];
+                return rm_List[xmFile];
+
+
+
+            }
+
+
+
+            public static void Screen_Draw(List<Room> Materials, IDictionary<string, int> tTable)
+            { 
+                IDictionary<String, int> valueTable = new Dictionary<String, int>(tTable);
+                // var tempTable = new Dictionary<string, int>(tTable);
+                int Columns = 11;
+                const int rows = 0;
+                for (int x = 0; x <= 3; x++)
+                {
+                    for (int y = 0; y <= Columns; y++)
+                    {
+                        Console.Write($"{Columns,rows}", "Hello");
+
+
+
+
+
+                    }
+
+
+
+
+                }
+
+            }
+
+
+        }
+        */
 
     public struct Current_Room
     {
@@ -283,9 +305,9 @@ namespace ConsoleApp1
 
         }
 
-    
-    }
 
+    }
+}
    
 }
 
