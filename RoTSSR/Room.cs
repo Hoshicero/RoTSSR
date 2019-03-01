@@ -195,14 +195,14 @@ namespace ConsoleApp1
 
             while (n != null)
             {
-                Console.Write(n.room.GetName() + " ");
+                Console.WriteLine(n.room.GetName() + " ");
                 n = n.next;
 
             }
 
            while (p != null)
             {
-                Console.Write(p.room.GetName() + " ");
+                Console.WriteLine(p.room.GetName() + " ");
                 p = p.previous;
             }
 
@@ -256,7 +256,7 @@ namespace ConsoleApp1
 
             Node node = new Node(room);
             head = node;
-            rear = node;
+            rear = null;
 
         }
 
@@ -264,9 +264,9 @@ namespace ConsoleApp1
         {
             
             Node node = new Node(room);
-            node.next = head;
-            head.previous = node;
-            head = node;
+            node.next = this.head;
+            this.head.previous = node;
+            this.head = node;
 
         }
 

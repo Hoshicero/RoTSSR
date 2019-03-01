@@ -37,7 +37,7 @@ namespace ConsoleApp1
     *(Hashtable) valueTable The Hash table that stores a key and value.
    */
     {
-
+       
         int RoomSize = 100;
         int IndexHolder = 0;
         IDictionary<String, int> valueTable = new Dictionary<String, int>();
@@ -46,21 +46,39 @@ namespace ConsoleApp1
 
             Roomtester.SetName("A1");
             Roomtester.SetNorth_Neighbor("I'm weenie A1");
-
+           
             Linker.Start(Roomtester);
+            Console.WriteLine("Head is.." + Linker.head.room.GetName());
+            //Console.WriteLine("Next is.." + Linker.head.next.room.GetName());
+            Console.WriteLine("Rear is.." + Linker.rear.room.GetName());
 
             Roomtester.SetName("A2");
             Roomtester.SetNorth_Neighbor("I'm weenie A2");
-
             Linker.Front_Add(Roomtester);
 
+            /*
+            
+            Console.WriteLine("Head is.." + Linker.head.room.GetName());
+            Console.WriteLine("Next is.." + Linker.head.next.room.GetName());
+            Console.WriteLine("Rear is.." + Linker.rear.room.GetName());
+
+            */
+
+            /*
             Roomtester.SetName("A3");
             Roomtester.SetNorth_Neighbor("I'm weenie A3");
+           
 
             Linker.Front_Add(Roomtester);
+            Console.WriteLine("Head is.." + Linker.head.room.GetName());
+            Console.WriteLine("Next is.." + Linker.head.next.room.GetName());
+            Console.WriteLine("Rear is.." + Linker.rear.room.GetName());
 
-            //Linker.printList();
-            Linker.Search("A3");
+
+            */
+
+            Linker.printList();
+            //Linker.Search("A3");
             Console.ReadLine();
 
 
