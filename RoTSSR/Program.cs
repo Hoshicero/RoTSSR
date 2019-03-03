@@ -42,6 +42,9 @@ namespace ConsoleApp1
         int IndexHolder = 0;
         IDictionary<String, int> valueTable = new Dictionary<String, int>();
             Room Roomtester = new Room();
+            Room Roomtester2 = new Room();
+            Room Roomtester3 = new Room();
+            Room Roomtester4 = new Room();
             Llist Linker = new Llist();
 
             Roomtester.SetName("A1");
@@ -49,90 +52,90 @@ namespace ConsoleApp1
            
             Linker.Start(Roomtester);
             Console.WriteLine("Head is.." + Linker.head.room.GetName());
-            //Console.WriteLine("Next is.." + Linker.head.next.room.GetName());
+
+            Roomtester2.SetName("A2");
+            Roomtester2.SetNorth_Neighbor("I'm weenie A2");
+            Linker.Front_Add(Roomtester2);
+            Console.WriteLine("Head is.." + Linker.head.room.GetName());
+            Console.WriteLine("Next is.." + Linker.head.next.room.GetName());
             Console.WriteLine("Rear is.." + Linker.rear.room.GetName());
 
-            Roomtester.SetName("A2");
-            Roomtester.SetNorth_Neighbor("I'm weenie A2");
-            Linker.Front_Add(Roomtester);
-
-            /*
             
+
+            
+            Roomtester3.SetName("A3");
+            Roomtester3.SetNorth_Neighbor("I'm weenie A3");
+            Linker.Front_Add(Roomtester3);
             Console.WriteLine("Head is.." + Linker.head.room.GetName());
             Console.WriteLine("Next is.." + Linker.head.next.room.GetName());
             Console.WriteLine("Rear is.." + Linker.rear.room.GetName());
 
-            */
-
-            /*
-            Roomtester.SetName("A3");
-            Roomtester.SetNorth_Neighbor("I'm weenie A3");
-           
-
-            Linker.Front_Add(Roomtester);
+            Roomtester4.SetName("A4");
+            Roomtester4.SetNorth_Neighbor("I'm weenie A4");
+            Linker.Rear_Add(Roomtester4);
             Console.WriteLine("Head is.." + Linker.head.room.GetName());
             Console.WriteLine("Next is.." + Linker.head.next.room.GetName());
             Console.WriteLine("Rear is.." + Linker.rear.room.GetName());
-
-
-            */
+            Console.WriteLine("Previous is.." + Linker.rear.previous.room.GetName());
 
             Linker.printList();
-            //Linker.Search("A3");
+            Linker.Search("A3");
+            Console.ReadLine();
+            Linker.Delete("A3");
+            Linker.printList();
             Console.ReadLine();
 
+            /*
+             List<Room> RoomPopulator = new List<Room>();
 
-        /*
-         List<Room> RoomPopulator = new List<Room>();
+             RoomPopulator = StationCreator(RoomSize);
 
-         RoomPopulator = StationCreator(RoomSize);
-
-
-
+            
 
 
 
-         Console.ReadLine();
+
+             Console.ReadLine();
 
 
-         List<Room> StationCreator(int Amt)
-
+             List<Room> StationCreator(int Amt)
 
 
 
 
 
-                         if (Dk_Retriever(HolderRoom.Get_Dk()) != 'X')
-                         {   
-                             RoomList.Add(new Room(Na: HolderRoom.Get_N(), NN: HolderRoom.NorthNeighbor, NE: HolderRoom.EastNeighbor, NW: HolderRoom.WestNeighbor, NS: HolderRoom.SouthNeighbor));
-                             valueTable.Add(HolderRoom.Get_N(), IndexHolder);
-                             //Console.Write(HolderRoom.Get_N());
-                             //Console.Write(IndexHolder);
 
-                             IndexHolder++;
+                             if (Dk_Retriever(HolderRoom.Get_Dk()) != 'X')
+                             {   
+                                 RoomList.Add(new Room(Na: HolderRoom.Get_N(), NN: HolderRoom.NorthNeighbor, NE: HolderRoom.EastNeighbor, NW: HolderRoom.WestNeighbor, NS: HolderRoom.SouthNeighbor));
+                                 valueTable.Add(HolderRoom.Get_N(), IndexHolder);
+                                 //Console.Write(HolderRoom.Get_N());
+                                 //Console.Write(IndexHolder);
 
-                             // System.Console.WriteLine(String.Concat(HolderRoom.Get_N(), "-", "(", HolderRoom.NorthNeighbor, ")", "(", HolderRoom.EastNeighbor, ")", "(", HolderRoom.WestNeighbor, ")", "(", HolderRoom.SouthNeighbor, ")"));
+                                 IndexHolder++;
+
+                                 // System.Console.WriteLine(String.Concat(HolderRoom.Get_N(), "-", "(", HolderRoom.NorthNeighbor, ")", "(", HolderRoom.EastNeighbor, ")", "(", HolderRoom.WestNeighbor, ")", "(", HolderRoom.SouthNeighbor, ")"));
+                             }
+
+
+
+                             Rm_Tracker++;
+
+
+
                          }
 
-
-
-                         Rm_Tracker++;
-
-
-
+                         Fl_Tracker--;
                      }
 
-                     Fl_Tracker--;
+                     Dk_Monitor--;
                  }
 
-                 Dk_Monitor--;
-             }
-
-             return RoomList;
+                 return RoomList;
 
 
- */
-        char Dk_Retriever(int num)
+     */
+            char Dk_Retriever(int num)
         {
 
             switch (num)

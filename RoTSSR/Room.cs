@@ -174,7 +174,7 @@ namespace ConsoleApp1
                 previous = null;
             }
 
-
+            ~Node() { }
 
             public void N_Node(Room room, Node next, Node previous)
             {
@@ -253,21 +253,23 @@ namespace ConsoleApp1
 
         public void Start(Room room)
         {
-
+            
             Node node = new Node(room);
             head = node;
-            rear = null;
+            rear = node;
+            //Console.WriteLine("Leaving start and and the head equals" + head.room.GetName());
 
         }
 
-        public void Front_Add(Room room)
+        public void Front_Add(Room t_room)
         {
-            
-            Node node = new Node(room);
+           // Console.WriteLine("In Front_Add and the head equals" + head.room.GetName());
+           // Console.WriteLine("I have reached Front_Add, and I'm replacing" + head.room.GetName());
+            Node node = new Node(t_room);
             node.next = this.head;
             this.head.previous = node;
             this.head = node;
-
+            //Console.WriteLine("Okay I've replaced the head, my  next node is" + head.next.room.GetName());
         }
 
         public void Rear_Add(Room room)
@@ -276,6 +278,27 @@ namespace ConsoleApp1
             node.previous = rear;
             rear.next = node;
             rear = node;
+        }
+
+        public void Delete(string Key)
+        {
+            Node t_Node = new Node(Search(Key));
+            Console.WriteLine("Here in the Delete section and my name is" + t_Node.room.GetName());
+
+            //Error Catcher this will check a
+            if(t_Node.previous != null)
+            {
+                t_Node.previous.next = t_Node.next;
+
+            }
+            if (t_Node.next != null)
+            {
+ 
+                t_Node.next.previous = t_Node.previous;
+
+            }
+            else
+                Console.WriteLine("Nothing to see here folks!");
         }
     }
 
