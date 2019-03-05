@@ -61,8 +61,6 @@ namespace ConsoleApp1
             Console.WriteLine("Rear is.." + Linker.rear.room.GetName());
 
             
-
-            
             Roomtester3.SetName("A3");
             Roomtester3.SetNorth_Neighbor("I'm weenie A3");
             Linker.Front_Add(Roomtester3);
@@ -79,11 +77,33 @@ namespace ConsoleApp1
             Console.WriteLine("Previous is.." + Linker.rear.previous.room.GetName());
 
             Linker.printList();
-            Linker.Search("A3");
+            //Linker.Search("A3");
+            Console.ReadLine();
+            Linker.Delete("A2");
+            Linker.printList();
+            Console.WriteLine("Head is.." + Linker.head.room.GetName());
+            Console.WriteLine("Rear is.." + Linker.rear.room.GetName());
             Console.ReadLine();
             Linker.Delete("A3");
             Linker.printList();
+            Console.WriteLine("Head is.." + Linker.head.room.GetName());
+            Console.WriteLine("Rear is.." + Linker.rear.room.GetName());
             Console.ReadLine();
+            Linker.Delete("A1");
+            Linker.printList();
+            Console.WriteLine("Head is.." + Linker.head.room.GetName());
+            Console.WriteLine("Rear is.." + Linker.rear.room.GetName());
+            Console.ReadLine();
+            Linker.Delete("A4");
+            Linker.printList();
+            Console.WriteLine("Head is.." + Linker.head.room.GetName());
+            Console.WriteLine("Rear is.." + Linker.rear.room.GetName());
+
+
+
+           
+
+
 
             /*
              List<Room> RoomPopulator = new List<Room>();

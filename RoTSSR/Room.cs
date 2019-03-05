@@ -154,6 +154,7 @@ namespace ConsoleApp1
         {
             head = new Node();
             rear = new Node();
+
         }
 
         public class Node
@@ -190,29 +191,35 @@ namespace ConsoleApp1
         }
         public void printList()
         {
-            Node n = head;
-            Node p = rear;
+            Node n = new Node();  
+            Node p = new Node();
+
+            p = rear;
+            n = head;
 
             while (n != null)
             {
+                Console.WriteLine("Printing.....");
                 Console.WriteLine(n.room.GetName() + " ");
                 n = n.next;
-
+                
             }
-
+            /*
+             * Rear Search
            while (p != null)
             {
                 Console.WriteLine(p.room.GetName() + " ");
                 p = p.previous;
             }
 
-
+             */
         }
 
         public Room Search(String key)
         {
             
             Room room = new Room();
+
             if(head == null)
 
             {
@@ -257,51 +264,175 @@ namespace ConsoleApp1
             Node node = new Node(room);
             head = node;
             rear = node;
-            //Console.WriteLine("Leaving start and and the head equals" + head.room.GetName());
+            Console.WriteLine("Leaving start and and the head equals" + head.room.GetName());
 
         }
 
         public void Front_Add(Room t_room)
         {
-           // Console.WriteLine("In Front_Add and the head equals" + head.room.GetName());
-           // Console.WriteLine("I have reached Front_Add, and I'm replacing" + head.room.GetName());
             Node node = new Node(t_room);
-            node.next = this.head;
-            this.head.previous = node;
-            this.head = node;
-            //Console.WriteLine("Okay I've replaced the head, my  next node is" + head.next.room.GetName());
+            Node Header = head;
+
+            node.next = head;
+            Header.previous = node;
+            head = node;
+
+            Console.WriteLine("Okay I've replaced the head, my  next node is" + head.next.room.GetName());
         }
 
         public void Rear_Add(Room room)
         {
             Node node = new Node(room);
-            node.previous = rear;
-            rear.next = node;
+            Node end = rear;
+
+            end.next = node;
+            node.previous = end;
+            node.next = null; 
             rear = node;
         }
 
         public void Delete(string Key)
         {
-            Node t_Node = new Node(Search(Key));
-            Console.WriteLine("Here in the Delete section and my name is" + t_Node.room.GetName());
 
-            //Error Catcher this will check a
-            if(t_Node.previous != null)
+            Room room = new Room();
+           
+            if (head == null)
+
             {
-                t_Node.previous.next = t_Node.next;
+                Console.WriteLine("Error -- Linked List not initialized");
+
 
             }
-            if (t_Node.next != null)
+
+            Node current = head;
+            Node previous = rear;
+            Node next = head;
+            Node del;
+
+
+            if (current == head && current == rear)
             {
- 
-                t_Node.next.previous = t_Node.previous;
+                
+                Console.WriteLine("Error: Last node in the list");
+                return;
+            }
+
+            while (current != null)
+            {
+
+                if (current.room.GetName() == Key)
+                {
+
+                    //Base Case
+
+                    if(head == null)
+                    {
+                        return;
+                    }
+
+                    //If node to be deleted is head node
+
+                    if(head == current)
+                    {
+
+                        head = current.next;
+
+                    }
+
+                    //If node to be deleted is rear node
+                    if(rear == current)
+                    {
+                        rear = current.previous;
+
+                    }
+                    //Change next if Node to be deleted is not the last node
+                    if(current.next != null)
+                    {
+
+                        current.next.previous = current.next;
+
+                    }
+
+                    if(current.previous != null)
+                    {
+
+                        current.previous.next = current.next;
+                    }
+
+                  
+                    /*
+                    if (current.next != null)
+                    {
+                  
+                        //Console.WriteLine("Here in the current.next != null");
+                        //If there is another element in the list, and you are the first. The next element loses you and becomes the new head.  
+                       
+                        next = current.next;
+                       Console.WriteLine("next" + next.room.GetName());
+                        next.previous = current.previous;
+                     //Console.WriteLine("Current Previous" + current.previous.room.GetName());
+                        if (next.next == null)
+                        {
+                            Console.WriteLine("Here in the next.next == null");
+                            head = next;
+
+                        }
+                        else if(next.previous == null)
+                        {
+                            head = next;
+
+                        }
+                       
+
+                    }
+
+                    if (current.previous != null)
+                    {
+                        Console.WriteLine("Here in the current.previous != null");
+                        
+                        previous = current.previous;
+                        previous.next = current.next;
+
+                        Console.WriteLine("Previous is" + previous.room.GetName());
+                      
+                        if (previous.previous == null)
+                        //make head if end of list. 
+                        {
+                            Console.WriteLine("Here in the previous.previous == null");
+
+                            head = previous;
+
+
+                            if (previous.next == null)
+                            {
+                                rear = previous;
+                            }
+
+                        }
+
+
+                    }
+                    */
+
+                    return;
+                }
+
+                //Console.WriteLine("Here advancing the linker");
+
+                current = current.next;
+
 
             }
-            else
-                Console.WriteLine("Nothing to see here folks!");
         }
+
+
+
+
+
+
+    }
     }
 
 
-}
+
 
