@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
-    public  class StationCreator
+    public  class StationCreator 
     {
 
         /*Title: StationCreator
@@ -72,20 +72,22 @@ namespace ConsoleApp1
 
        
 
-        String nNeighborCalculations(String HolderRoom)
+        public void  nNeighborCalculations(Room HolderRoom)
+
+              
         {
-            /*"X" Is a default value that I set to act as a gatekeeper*/
+            //Console.WriteLine("HELLO FROM NNEIGHBOR" + HolderRoom.GetNeighbor_N());
+            /*"C1" Is a default value that I set to act as a gatekeeper*/
 
-            if (HolderRoom == "X")
+            if (HolderRoom.GetNeighbor_N() == null || HolderRoom.GetNeighbor_N() == "X") 
             {
-
                 /*IF YOU ARE ON THE TOP DECK ON THE TOP FLOOR, YOU HAVE NO NORTH*/
 
-                if ((Dk_Monitor == Dk_ControlNumMin) && (Fl_Monitor == Fl_ControlNumMin))
+                if ((HolderRoom.Deck == Dk_ControlNumMin) && (HolderRoom.Floor == Fl_ControlNumMin))
                 {
 
 
-                    return "X";
+                    HolderRoom.SetNorth_Neighbor("X");
 
 
                 }
@@ -96,110 +98,109 @@ namespace ConsoleApp1
                  Ex: CurrentRoom is B123, B123's North Neighbor would be: (*B*(2) - 1) = (1)*A*), Fl_Max = 3, and 123 giving a total value of : A3123 *
                  */
 
-                else if (Fl_Monitor == Fl_ControlNumMin)
+                else if (HolderRoom.Floor == Fl_ControlNumMin)
                 {
 
-
-                    return String.Concat(Dk_Retriever(Dk_Monitor - 1), Fl_ControlNumMin);
+                    HolderRoom.SetNorth_Neighbor(String.Concat(Dk_Retriever(HolderRoom.Deck - 1), Fl_ControlNumMin, HolderRoom.Num));
 
                 }
 
 
                 else
-                    return String.Concat(Dk_Retriever(Dk_Monitor), (Fl_Monitor - 1));
+                    HolderRoom.SetNorth_Neighbor(String.Concat(Dk_Retriever(Dk_Monitor), (Fl_Monitor - 1), HolderRoom.Num));
                 //OTHERWISE YOUR NORTH NEIGHBOR CONSISTS OF YOUR DECK, YOUR FLOOR - 1, AND YOUR CURRENT ROOM NUMBER.
 
             }
 
             else
-                return null;
+                return;
 
 
         }
 
-        String sNeighborCalculations(String HolderRoom)
+        public void  sNeighborCalculations(Room HolderRoom)
 
         {
-            if (HolderRoom == "X")
+            if (HolderRoom.GetNeighbor_S() == "X" || HolderRoom.GetNeighbor_S() == null)
             {
 
                 /*IF YOU ARE THE LOWEST DECK ON THE LOWEST FLOOR, YOU HAVE NO SOUTH NEIGHBOR*/
-                if ((Dk_Monitor == Dk_ControlNumMax) && (Fl_Monitor == Fl_ControlNumMax))
+                if ((HolderRoom.Deck == Dk_ControlNumMax) && (HolderRoom.Floor == Fl_ControlNumMax))
                 {
 
 
-                    return "X";
+                    HolderRoom.SetSouth_Neighbor("X");
 
 
                 }
                 /*IF YOU HAPPEN TO BE ON THE FLOOR OF A DECK RIGHT ABOVE THE TOP FLOOR OF ANOTHER DECK */
-                else if (Fl_Tracker == Fl_ControlNumMax)
+                else if (HolderRoom.Floor == Fl_ControlNumMax)
                 {
-                    return String.Concat(Dk_Retriever(Dk_Monitor + 1), Fl_ControlNumMin);
+                    HolderRoom.SetSouth_Neighbor(String.Concat(Dk_Retriever(HolderRoom.Deck + 1), HolderRoom.Floor, HolderRoom.Num));
+                   
                 }
 
                 else
-                    return String.Concat(Dk_Retriever(Dk_Monitor), (Fl_Monitor + 1));
+                    HolderRoom.SetSouth_Neighbor(String.Concat(Dk_Retriever(HolderRoom.Deck), (HolderRoom.Floor + 1),HolderRoom.Num));
 
 
             }
 
             else
-                return null;
-
+                return;
         }
 
 
-        public String wNeighborCalculations(String HolderRoom, int Lnumber)
+        public void wNeighborCalculations(Room HolderRoom)
         {
 
-            if (HolderRoom == "X")
+            if (HolderRoom.GetNeighbor_W() == "X" || HolderRoom.GetNeighbor_W() == null)
             {
 
                 /*IF YOU ARE THE FIRST ROOM ON YOUR FLOOR, YOU HAVE NO EAST NEIGHBOR*/
-                if (Lnumber == Rm_ControlNumMin)
+                if (HolderRoom.Num == 0)
                 {
 
 
-                    return "X";
+                    HolderRoom.SetWest_Neighbor("X");
 
                 }
 
 
                 else
-                    return String.Concat(Dk_Retriever(Dk_Monitor), Fl_Monitor);
+                   HolderRoom.SetWest_Neighbor(String.Concat(Dk_Retriever(HolderRoom.Deck), HolderRoom.Floor, HolderRoom.Num - 1));
 
 
             }
-            else return null;
+            else return;
 
         }
 
 
-        public String eNeighborCalculations(String HolderRoom, int Rm_PerFloor)
+        public void eNeighborCalculations(Room HolderRoom)
         {
 
 
-            if (HolderRoom == "X")
+            if (HolderRoom.GetNeighbor_E() == "X" || HolderRoom.GetNeighbor_E() == null)
             {
 
                 /*IF YOU ARE THE LAST ROOM ON YOUR FLOOR, YOU HAVE NO EAST NEIGHBOR*/
-                if (Rm_PerFloor == Rm_ControlNumMax)
+                if (HolderRoom.Num == Rm_ControlNumMax)
                 {
 
 
-                    return "X";
+                    HolderRoom.SetEast_Neighbor("X");
 
                 }
 
 
                 else
-                    return String.Concat(Dk_Retriever(Dk_Monitor), Fl_Monitor);
+                    HolderRoom.SetEast_Neighbor(String.Concat(Dk_Retriever(HolderRoom.Deck), HolderRoom.Floor, HolderRoom.Num + 1));
 
 
             }
 
-            else return null;
+            else return;
 
 
         }
@@ -207,7 +208,7 @@ namespace ConsoleApp1
 
 
 
-char Dk_Retriever(int num)
+String Dk_Retriever(int num)
         {
 
             switch (num)
@@ -215,20 +216,105 @@ char Dk_Retriever(int num)
 
 
                 case 1:
-                    return 'A';
+                    return "A";
 
                 case 2:
-                    return 'B';
+                    return "B";
+
                 case 3:
-                    return 'C';
+                    return "C";
 
                 default:
-                    return 'X';
+                    return "X";
 
 
             }
 
         }
 
+        public Room Roommaker(Room Rom)
+        {
+            Rom.SetName(String.Concat(Dk_Retriever(Dk_Monitor),Fl_Tracker));
+            nNeighborCalculations(Rom);
+            sNeighborCalculations(Rom);
+            eNeighborCalculations(Rom);
+            wNeighborCalculations(Rom);
+
+            return Rom;
+        }
+
+
+        public Llist DB_Station()
+        {
+
+            Llist Llstation = new Llist();
+            Room Rom = new Room();
+
+
+            Fl_ControlNumMin = 1;
+            
+            Rm_ControlNumMin = 1;
+
+            Dk_ControlNumMin = 1;
+         
+            
+  
+            Rm_Amt = 50;
+            Dk_ControlNumMax = 3;
+            Fl_ControlNumMax = 3;
+            //Figure out  Rm per floor by dividng desired number of decks against the rm_amt and then the desired amount of floors by the remaineder.  
+            Rm_PerFloor = Rm_Amt/Dk_ControlNumMax;
+            Rm_PerFloor = Rm_PerFloor / Fl_ControlNumMax;
+            Rm_ControlNumMax = Rm_PerFloor;
+            Rm_Tracker = 1; /*Floortracker is a counter that keeps track of how many rooms have been made, it will be used to trigger the next floor*/
+            Fl_Monitor = 3;
+            Dk_Monitor = 3;
+            Fl_Tracker = 3;
+            
+            Rom = Roommaker(Rom);
+            Llstation.Start(Rom);
+
+            for (int z = 3; z > 0; z--)
+            {
+
+                for (int y = 3; y > 0; y--)
+                {
+                   
+                    for (int x = 0; x <= Rm_PerFloor; x++)
+                    {
+                        
+                        
+                            Room ne = new Room(x,y,z);
+
+                            ne = Roommaker(ne);
+                            ne.SetName(String.Concat(Dk_Retriever(ne.Deck), ne.Floor, x));
+                        /*
+                            Console.WriteLine(ne.GetName());
+                            Console.WriteLine("North of " + " " + ne.GetName() + " " + ne.GetNeighbor_N());
+                            Console.WriteLine("South of " + " " + ne.GetName() + " " + ne.GetNeighbor_S());
+                            Console.WriteLine("East of" + " " + ne.GetName() + " " + ne.GetNeighbor_E());
+                            Console.WriteLine("West of" + " " + ne.GetName() + " " + ne.GetNeighbor_W());
+                        */
+                        Llstation.Rear_Add(ne);
+                    }
+
+                    Fl_Monitor = Fl_Monitor - 1;
+
+                }
+
+                Dk_Monitor = Dk_Monitor - 1;
+
+            }
+
+            Fl_Monitor = Fl_ControlNumMin;
+            Dk_Monitor = Dk_ControlNumMax;
+           
+
+           
+            return Llstation;
+
+        }
+
+       
     }
 }

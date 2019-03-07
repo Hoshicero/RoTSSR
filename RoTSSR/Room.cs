@@ -39,13 +39,18 @@ namespace ConsoleApp1
     public class Room
     {
 
-
-        private int RoomType;
+        
+        public int RoomType;
+        public int Deck { get; set; }
+        public int Num { get; set; }
+        public int Floor { get; set;}
         private String Name;
         private String North_Neighbor;
         private String South_Neighbor;
         private String East_Neighbor ;
         private String West_Neighbor ;
+        
+        
 
         private Boundary NorthBound;
         private Boundary SouthBound;
@@ -103,8 +108,35 @@ namespace ConsoleApp1
             return null;
 
         }
+
+        public Room (int num, int fl, int deck)
+        {
+
+            Num = num;
+            Floor = fl;
+            Deck = deck;
+
+        }
         
         public Room()
+        {
+
+           // Name = null;
+            North_Neighbor = null;
+            South_Neighbor = null;
+            East_Neighbor = null;
+            West_Neighbor = null;
+
+            NorthBound = new Boundary('N', false, false, false, false);
+            SouthBound = new Boundary('S', false, false, false, false);
+            EastBound = new Boundary('E', false, false, false, false);
+            WestBound = new Boundary('W', false, false, false, false);
+
+
+        }
+
+
+        public void Roomer()
         {
 
             Name = null;
@@ -204,15 +236,7 @@ namespace ConsoleApp1
                 n = n.next;
                 
             }
-            /*
-             * Rear Search
-           while (p != null)
-            {
-                Console.WriteLine(p.room.GetName() + " ");
-                p = p.previous;
-            }
-
-             */
+           
         }
 
         public Room Search(String key)
@@ -264,7 +288,7 @@ namespace ConsoleApp1
             Node node = new Node(room);
             head = node;
             rear = node;
-            Console.WriteLine("Leaving start and and the head equals" + head.room.GetName());
+            //Console.WriteLine("Leaving start and and the head equals" + head.room.GetName());
 
         }
 
@@ -277,7 +301,7 @@ namespace ConsoleApp1
             Header.previous = node;
             head = node;
 
-            Console.WriteLine("Okay I've replaced the head, my  next node is" + head.next.room.GetName());
+            //Console.WriteLine("Okay I've replaced the head, my  next node is" + head.next.room.GetName());
         }
 
         public void Rear_Add(Room room)
@@ -299,21 +323,17 @@ namespace ConsoleApp1
             if (head == null)
 
             {
-                Console.WriteLine("Error -- Linked List not initialized");
+               // Console.WriteLine("Error -- Linked List not initialized");
 
 
             }
 
             Node current = head;
-            Node previous = rear;
-            Node next = head;
-            Node del;
-
 
             if (current == head && current == rear)
             {
                 
-                Console.WriteLine("Error: Last node in the list");
+               // Console.WriteLine("Error: Last node in the list");
                 return;
             }
 
@@ -360,59 +380,7 @@ namespace ConsoleApp1
                     }
 
                   
-                    /*
-                    if (current.next != null)
-                    {
-                  
-                        //Console.WriteLine("Here in the current.next != null");
-                        //If there is another element in the list, and you are the first. The next element loses you and becomes the new head.  
-                       
-                        next = current.next;
-                       Console.WriteLine("next" + next.room.GetName());
-                        next.previous = current.previous;
-                     //Console.WriteLine("Current Previous" + current.previous.room.GetName());
-                        if (next.next == null)
-                        {
-                            Console.WriteLine("Here in the next.next == null");
-                            head = next;
-
-                        }
-                        else if(next.previous == null)
-                        {
-                            head = next;
-
-                        }
-                       
-
-                    }
-
-                    if (current.previous != null)
-                    {
-                        Console.WriteLine("Here in the current.previous != null");
-                        
-                        previous = current.previous;
-                        previous.next = current.next;
-
-                        Console.WriteLine("Previous is" + previous.room.GetName());
-                      
-                        if (previous.previous == null)
-                        //make head if end of list. 
-                        {
-                            Console.WriteLine("Here in the previous.previous == null");
-
-                            head = previous;
-
-
-                            if (previous.next == null)
-                            {
-                                rear = previous;
-                            }
-
-                        }
-
-
-                    }
-                    */
+             
 
                     return;
                 }
