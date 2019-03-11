@@ -239,6 +239,32 @@ namespace ConsoleApp1
            
         }
 
+
+
+        public string [] getList()
+        {
+            String[] container = new string[900];
+            int t = 0;
+            Node n = new Node();
+            Node p = new Node();
+
+            p = rear;
+            n = head;
+
+            while (n != null)
+            {
+                container[t] = n.room.GetName();
+                t++;
+                n = n.next;
+                return container;
+            }
+
+            return container;
+        }
+
+
+
+
         public Room Search(String key)
         {
             
