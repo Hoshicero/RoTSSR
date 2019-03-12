@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace ConsoleApp1
 {
     /* The Room class is a container for the information of a particular room.
@@ -417,15 +419,94 @@ namespace ConsoleApp1
 
 
             }
+
+
+
         }
 
 
 
+        public  void PrintNodes()
+        {
+            List<string> columns = new List<string>();
+            int tableWidth = 100;
+       
+            int temp = 0;
 
+            Node n = new Node();
+            Node p = new Node();
+
+            p = rear;
+            n = head;
+
+            while (n != null)
+            {
+
+                columns.Add(n.room.GetName());
+                n = n.next;
+                
+
+            }
+          
+            int width = (tableWidth - columns.ToArray().Length) / columns.ToArray().Length;
+
+           
+            string row = "|";
+            
+            foreach(string column in columns.ToArray())
+            {
+                
+              
+                if (temp == 14)
+                {
+                    temp = 0;
+                    row += AlignCentreNode(column, width) + "|" + "\n";
+
+                }
+                else
+                {
+                    temp++;
+                    row += AlignCentreNode(column, width) + "|";
+                    
+                }
+                
+
+
+                
+            }
+            
+             
+
+            Console.WriteLine(row);
+        }
+
+        public static string AlignCentreNode(string text, int width)
+        {
+           
+
+            if (string.IsNullOrEmpty(text))
+            {
+                return new string(' ', width);
+            }
+            else
+            {
+                
+                return text.PadRight(width - (width - text.Length) / 2).PadLeft(width);
+                
+            }
+
+        }
 
 
     }
-    }
+
+
+
+
+
+ 
+
+}
 
 
 

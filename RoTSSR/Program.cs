@@ -31,9 +31,7 @@ namespace ConsoleApp1
         */
         static int tableWidth = 77;
 
-        public Form f = new Form();
-        
-       
+     
        
         
    
@@ -68,7 +66,6 @@ namespace ConsoleApp1
             Room Roomtester2 = new Room();
             Room Roomtester3 = new Room();
             Room Roomtester4 = new Room();
-            String[] s_tester = new string[10];
             Llist Linker = new Llist();
 
             
@@ -77,14 +74,10 @@ namespace ConsoleApp1
 
 
             //Linker.printList();
-
-            s_tester[0] = "1";
-            s_tester[1] = "2";
-            s_tester[3] = "3";
-            s_tester[4] = "4";
-
-            PrintRow(s_tester);
-            PrintLine();
+             
+            //PrintRow(s_tester);
+            Linker.PrintNode();
+           // PrintLine();
             
             Console.Read();
 
@@ -235,10 +228,10 @@ namespace ConsoleApp1
 
         static void PrintRow(params string[] columns)
         {
-
+            /*
             int width = (tableWidth - columns.Length) / columns.Length;
             string row = "|";
-            /*
+            
             foreach(string column in columns)
             {
                 row += AlignCentre(column, width) + "|";
@@ -246,12 +239,13 @@ namespace ConsoleApp1
             }
             */
 
-            while()
-            Console.WriteLine(row);
+            
+            //Console.WriteLine(row);
         }
 
         static string AlignCentre(string text, int width)
         {
+           // Console.WriteLine(text);
 
             text = text.Length > width ? text.Substring(0, width - 3) + "..." : text;
 
