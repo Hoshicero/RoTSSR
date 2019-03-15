@@ -67,19 +67,31 @@ namespace ConsoleApp1
             Room Roomtester3 = new Room();
             Room Roomtester4 = new Room();
             Llist Linker = new Llist();
-
+            String what;
+            Llist.Node Bitchplease = new Llist.Node();
             
             StationCreator Stat = new StationCreator();
             Linker = Stat.DB_Station();
 
 
+            D_Screen(Stat);
+
+
             //Linker.printList();
-             
+            //Bitchplease = Linker.Search("C30");
+            //Bitchplease.room.selected = true;
             //PrintRow(s_tester);
-            Linker.PrintNode();
-           // PrintLine();
+            //Linker.PrintNodes();
+            // PrintLine();
+
+            //what = ;
+            //Key_Listener(Console.ReadLine().ToString());
+           // Console.Write(what);
+
+           // Console.Read();
             
-            Console.Read();
+
+           
 
 
            
@@ -104,7 +116,69 @@ namespace ConsoleApp1
 
 
 
-   
+        public static void D_Screen(StationCreator stat)
+        {
+            
+            Llist Linker = new Llist();
+            Linker = stat.DB_Station();
+            Llist.Node current = new Llist.Node();
+            current = Linker.rear;
+            current.room.selected = true;
+            Linker.PrintNodes();
+            Key_Listener(Console.ReadLine().ToString(), Linker, current);
+            Linker.PrintNodes();
+            Console.Read();
+
+        }
+
+       public static void Key_Listener(string input, Llist T_list, Llist.Node search)
+        {
+            Llist.Node temp = new Llist.Node();
+            temp = T_list.Search(search.room.GetName());
+
+            switch (input)
+            {
+
+                case "w":
+                    Console.WriteLine("up");
+                    if(temp.room.GetNeighbor_N() != null)
+                    {
+                        temp.room.selected = false;
+                        temp = T_list.Search(temp.room.GetNeighbor_N());
+                        temp.room.selected = true;
+                        Console.Clear();
+                        break;
+                    }
+                   // Key_Listener(Console.ReadLine().ToString());
+                    break;
+                case "s":
+                    Console.WriteLine("Down");
+
+
+                    if (temp.room.GetNeighbor_S() != null)
+                    {
+                        temp.room.selected = false;
+                        temp = T_list.Search(temp.room.GetNeighbor_S());
+                        temp.room.selected = true;
+                        Console.Clear();
+                        break;
+                    }
+                    //Key_Listener(Console.ReadLine().ToString());
+                    break;
+                case "a":
+                    Console.WriteLine("Left");
+                    //Key_Listener(Console.ReadLine().ToString());
+                    break;
+                case "d":
+                    Console.WriteLine("Right");
+                   // Key_Listener(Console.ReadLine().ToString());
+                    break;
+                default:
+                    break;
+
+            }
+
+        }
 
 
 

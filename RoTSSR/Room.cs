@@ -47,6 +47,7 @@ namespace ConsoleApp1
         public int Num { get; set; }
         public int Floor { get; set;}
         private String Name;
+        public bool selected {get; set;}
         private String North_Neighbor;
         private String South_Neighbor;
         private String East_Neighbor ;
@@ -267,7 +268,7 @@ namespace ConsoleApp1
 
 
 
-        public Room Search(String key)
+        public Node Search(String key)
         {
             
             Room room = new Room();
@@ -276,7 +277,7 @@ namespace ConsoleApp1
 
             {
                 Console.WriteLine("Error -- Linked List not initialized");
-                return room;
+                return head;
 
             }
 
@@ -292,7 +293,7 @@ namespace ConsoleApp1
                     Console.WriteLine("The East Neighbor is" + current.room.GetNeighbor_E());
                     Console.WriteLine("The West Neighbor is" + current.room.GetNeighbor_W());
 
-                    return current.room;
+                    return current;
                 }
 
                 if (current.next != null)
@@ -305,7 +306,7 @@ namespace ConsoleApp1
 
             }
 
-            return new Room();
+            return current;
 
 
         }
@@ -428,7 +429,7 @@ namespace ConsoleApp1
 
         public  void PrintNodes()
         {
-            List<string> columns = new List<string>();
+            List<Room> columns = new List<Room>();
             int tableWidth = 100;
        
             int temp = 0;
@@ -438,35 +439,58 @@ namespace ConsoleApp1
 
             p = rear;
             n = head;
+            /*
+             while (n != null)
+             {
 
-            while (n != null)
+                 columns.Add(n.room.GetName());
+                 n = n.next;
+
+
+             }
+             */
+
+            while (p != null)
             {
 
-                columns.Add(n.room.GetName());
-                n = n.next;
-                
+                columns.Add(p.room);
+                p = p.previous;
+
 
             }
-          
+
+
+
             int width = (tableWidth - columns.ToArray().Length) / columns.ToArray().Length;
 
            
             string row = "|";
             
-            foreach(string column in columns.ToArray())
+            foreach(Room column in columns)
             {
                 
               
-                if (temp == 14)
+                if (temp == 5)
                 {
                     temp = 0;
-                    row += AlignCentreNode(column, width) + "|" + "\n";
+                    if (column.selected)
+                    {
+                        //row += AlignCentreNode("*", width) + "|" + "\n";
+                        return text.PadRight(width - (width - text.Length) / 2).PadLeft(width);
+                    }
+                    else
+                     row += AlignCentreNode(column.GetName(), width) + "|" + "\n";
 
                 }
                 else
                 {
                     temp++;
-                    row += AlignCentreNode(column, width) + "|";
+                    if (column.selected)
+                    {
+                        row += AlignCentreNode("*", width) + "|" + "\n";
+                    }
+                    else
+                        row += AlignCentreNode(column.GetName(), width) + "|";
                     
                 }
                 
@@ -498,6 +522,13 @@ namespace ConsoleApp1
         }
 
 
+/*
+        public Key_listener()
+        {
+
+
+        }
+        */
     }
 
 
