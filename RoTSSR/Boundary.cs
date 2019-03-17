@@ -1,5 +1,5 @@
 ﻿using System;
-namespace ConsoleApp1
+namespace RoTSSR
 
 /* The Boundary class stores allows for the initialization of various boundaries throughout the game.
 

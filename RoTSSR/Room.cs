@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ConsoleApp1
+namespace RoTSSR
 {
     /* The Room class is a container for the information of a particular room.
      * 
@@ -42,75 +42,16 @@ namespace ConsoleApp1
     {
 
         
-        public int RoomType;
-        public int Deck { get; set; }
-        public int Num { get; set; }
-        public int Floor { get; set;}
-        private String Name;
-        public bool selected {get; set;}
-        private String North_Neighbor;
-        private String South_Neighbor;
-        private String East_Neighbor ;
-        private String West_Neighbor ;
+        public int Deck { get; set; } //The Deck this Room is on
+        public int Num { get; set; } // The Room Number this room has.
+        public int Floor { get; set;} //The Floor Number this Room is on.
+        public String Name { get; set;} // The Name of this Room{Deck + Floor + Room Number}.
+        public bool selected {get; set;} //Whether or not this Room is selected, subject to change. 
+        public String North_Neighbor { get; set; } //Neighbor to the North.
+        public String South_Neighbor { get; set; }
+        public String East_Neighbor { get; set; }
+        public String West_Neighbor { get; set; }
         
-        
-
-        private Boundary NorthBound;
-        private Boundary SouthBound;
-        private Boundary EastBound;
-        private Boundary WestBound;
-
-
-
-        public void SetName(String N) { Name = N; }
-
-        public void SetRoomtype(Char R) { RoomType = R; }
-
-        public void SetNorth_Neighbor(String Temp) { North_Neighbor = Temp; }
-
-        public void SetSouth_Neighbor(String Temp) { South_Neighbor = Temp; }
-
-        public void SetEast_Neighbor(String Temp) { East_Neighbor = Temp; }
-
-        public void SetWest_Neighbor(String Temp) { West_Neighbor = Temp; }
-
-
-
-        public String GetName() { return Name; }
-
-        public int GetRoomType() { return RoomType; }
-
-        public String GetNeighbor_N() { return North_Neighbor; }
-
-        public String GetNeighbor_S() { return South_Neighbor; }
-
-        public String GetNeighbor_E() { return East_Neighbor; }
-
-        public String GetNeighbor_W() { return West_Neighbor; }
-
-        public Boundary GetBoundary(char Direction)
-        {
-
-            switch (Direction)
-            {
-                case 'N':
-                    return NorthBound;
-
-                case 'S':
-                    return SouthBound;
-
-                case 'E':
-                    return EastBound;
-
-                case 'W':
-                    return WestBound;
-
-
-            }
-
-            return null;
-
-        }
 
         public Room (int num, int fl, int deck)
         {
@@ -119,425 +60,60 @@ namespace ConsoleApp1
             Floor = fl;
             Deck = deck;
 
+            Name = String.Concat(Dk_retriever(deck), fl, num);
+
         }
-        
+
         public Room()
         {
+            
 
-           // Name = null;
-            North_Neighbor = null;
-            South_Neighbor = null;
-            East_Neighbor = null;
-            West_Neighbor = null;
-
-            NorthBound = new Boundary('N', false, false, false, false);
-            SouthBound = new Boundary('S', false, false, false, false);
-            EastBound = new Boundary('E', false, false, false, false);
-            WestBound = new Boundary('W', false, false, false, false);
 
 
         }
 
-
-        public void Roomer()
+        public String Dk_retriever(int num)
         {
 
-            Name = null;
-            North_Neighbor = null;
-            South_Neighbor = null;
-            East_Neighbor = null;
-            West_Neighbor = null;
+            switch (num)
+            {
 
-            NorthBound = new Boundary('N', false, false, false, false);
-            SouthBound = new Boundary('S', false, false, false, false);
-            EastBound = new Boundary('E', false, false, false, false);
-            WestBound = new Boundary('W', false, false, false, false);
+                case 1:
+                    return "A";
 
+                case 2:
+                    return "B";
 
-        }
+                case 3:
+                    return "C";
 
-        public Room(String Na, String NN, String NS, String NE, String NW)
-        {
-
-            Name = Na;
-            North_Neighbor = NN;
-            South_Neighbor = NS;
-            East_Neighbor = NE;
-            West_Neighbor = NW;
-
-
-            NorthBound = new Boundary('N', false, false, false, false);
-            SouthBound = new Boundary('S', false, false, false, false);
-            EastBound = new Boundary('E', false, false, false, false);
-            WestBound = new Boundary('W', false, false, false, false);
-
-
+                default:
+                    return "X";
+            }
 
         }
 
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+}
     
-       
-
-
-
-    }
-    public class Llist
-    {
-       public Node head { get; set; } //head of list
-       public  Node rear { get; set; } //rear of list
-        public Llist()
-        {
-            head = new Node();
-            rear = new Node();
-
-        }
-
-        public class Node
-        {
-
-            public Node previous { get; set; }
-            public Node next { get; set; }
-            public Room room;
-            public Node(Room Room)
-            {
-                room = Room;
-                next = null;
-                previous = null;
-            }
-            public Node()
-            {
-                next = null;
-                previous = null;
-            }
-
-            ~Node() { }
-
-            public void N_Node(Room room, Node next, Node previous)
-            {
-                this.room = room;
-                this.next = next;
-                this.previous = previous;
-            }
-
-           
-
-           
-
-        }
-        public void printList()
-        {
-            Node n = new Node();  
-            Node p = new Node();
-
-            p = rear;
-            n = head;
-
-            while (n != null)
-            {
-                Console.WriteLine("Printing.....");
-                Console.WriteLine(n.room.GetName() + " ");
-                n = n.next;
-                
-            }
-           
-        }
-
-
-
-        public string [] getList()
-        {
-            String[] container = new string[900];
-            int t = 0;
-            Node n = new Node();
-            Node p = new Node();
-
-            p = rear;
-            n = head;
-
-            while (n != null)
-            {
-                container[t] = n.room.GetName();
-                t++;
-                n = n.next;
-                return container;
-            }
-
-            return container;
-        }
-
-
-
-
-        public Node Search(String key)
-        {
-            
-            Room room = new Room();
-
-            if(head == null)
-
-            {
-                Console.WriteLine("Error -- Linked List not initialized");
-                return head;
-
-            }
-
-            Node current = head;
-            while (current != null)
-            {
-                
-                if (current.room.GetName() == key)
-                {
-                    Console.WriteLine("The Name is" + current.room.GetName());
-                    Console.WriteLine("The North Neighbor is" + current.room.GetNeighbor_N());
-                    Console.WriteLine("The South Neighbor is" + current.room.GetNeighbor_S());
-                    Console.WriteLine("The East Neighbor is" + current.room.GetNeighbor_E());
-                    Console.WriteLine("The West Neighbor is" + current.room.GetNeighbor_W());
-
-                    return current;
-                }
-
-                if (current.next != null)
-                {
-                    current = current.next;
-                }
-                else
-                    break;
-                   
-
-            }
-
-            return current;
-
-
-        }
-
-        public void Start(Room room)
-        {
-            
-            Node node = new Node(room);
-            head = node;
-            rear = node;
-            //Console.WriteLine("Leaving start and and the head equals" + head.room.GetName());
-
-        }
-
-        public void Front_Add(Room t_room)
-        {
-            Node node = new Node(t_room);
-            Node Header = head;
-
-            node.next = head;
-            Header.previous = node;
-            head = node;
-
-            //Console.WriteLine("Okay I've replaced the head, my  next node is" + head.next.room.GetName());
-        }
-
-        public void Rear_Add(Room room)
-        {
-            Node node = new Node(room);
-            Node end = rear;
-
-            end.next = node;
-            node.previous = end;
-            node.next = null; 
-            rear = node;
-        }
-
-        public void Delete(string Key)
-        {
-
-            Room room = new Room();
-           
-            if (head == null)
-
-            {
-               // Console.WriteLine("Error -- Linked List not initialized");
-
-
-            }
-
-            Node current = head;
-
-            if (current == head && current == rear)
-            {
-                
-               // Console.WriteLine("Error: Last node in the list");
-                return;
-            }
-
-            while (current != null)
-            {
-
-                if (current.room.GetName() == Key)
-                {
-
-                    //Base Case
-
-                    if(head == null)
-                    {
-                        return;
-                    }
-
-                    //If node to be deleted is head node
-
-                    if(head == current)
-                    {
-
-                        head = current.next;
-
-                    }
-
-                    //If node to be deleted is rear node
-                    if(rear == current)
-                    {
-                        rear = current.previous;
-
-                    }
-                    //Change next if Node to be deleted is not the last node
-                    if(current.next != null)
-                    {
-
-                        current.next.previous = current.next;
-
-                    }
-
-                    if(current.previous != null)
-                    {
-
-                        current.previous.next = current.next;
-                    }
-
-                  
-             
-
-                    return;
-                }
-
-                //Console.WriteLine("Here advancing the linker");
-
-                current = current.next;
-
-
-            }
-
-
-
-        }
-
-
-
-        public  void PrintNodes()
-        {
-            List<Room> columns = new List<Room>();
-            int tableWidth = 100;
-       
-            int temp = 0;
-
-            Node n = new Node();
-            Node p = new Node();
-
-            p = rear;
-            n = head;
-            /*
-             while (n != null)
-             {
-
-                 columns.Add(n.room.GetName());
-                 n = n.next;
-
-
-             }
-             */
-
-            while (p != null)
-            {
-
-                columns.Add(p.room);
-                p = p.previous;
-
-
-            }
-
-
-
-            int width = (tableWidth - columns.ToArray().Length) / columns.ToArray().Length;
-
-           
-            string row = "|";
-            
-            foreach(Room column in columns)
-            {
-                
-              
-                if (temp == 5)
-                {
-                    temp = 0;
-                    if (column.selected)
-                    {
-                        //row += AlignCentreNode("*", width) + "|" + "\n";
-                        return text.PadRight(width - (width - text.Length) / 2).PadLeft(width);
-                    }
-                    else
-                     row += AlignCentreNode(column.GetName(), width) + "|" + "\n";
-
-                }
-                else
-                {
-                    temp++;
-                    if (column.selected)
-                    {
-                        row += AlignCentreNode("*", width) + "|" + "\n";
-                    }
-                    else
-                        row += AlignCentreNode(column.GetName(), width) + "|";
-                    
-                }
-                
-
-
-                
-            }
-            
-             
-
-            Console.WriteLine(row);
-        }
-
-        public static string AlignCentreNode(string text, int width)
-        {
-           
-
-            if (string.IsNullOrEmpty(text))
-            {
-                return new string(' ', width);
-            }
-            else
-            {
-                
-                return text.PadRight(width - (width - text.Length) / 2).PadLeft(width);
-                
-            }
-
-        }
-
-
-/*
-        public Key_listener()
-        {
-
-
-        }
-        */
-    }
-
-
 
 
 
  
 
-}
+
 
 
 
