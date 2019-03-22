@@ -9,10 +9,11 @@ namespace RoTSSR
 
 
 
-    /***Linked List
-     * Cameron Robinson 3/17/19
+    /*** Title: Linked List
+     * Type: Void
+     * 
      * Class Summary: The LinkedList class is a class that is responsible for facilitating and performing operations on the LinkedList it generates. 
-     * Variables: 
+     * 
      *--head-- is of class Node and represents the head of the linked list. 
      *--rear-- is of class rear and points to the rear of the linked list.
      * 
@@ -26,7 +27,8 @@ namespace RoTSSR
 
         public Node head { get; set; } //head of list
         public Node rear { get; set; } //rear of list
-        public LinkedList() //constuructor
+
+        public LinkedList() //constructor
         {
             head = new Node();
             rear = new Node();
@@ -35,7 +37,15 @@ namespace RoTSSR
 
 
         public void printList()
+            /* Title: printList
+             * Type: Void           
+             * Class Summary: The printList function operates by establishing references to the rear and head locations on the Linked list.
+             * From there it starts at the top of the list (head) and so long as the head isn't null, it will print the name of the room and then
+             * iterate further down the list.             
 
+            
+
+             */
 
 
         {
@@ -66,6 +76,17 @@ namespace RoTSSR
 
         public Node Search(String key)
         {
+            /* Title: Search
+             * Return: Node           
+             * Arguments: key
+             * Type: Node
+             * Summary: The search function iterates through a linked-list to find a Node with a name that matches the key argument. It does this first by checking to see if the linked list is empty.
+             * Once the linked list is determined to be populated, starting with the first node, the name variable of the room object is checked against the key argument. If theres a match a reference
+             * to the node is returned. If there isn't, the list is iterated by 1.             
+             *             
+               
+
+            */
 
             Room room = new Room();
 
@@ -91,12 +112,9 @@ namespace RoTSSR
 
                     return current;
                 }
-
-                if (current.next != null)
-                {
                     current = current.next;
-                }
-                else
+             
+               
                     break;
 
 
@@ -108,6 +126,13 @@ namespace RoTSSR
         }
 
         public void Start(Room room)
+            /* Title: Start
+             * Arguments: room
+             * Type: Void
+             * Summary: The start function begins the linked list.              
+
+            
+            */
         {
 
             Node node = new Node(room);
