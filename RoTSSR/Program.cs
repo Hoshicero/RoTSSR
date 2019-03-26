@@ -34,7 +34,7 @@ namespace RoTSSR
                 Console.WriteLine(e.Message);
 
             }
-
+           
         }
 
 
@@ -45,9 +45,9 @@ namespace RoTSSR
         public static void Main(string[] args)
         {
 
-            StationCreator Station = new StationCreator(100, 3, 3);
+            StationCreator Station = new StationCreator(30, 3, 3);
 
-            Console.Clear();
+            //Console.Clear();
             origRow = Console.CursorTop;
             origCol = Console.CursorLeft;
 
@@ -112,7 +112,8 @@ namespace RoTSSR
             //
             // Console.WriteLine(Station.Llist.head.room);
             // Console.WriteLine(Station.Llist.rear.room);
-            Station.Llist.rear.room.selected = true;
+            Station.Llist.rear.previous.previous.room.selected = true;
+          
             Station.PrintNodes();
 
 

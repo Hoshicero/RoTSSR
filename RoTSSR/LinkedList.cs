@@ -135,6 +135,12 @@ namespace RoTSSR
             */
         {
 
+            if (room.Dk_retriever(room.Deck) == null)
+            {
+                return;
+            }
+
+
             Node node = new Node(room);
             head = node;
             rear = node;
@@ -142,9 +148,15 @@ namespace RoTSSR
 
         }
 
-        public void Front_Add(Room t_room)
+        public void Front_Add(Room room)
         {
-            Node node = new Node(t_room);
+
+            if (room.Dk_retriever(room.Deck) == null)
+            {
+                return;
+            }
+
+            Node node = new Node(room);
             Node Header = head;
 
             node.next = head;
@@ -156,6 +168,12 @@ namespace RoTSSR
 
         public void Rear_Add(Room room)
         {
+            if (room.Dk_retriever(room.Deck) == null)
+            {
+                Console.WriteLine("/////////////////////////////////////////////////");
+                return;
+            }
+
             Node node = new Node(room);
             Node end = rear;
 

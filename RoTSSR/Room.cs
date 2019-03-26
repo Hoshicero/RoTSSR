@@ -38,7 +38,7 @@ namespace RoTSSR
 
 
 
-    public class Room
+    public class Room : IDisposable
     {
 
         
@@ -55,12 +55,16 @@ namespace RoTSSR
 
         public Room (int num, int fl, int deck)
         {
-
+            North_Neighbor = null;
+            South_Neighbor = null;
+            East_Neighbor = null;
+            West_Neighbor = null;
             Num = num;
             Floor = fl;
             Deck = deck;
-
             Name = String.Concat(Dk_retriever(deck), fl, num);
+            
+            //t_station.Roommaker(this);
 
         }
 
@@ -71,6 +75,8 @@ namespace RoTSSR
 
 
         }
+
+       ~Room() { }
 
         public String Dk_retriever(int num)
         {
@@ -88,10 +94,45 @@ namespace RoTSSR
                     return "C";
 
                 default:
-                    return "X";
+                    return null;
             }
 
         }
+
+        #region IDisposable Support
+        private bool disposedValue = false; // To detect redundant calls
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    // TODO: dispose managed state (managed objects).
+                }
+
+                // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
+                // TODO: set large fields to null.
+
+                disposedValue = true;
+            }
+        }
+
+        // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
+        // ~Room() {
+        //   // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+        //   Dispose(false);
+        // }
+
+        // This code added to correctly implement the disposable pattern.
+        public void Dispose()
+        {
+            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+            Dispose(true);
+            // TODO: uncomment the following line if the finalizer is overridden above.
+            // GC.SuppressFinalize(this);
+        }
+        #endregion
 
 
 

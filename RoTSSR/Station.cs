@@ -47,19 +47,27 @@ namespace RoTSSR
             Creation();
             }
 
+
+        public StationCreator() { }
+
         public void NneighborCalculations(Room HolderRoom)
 
         {
-            //Console.WriteLine("HELLO FROM NNEIGHBOR" + HolderRoom.GetNeighbor_N());
-            /*"C1" Is a default value that I set to act as a gatekeeper*/
 
+
+
+            
             if (HolderRoom.North_Neighbor == null || HolderRoom.North_Neighbor == "X")
             {
+                //Console.WriteLine("Hello" + "\n" + HolderRoom.North_Neighbor);
                 /*IF YOU ARE ON THE TOP DECK ON THE TOP FLOOR, YOU HAVE NO NORTH*/
 
-                if ((HolderRoom.Deck == Dk_max) && (HolderRoom.Floor == Fl_min))
+
+                if ((HolderRoom.Deck <= Dk_min) && (HolderRoom.Floor <= Fl_min))
                 {
-                    HolderRoom.North_Neighbor= "X";
+                    
+                    HolderRoom.North_Neighbor = null;
+                    return;
                 }
 
                 /*OR IF you are on the highest floor of your deck,
@@ -70,14 +78,19 @@ namespace RoTSSR
 
                 else if (HolderRoom.Floor == Fl_min)
                 {
+
                     HolderRoom.North_Neighbor = (String.Concat(Dk_retriever(HolderRoom.Deck - 1), Fl_min, HolderRoom.Num));
+                    return;
+
                 }
 
 
-                else
-                    HolderRoom.North_Neighbor = (String.Concat(Dk_retriever(Dk_container), (Fl_container - 1), HolderRoom.Num));
-                //OTHERWISE YOUR NORTH NEIGHBOR CONSISTS OF YOUR DECK, YOUR FLOOR - 1, AND YOUR CURRENT ROOM NUMBER.
-
+                else if (HolderRoom.Floor != Fl_min && HolderRoom.Deck != Dk_min)
+                {
+                    
+                    HolderRoom.North_Neighbor = (String.Concat(Dk_retriever(HolderRoom.Deck), (HolderRoom.Floor - 1), HolderRoom.Num));
+                    //OTHERWISE YOUR NORTH NEIGHBOR CONSISTS OF YOUR DECK, YOUR FLOOR - 1, AND YOUR CURRENT ROOM NUMBER.
+                }
             }
 
             else
@@ -96,7 +109,7 @@ namespace RoTSSR
                 if ((HolderRoom.Deck == Dk_max) && (HolderRoom.Floor == Fl_max))
                 {
 
-
+                    
                     HolderRoom.South_Neighbor = "X";
 
 
@@ -129,7 +142,7 @@ namespace RoTSSR
                 if (HolderRoom.Num == 0)
                 {
 
-
+                    
                     HolderRoom.West_Neighbor = "X";
 
                 }
@@ -156,7 +169,7 @@ namespace RoTSSR
                 if (HolderRoom.Num == Rm_max)
                 {
 
-
+                    
                     HolderRoom.East_Neighbor = "X";
 
                 }
@@ -175,7 +188,8 @@ namespace RoTSSR
 
         public Room Roommaker(Room Rom)
         {
-            Rom.Name = (String.Concat(Dk_retriever(Dk_max), Fl_container));
+            // Rom.Name = (String.Concat(Dk_retriever(Dk_max), Fl_container));
+           
             NneighborCalculations(Rom);
             SneighborCalculations(Rom);
             EneighborCalculations(Rom);
@@ -187,7 +201,7 @@ namespace RoTSSR
 
         public void Creation ()
         {
-            Console.WriteLine(Fl_max);
+            
             Llist.Start(new Room(Dk_container, Fl_container, Rm_container));
             
             for(int x = Dk_max; x >= Dk_min; x--)
@@ -199,7 +213,7 @@ namespace RoTSSR
                     for (int z = 0; z <= Rm_perfloor; z++)
                     {
                         //Console.WriteLine(x + " " + y + " " + z);
-                        Llist.Rear_Add((new Room(z,y,x)));
+                        Llist.Rear_Add(Roommaker((new Room((z+1),y,x)))); //The +1 offsets the start room. 
 
 
                     }
@@ -214,10 +228,24 @@ namespace RoTSSR
 
         }
 
+        public void PrintNodes2()
+        {
+            for (int i = 3; i >= this.Dk_max; i--)
+            {
+                for (int k = 1; k <= this.Rm_max; k++)
+                {
+
+
+                }
+
+            }
+
+        }
+
         public void PrintNodes()
         {
             List<Room> columns = new List<Room>();
-            int tableWidth = 100;
+            int tableWidth = this.Rm_max;
 
             int temp = 0;
 
@@ -249,8 +277,12 @@ namespace RoTSSR
 
 
             int width = (tableWidth - columns.ToArray().Length) / columns.ToArray().Length;
-
-
+            //int width = this.Rm_max;
+            /*
+            Console.WriteLine("tableWidth" + tableWidth);
+            Console.WriteLine("columns.toarray" + columns.ToArray().Length);
+            Console.WriteLine("Equation" + (tableWidth - columns.ToArray().Length / columns.ToArray().Length));
+            */
             string row = "|";
 
             foreach (Room column in columns)
@@ -265,22 +297,43 @@ namespace RoTSSR
                         row += AlignCentreNode("*", width) + "|" + "\n";
                         // return text.PadRight(width - (width - text.Length) / 2).PadLeft(width);
                     }
+                   
                     else
-                        row += AlignCentreNode(column.Name, width) + "|" + "\n";
+                        row += AlignCentreNode(/*"O"*/column.Name, width) + "|" + "\n";
 
                 }
                 else
                 {
-                    temp++;
+                    try
+                    {
+                        if (column.selected == null);
+
+
+
+                    }
+                    catch(Exception ne)
+                    {
+                        continue; //skips the rest
+                    }
+
+                    //temp++;
                     if (column.selected)
                     {
-                        row += AlignCentreNode("*", width) + "|" + "\n";
+                        row += AlignCentreNode("*", width) + "|";
+
+                        Console.WriteLine("\n");
+                        Console.WriteLine("\n");
+                        Console.WriteLine("Name:" + " " + column.Name + "\n");
+                        Console.WriteLine("North:" + " " + column.North_Neighbor + "\n");
+                        Console.WriteLine("South:" + " " + column.South_Neighbor + "\n");
+                        Console.WriteLine("East:" + " " + column.East_Neighbor + "\n");
+                        Console.WriteLine("West:" + " " + column.West_Neighbor + "\n");
 
 
                         column.selected = false;
                     }
                     else
-                        row += AlignCentreNode(column.Name, width) + "|";
+                        row += AlignCentreNode(/*"O"*/column.Name, width) + "|";
 
                 }
 
@@ -292,7 +345,10 @@ namespace RoTSSR
 
 
             Console.WriteLine(row);
+           
         }
+
+        
 
 
         public static string AlignCentreNode(string text, int width)
