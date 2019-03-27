@@ -54,8 +54,14 @@ namespace RoTSSR
 
 
 
+            LinkedList monstar = new LinkedList();
 
-
+            monstar.Start(new Room(2,1,2));
+            monstar.Rear_Add(new Room(3, 2, 1));
+            monstar.Rear_Add(new Room(1, 2, 1));
+            monstar.printList();
+            monstar.NodeSwap(monstar.Search("B12"), monstar.Search("A23"));
+            monstar.printList();
 
 
 
@@ -112,9 +118,9 @@ namespace RoTSSR
             //
             // Console.WriteLine(Station.Llist.head.room);
             // Console.WriteLine(Station.Llist.rear.room);
-            Station.Llist.rear.previous.previous.room.selected = true;
-          
-            Station.PrintNodes();
+            //Station.Llist.rear.previous.previous.room.selected = true;
+
+            //Station.PrintNodes();
 
 
 

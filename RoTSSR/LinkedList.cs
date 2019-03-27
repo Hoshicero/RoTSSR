@@ -21,8 +21,101 @@ namespace RoTSSR
      * 
      *
       */
+
+
+    /* Sort algorithim notes: 
+1.) Start from the head of the list. 
+2.)Compare the deck of head node and next node.
+ *Cond 1: If the Deck of comparison node is greater than head's deck, move the comparison to the comparison nodes neighbor node, recurse. 
+ *Cond 2: If the Deck of comparison node is the same as head's deck, compare their floors.
+       *Cond 2.1: If their floors are the same check their rooms.
+           * Cond 2.1.0: If the comparison rooms are equal return without swap.  
+             *Cond 2.1.1: If the comparison node's room number is greater than head's, swap , recurse.
+       *Cond 2.2: If the comparison floor is greater than current return with no swap.
+       *Cond 2.3: If the comparison floor is lesser than the current, return with swap. 
+* Cond 3: The comparison deck must be smaller than current, thus the data must be swapped. 
+3.) When the current.next node equals the rear node. Compare the two and then make head's node as next. 
+
+
+
+ */
     public class LinkedList
     {
+
+        public void Sortv1()
+        {
+            Node current = new Node();
+            Node next = new Node();
+
+            current = head;
+            next = head.next;
+
+            if(next.room.Deck > current.room.Deck)
+            {
+                current = current.next;
+                next = current.next;
+            }
+
+            if (next.room.Deck == current.room.Deck)
+            {
+                if (next.room.Floor > current.room.Floor)
+                {
+                    return;
+
+                }
+
+
+
+                else if (next.room.Floor == current.room.Floor)
+                {
+                    if (next.room.Num > current.room.Num)
+                    {
+                        DataSwap(next, current);
+                    }
+
+                    else if (next.room.Num == current.room.Num)
+                    {
+                        return;
+
+                    }
+                    else return;
+
+                }
+
+                else
+                DataSwap(next, current);
+                current = current.next;
+                next = current.next;
+
+            }
+            else
+            DataSwap(next, current);
+            current = current.next;
+            next = current.next;
+
+
+
+        }
+
+
+
+        public void DataSwap(Node one, Node two)
+        {
+
+            Room temp1 = new Room();
+            Room temp2 = new Room();
+
+            temp1 = one.room;
+            temp2 = two.room;
+
+            one.room = temp2;
+            two.room = temp1;
+
+
+        }
+
+
+        
 
 
         public Node head { get; set; } //head of list
@@ -49,6 +142,7 @@ namespace RoTSSR
 
 
         {
+            Console.WriteLine("Head is " + " " + head.room.Name + "Rear is" + " " + rear.room.Name);
             Node n = new Node();
             Node p = new Node();
 
@@ -61,6 +155,8 @@ namespace RoTSSR
             {
                 Console.WriteLine("Printing.....");
                 Console.WriteLine(n.room.Name + " ");
+                //Console.WriteLine("previous is" + " " + n.previous.room.Name + "\n");
+                //Console.WriteLine("next is" + " " + n.next.room.Name + "\n");
                 n = n.next;
 
             }
@@ -104,12 +200,13 @@ namespace RoTSSR
 
                 if (current.room.Name == key)
                 {
+                    /*
                     Console.WriteLine("The Name is" + current.room.Name);
                     Console.WriteLine("The North Neighbor is" + current.room.North_Neighbor);
                     Console.WriteLine("The South Neighbor is" + current.room.South_Neighbor);
                     Console.WriteLine("The East Neighbor is" + current.room.East_Neighbor);
                     Console.WriteLine("The West Neighbor is" + current.room.West_Neighbor);
-
+                    */
                     return current;
                 }
                     current = current.next;
@@ -134,32 +231,40 @@ namespace RoTSSR
             
             */
         {
-
+           /*
             if (room.Dk_retriever(room.Deck) == null)
             {
                 return;
             }
-
+            */
 
             Node node = new Node(room);
+            node.next = node;
+            node.previous = node; 
             head = node;
             rear = node;
+
             //Console.WriteLine("Leaving start and and the head equals" + head.room.GetName());
 
         }
 
+
+
         public void Front_Add(Room room)
         {
-
+            /*
             if (room.Dk_retriever(room.Deck) == null)
             {
                 return;
             }
+            */
 
             Node node = new Node(room);
-            Node Header = head;
+            Node Header = new Node();
+            Header = head;
 
-            node.next = head;
+            node.next = Header;
+            node.previous = node;
             Header.previous = node;
             head = node;
 
@@ -170,7 +275,7 @@ namespace RoTSSR
         {
             if (room.Dk_retriever(room.Deck) == null)
             {
-                Console.WriteLine("/////////////////////////////////////////////////");
+                Console.WriteLine("///////////////////////////////////////////fajasiwa//////");
                 return;
             }
 

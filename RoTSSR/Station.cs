@@ -213,7 +213,7 @@ namespace RoTSSR
                     for (int z = 0; z <= Rm_perfloor; z++)
                     {
                         //Console.WriteLine(x + " " + y + " " + z);
-                        Llist.Rear_Add(Roommaker((new Room((z+1),y,x)))); //The +1 offsets the start room. 
+                        Llist.Rear_Add(new Room((z+1),y,x)); //The +1 offsets the start room. 
 
 
                     }
