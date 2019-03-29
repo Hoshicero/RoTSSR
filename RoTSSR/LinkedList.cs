@@ -24,13 +24,16 @@ namespace RoTSSR
 
 
     /* Sort algorithim notes: 
+     * WHILE CURRENT DOES NOT EQUAL NULL
 1.) Start from the head of the list. 
 2.)Compare the deck of head node and next node.
  *Cond 1: If the Deck of comparison node is greater than head's deck, move the comparison to the comparison nodes neighbor node, recurse. 
- *Cond 2: If the Deck of comparison node is the same as head's deck, compare their floors.
-       *Cond 2.1: If their floors are the same check their rooms.
-           * Cond 2.1.0: If the comparison rooms are equal return without swap.  
-             *Cond 2.1.1: If the comparison node's room number is greater than head's, swap , recurse.
+ *Cond 1.0: If the Deck of comparison node is the same as head's deck, compare their floors.
+       *Cond 1.0.0  If the comparison floor is greater than current's floor return with no swap, advance current and next.    
+ *Cond 1.1: If their floors are the same check their rooms.
+       * Cond 1.1.0: If the comparison node's room number is greater than currents, swap, return. 
+       * Cond 1.1.1: If the comparison rooms are equal return without swap, advance current and next.  
+
        *Cond 2.2: If the comparison floor is greater than current return with no swap.
        *Cond 2.3: If the comparison floor is lesser than the current, return with swap. 
 * Cond 3: The comparison deck must be smaller than current, thus the data must be swapped. 
@@ -47,54 +50,71 @@ namespace RoTSSR
             Node current = new Node();
             Node next = new Node();
 
-            current = head;
-            next = head.next;
-
-            if(next.room.Deck > current.room.Deck)
+            while (current != null)
             {
-                current = current.next;
-                next = current.next;
-            }
+                /***********1.)*************/
+                current = head;
+                next = head.next;
+                /***********2.)*************/
 
-            if (next.room.Deck == current.room.Deck)
-            {
-                if (next.room.Floor > current.room.Floor)
+                /***********Cond 1)*************/
+                if (next.room.Deck > current.room.Deck)
                 {
-                    return;
-
+                    current = current.next;
+                    next = current.next;
                 }
-
-
-
-                else if (next.room.Floor == current.room.Floor)
+                /***********Cond 1.0)*************/
+                if (next.room.Deck == current.room.Deck)
                 {
-                    if (next.room.Num > current.room.Num)
+                    /***********Cond 1.0.0)*************/
+
+                    if (next.room.Floor > current.room.Floor)
                     {
-                        DataSwap(next, current);
+                        current = current.next;
+                        next = current.next;
+                        
+
                     }
 
-                    else if (next.room.Num == current.room.Num)
+
+                    /***********Cond 1.1)*************/
+                    else if (next.room.Floor == current.room.Floor)
                     {
-                        return;
+                        /***********Cond 1.1.0)*************/
+                        if (next.room.Num > current.room.Num)
+                        {
+
+                            DataSwap(next, current);
+                            
+
+                        }
+                        /***********Cond 1.1.1)*************/
+
+                        else if (next.room.Num == current.room.Num)
+                        {
+                            current = current.next;
+                            next = current.next;
+                            
+
+                        }
+                        else return;
 
                     }
-                    else return;
+
+                    else
+                    DataSwap(next, current);
+                    current = current.next;
+                    next = current.next;
 
                 }
-
                 else
                 DataSwap(next, current);
                 current = current.next;
                 next = current.next;
 
+
+
             }
-            else
-            DataSwap(next, current);
-            current = current.next;
-            next = current.next;
-
-
-
         }
 
 
@@ -107,6 +127,8 @@ namespace RoTSSR
 
             temp1 = one.room;
             temp2 = two.room;
+
+            Console.WriteLine("Swapping" + temp1 + "With:" + temp2);
 
             one.room = temp2;
             two.room = temp1;
