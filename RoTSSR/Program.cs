@@ -26,10 +26,10 @@ namespace RoTSSR
         public static void Main(string[] args)
         {
 
-            StationCreator Station = new StationCreator(30, 3, 3);
+            StationCreator Station = new StationCreator(100, 3, 3);
 
             //Console.Clear();
-           
+
 
 
 
@@ -67,12 +67,26 @@ namespace RoTSSR
 
             }
             */
+        
+            Node current = new Node();
+            current = Station.Llist.head;
+
+            for(int row = 0; row < (Station.Fl_max * Station.Dk_max); row++)
+            {
+                for (int col = 0; col < Station.Rm_perfloor; col++)
+                {
+                    //Console.WriteLine(Station.Rm_max + " " + Station.Fl_max + " ");
+                    WriteAt("*", col * 2, row );
+
+                }
+                
+                
+
+            }
 
 
 
-
-
-
+            /*
             WriteAt("A333", 0, 0);
             WriteAt("A444", 5, 0);
             WriteAt("A555", 10, 0);
@@ -97,7 +111,7 @@ namespace RoTSSR
             WriteAt("A444", 105, 0);
             WriteAt("A555", 110, 0);
             WriteAt("A666", 115, 0);
-
+            */
 
 
             // Console.WriteLine(Station.Llist.head.room);
