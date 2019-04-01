@@ -42,6 +42,7 @@
     <Compile Include="Room.cs" />
     <Compile Include="Boundary.cs" />
     <Compile Include="Station.cs" />
+    <Compile Include="Screen_Draw.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

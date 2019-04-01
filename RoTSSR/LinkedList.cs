@@ -34,8 +34,8 @@ namespace RoTSSR
        * Cond 1.1.0: If the comparison node's room number is greater than currents, swap, return. 
        * Cond 1.1.1: If the comparison rooms are equal return without swap, advance current and next.  
 
-       *Cond 2.2: If the comparison floor is greater than current return with no swap.
-       *Cond 2.3: If the comparison floor is lesser than the current, return with swap. 
+       *Cond 2.0: If the comparison floor is greater than current return with no swap.
+       *Cond 2.1: If the comparison floor is lesser than the current, return with swap. 
 * Cond 3: The comparison deck must be smaller than current, thus the data must be swapped. 
 3.) When the current.next node equals the rear node. Compare the two and then make head's node as next. 
 
@@ -297,7 +297,7 @@ namespace RoTSSR
         {
             if (room.Dk_retriever(room.Deck) == null)
             {
-                Console.WriteLine("///////////////////////////////////////////fajasiwa//////");
+
                 return;
             }
 

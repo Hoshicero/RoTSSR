@@ -12,30 +12,11 @@ namespace RoTSSR
 {
 
 
-    public class Driver
+    public class Driver : Screen_Draw
     {
 
 
-        protected static int origRow;
-        protected static int origCol;
 
-        protected static void WriteAt(String s, int x, int y)
-        {
-            try
-            {
-                Console.SetCursorPosition(origCol + x, origRow + y);
-                Console.Write(s);
-
-            }
-            catch (ArgumentOutOfRangeException e)
-            {
-
-                Console.Clear();
-                Console.WriteLine(e.Message);
-
-            }
-           
-        }
 
 
 
@@ -48,9 +29,7 @@ namespace RoTSSR
             StationCreator Station = new StationCreator(30, 3, 3);
 
             //Console.Clear();
-            origRow = Console.CursorTop;
-            origCol = Console.CursorLeft;
-
+           
 
 
 
@@ -93,7 +72,7 @@ namespace RoTSSR
 
 
 
-            /*
+
             WriteAt("A333", 0, 0);
             WriteAt("A444", 5, 0);
             WriteAt("A555", 10, 0);
@@ -118,18 +97,18 @@ namespace RoTSSR
             WriteAt("A444", 105, 0);
             WriteAt("A555", 110, 0);
             WriteAt("A666", 115, 0);
-            */
 
-            //
+
+
             // Console.WriteLine(Station.Llist.head.room);
             // Console.WriteLine(Station.Llist.rear.room);
             //Station.Llist.rear.previous.previous.room.selected = true;
-            Station.Llist.printList();
-            Console.WriteLine(" ");
-            Console.WriteLine(" ");
-            Console.WriteLine(" ");
-            Station.Llist.Sortv1();
-            Station.Llist.printList();
+            //Station.Llist.printList();
+            //Console.WriteLine(" ");
+            //Console.WriteLine(" ");
+            //Console.WriteLine(" ");
+            //Station.Llist.Sortv1();
+            //Station.Llist.printList();
             //Station.PrintNodes();
 
 
