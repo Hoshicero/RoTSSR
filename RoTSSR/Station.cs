@@ -42,7 +42,7 @@ namespace RoTSSR
             Rm_container = Rm_min;
             Dk_container = Dk_max;
             Fl_container = Fl_max;
-            Rm_perfloor = RmAmt / DkAmt;
+            Rm_perfloor = ((RmAmt / DkAmt)/Fl_max);
             
             Creation();
             }
@@ -223,7 +223,8 @@ namespace RoTSSR
 
             }
 
-
+            
+            Llist.N_pop();
 
 
         }
@@ -241,7 +242,7 @@ namespace RoTSSR
             }
 
         }
-
+        /*
         public void PrintNodes()
         {
             List<Room> columns = new List<Room>();
@@ -263,7 +264,7 @@ namespace RoTSSR
 
 
              }
-             */
+             
 
             while (p != null)
             {
@@ -282,7 +283,7 @@ namespace RoTSSR
             Console.WriteLine("tableWidth" + tableWidth);
             Console.WriteLine("columns.toarray" + columns.ToArray().Length);
             Console.WriteLine("Equation" + (tableWidth - columns.ToArray().Length / columns.ToArray().Length));
-            */
+            
             string row = "|";
 
             foreach (Room column in columns)
@@ -299,7 +300,7 @@ namespace RoTSSR
                     }
                    
                     else
-                        row += AlignCentreNode(/*"O"*/column.Name, width) + "|" + "\n";
+                        row += AlignCentreNode(column.Name, width) + "|" + "\n";
 
                 }
                 else
@@ -333,7 +334,7 @@ namespace RoTSSR
                         column.selected = false;
                     }
                     else
-                        row += AlignCentreNode(/*"O"*/column.Name, width) + "|";
+                        row += AlignCentreNode(column.Name, width) + "|";
 
                 }
 
@@ -347,9 +348,7 @@ namespace RoTSSR
             Console.WriteLine(row);
            
         }
-
-        
-
+        */
 
         public static string AlignCentreNode(string text, int width)
         {

@@ -26,7 +26,7 @@ namespace RoTSSR
         public static void Main(string[] args)
         {
 
-            StationCreator Station = new StationCreator(100, 3, 3);
+            StationCreator Station = new StationCreator(30, 3, 3);
 
             //Console.Clear();
 
@@ -67,27 +67,36 @@ namespace RoTSSR
 
             }
             */
+            
+            Node T_node = new Node();
+            T_node = Station.Llist.Search("C11");
+            //Console.WriteLine(Station.Llist.Search("C315").room.Name);
+            //System.Console.WriteLine(current.room.Name);
+            T_node.selected = true;
+            //System.Console.WriteLine(T_node.room.Name);
+            //System.Console.WriteLine(T_node.next.room.Name);
+            //System.Console.WriteLine(Station.Llist.head.next.next.room.Name);
+
+            Drawer(Station.Fl_max, Station.Dk_max, Station.Rm_perfloor,T_node , "*");
         
-            Node current = new Node();
-            current = Station.Llist.head;
-
-            for(int row = 0; row < (Station.Fl_max * Station.Dk_max); row++)
+            if(Console.Read().ToString() == "W" || Console.Read().ToString() == "w")
             {
-                for (int col = 0; col < Station.Rm_perfloor; col++)
-                {
-                    //Console.WriteLine(Station.Rm_max + " " + Station.Fl_max + " ");
-                    WriteAt("*", col * 2, row );
+                T_node = Station.Llist.Search(true);
 
-                }
-                
-                
+                T_node.north.selected = true;
+                T_node.selected = false;
+
+                Drawer(Station.Fl_max, Station.Dk_max, Station.Rm_perfloor, T_node, "*");
+
 
             }
 
+            
 
 
+            
+         
             /*
-            WriteAt("A333", 0, 0);
             WriteAt("A444", 5, 0);
             WriteAt("A555", 10, 0);
             WriteAt("A666", 15, 0);

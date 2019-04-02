@@ -12,7 +12,9 @@ namespace RoTSSR
 
         public Node previous { get; set; }
         public Node next { get; set; }
-
+        public int Xcord { get; set;}
+        public int Ycord { get; set;}
+        public bool selected { get; set; } //Whether or not this Room is selected, subject to change. 
         public Node north { get; set;}
         public Node south { get; set;}
         public Node east { get; set;}

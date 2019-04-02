@@ -46,7 +46,12 @@ namespace RoTSSR
         public int Num { get; set; } // The Room Number this room has.
         public int Floor { get; set;} //The Floor Number this Room is on.
         public String Name { get; set;} // The Name of this Room{Deck + Floor + Room Number}.
-        public bool selected {get; set;} //Whether or not this Room is selected, subject to change. 
+
+
+ 
+
+
+        
         public String North_Neighbor { get; set; } //Neighbor to the North.
         public String South_Neighbor { get; set; }
         public String East_Neighbor { get; set; }
