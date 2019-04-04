@@ -26,7 +26,7 @@ namespace RoTSSR
         public static void Main(string[] args)
         {
 
-            StationCreator Station = new StationCreator(30, 3, 3);
+            StationCreator Station = new StationCreator(50, 3, 3);
 
             //Console.Clear();
 
@@ -67,30 +67,50 @@ namespace RoTSSR
 
             }
             */
-            
+           
             Node T_node = new Node();
-            T_node = Station.Llist.Search("C11");
+            T_node = Station.Llist.Search("B30");
+            T_node.selected = true;
+            //Station.Llist.N_pop();
             //Console.WriteLine(Station.Llist.Search("C315").room.Name);
             //System.Console.WriteLine(current.room.Name);
-            T_node.selected = true;
+
             //System.Console.WriteLine(T_node.room.Name);
             //System.Console.WriteLine(T_node.next.room.Name);
             //System.Console.WriteLine(Station.Llist.head.next.next.room.Name);
 
-            Drawer(Station.Fl_max, Station.Dk_max, Station.Rm_perfloor,T_node , "*");
+
+
+           
+            Station.Drawer("*");
+            String key = null;
+            key = Console.ReadLine();
         
-            if(Console.Read().ToString() == "W" || Console.Read().ToString() == "w")
+            if(key == "W" || key == "w")
             {
                 T_node = Station.Llist.Search(true);
+                try
+                {
+                    Console.WriteLine("Here:" + T_node.N_node.room.Name);
+                    T_node.N_node.selected = true;
+                    T_node.selected = false;
+                }
+                catch(NullReferenceException e)
+                {
+                    Console.WriteLine("NN: " + T_node.room.North_Neighbor);
+                    Console.WriteLine("SN: " + T_node.room.South_Neighbor);
+                    Console.WriteLine("EN: " + T_node.room.East_Neighbor);
+                    Console.WriteLine("WN: " + T_node.room.West_Neighbor);
+                    Console.WriteLine("ERROR --- NO W");
+                    Station.Drawer("*");
 
-                T_node.north.selected = true;
-                T_node.selected = false;
-
-                Drawer(Station.Fl_max, Station.Dk_max, Station.Rm_perfloor, T_node, "*");
+                }
+                //Console.Clear();
+                Station.Drawer("*");
 
 
             }
-
+            
             
 
 

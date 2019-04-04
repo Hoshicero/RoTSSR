@@ -38,7 +38,7 @@ namespace RoTSSR
 
 
 
-    public class Room : IDisposable
+    public class Room 
     {
 
         
@@ -46,11 +46,6 @@ namespace RoTSSR
         public int Num { get; set; } // The Room Number this room has.
         public int Floor { get; set;} //The Floor Number this Room is on.
         public String Name { get; set;} // The Name of this Room{Deck + Floor + Room Number}.
-
-
- 
-
-
         
         public String North_Neighbor { get; set; } //Neighbor to the North.
         public String South_Neighbor { get; set; }
@@ -68,24 +63,14 @@ namespace RoTSSR
             Floor = fl;
             Deck = deck;
             Name = String.Concat(Dk_retriever(deck), fl, num);
-            
-            //t_station.Roommaker(this);
-
         }
 
-        public Room()
-        {
-            
-
-
-
-        }
+        public Room(){}
 
        ~Room() { }
 
         public String Dk_retriever(int num)
         {
-
             switch (num)
             {
 
@@ -98,59 +83,81 @@ namespace RoTSSR
                 case 3:
                     return "C";
 
+                case 4:
+                    return "D";
+
+                case 5:
+                    return "E";
+
+                case 6:
+                    return "F";
+
+                case 7:
+                    return "G";
+
+                case 8:
+                    return "H";
+
+                case 9:
+                    return "I";
+
+                case 10:
+                    return "J";
+
+                case 11:
+                    return "K";
+
+                case 12:
+                    return "L";
+
+                case 13:
+                    return "M";
+
+                case 14:
+                    return "N";
+
+                case 15:
+                    return "O";
+
+                case 16:
+                    return "P";
+
+                case 17:
+                    return "Q";
+
+                case 18:
+                    return "R";
+
+                case 19:
+                    return "S";
+
+                case 20:
+                    return "T";
+
+                case 21:
+                    return "U";
+
+                case 22:
+                    return "V";
+
+                case 23:
+                    return "W";
+
+                case 24:
+                    return "X";
+
+                case 25:
+                    return "Y";
+
+                case 26:
+                    return "Z";
                 default:
                     return null;
             }
 
         }
 
-        #region IDisposable Support
-        private bool disposedValue = false; // To detect redundant calls
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposedValue)
-            {
-                if (disposing)
-                {
-                    // TODO: dispose managed state (managed objects).
-                }
-
-                // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
-                // TODO: set large fields to null.
-
-                disposedValue = true;
-            }
-        }
-
-        // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
-        // ~Room() {
-        //   // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-        //   Dispose(false);
-        // }
-
-        // This code added to correctly implement the disposable pattern.
-        public void Dispose()
-        {
-            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-            Dispose(true);
-            // TODO: uncomment the following line if the finalizer is overridden above.
-            // GC.SuppressFinalize(this);
-        }
-        #endregion
-
-
-
-
-
-
-
     }
-
-
-
-
-
 
 }
     

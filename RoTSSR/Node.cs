@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RoTSSR
 {
-    public class Node
+    public class Node:Room
     {
 
 
@@ -15,10 +15,10 @@ namespace RoTSSR
         public int Xcord { get; set;}
         public int Ycord { get; set;}
         public bool selected { get; set; } //Whether or not this Room is selected, subject to change. 
-        public Node north { get; set;}
-        public Node south { get; set;}
-        public Node east { get; set;}
-        public Node west { get; set;}
+        public Node N_node { get; set;}
+        public Node S_node { get; set;}
+        public Node E_node { get; set;}
+        public Node W_node { get; set;}
 
         public Room room;
         public Node(Room Room)
@@ -26,31 +26,31 @@ namespace RoTSSR
             room = Room;
             next = null;
             previous = null;
-            north = null;
-            south = null;
-            east = null;
-            west = null;
+            N_node = null;
+            S_node = null;
+            E_node = null;
+            W_node = null;
 
         }
         public Node()
         {
             next = null;
             previous = null;
-            north = null;
-            south = null;
-            east = null;
-            west = null;
+            N_node = null;
+            S_node = null;
+            E_node = null;
+            W_node = null;
         }
 
         ~Node() { }
-
+        /*
         public void N_Node(Room room, Node next, Node previous)
         {
             this.room = room;
             this.next = next;
             this.previous = previous;
         }
-
+        */
 
         public bool Hasnext()
         {

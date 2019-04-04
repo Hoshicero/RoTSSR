@@ -23,7 +23,7 @@ namespace RoTSSR
       */
 
 
-    /* Sort algorithim notes: 
+ /* Sort algorithim notes: 
      * WHILE CURRENT DOES NOT EQUAL NULL
 1.) Start from the head of the list. 
 2.)Compare the deck of head node and next node.
@@ -42,17 +42,17 @@ namespace RoTSSR
 
 
  */
-    public class LinkedList
+    public class LinkedList : Node
     {
 
         public Node head { get; set; } //head of list
         public Node rear { get; set; } //rear of list
-        public bool selected { get; set; } //Whether or not this Room is selected, subject to change. 
+        
 
         public LinkedList() //constructor
         {
-            head = new Node();
-            rear = new Node();
+            head = null;
+            rear = null;
 
         }
 
@@ -64,100 +64,84 @@ namespace RoTSSR
         {
             Node current = new Node();
             Node next = new Node();
-
-            while (current != null)
-            {
-                /***********1.)*************/
-                current = head;
-                next = head.next;
-                /***********2.)*************/
-
-                /***********Cond 1)*************/
-                if (next.room.Deck > current.room.Deck)
+            try {
+                while (current != null)
                 {
-                    current = current.next;
-                    next = current.next;
-                }
-                /***********Cond 1.0)*************/
-                if (next.room.Deck == current.room.Deck)
-                {
-                    /***********Cond 1.0.0)*************/
+                    /***********1.)*************/
+                    current = head;
+                    next = head.next;
+                    /***********2.)*************/
 
-                    if (next.room.Floor > current.room.Floor)
+                    /***********Cond 1)*************/
+                    if (next.room.Deck > current.room.Deck)
                     {
                         current = current.next;
                         next = current.next;
-                        
-
                     }
-
-
-                    /***********Cond 1.1)*************/
-                    else if (next.room.Floor == current.room.Floor)
+                    /***********Cond 1.0)*************/
+                    if (next.room.Deck == current.room.Deck)
                     {
-                        /***********Cond 1.1.0)*************/
-                        if (next.room.Num > current.room.Num)
-                        {
+                        /***********Cond 1.0.0)*************/
 
-                            DataSwap(next, current);
-                            
-
-                        }
-                        /***********Cond 1.1.1)*************/
-
-                        else if (next.room.Num == current.room.Num)
+                        if (next.room.Floor > current.room.Floor)
                         {
                             current = current.next;
                             next = current.next;
-                            
+
 
                         }
-                        else return;
+                        /***********Cond 1.1)*************/
+                        else if (next.room.Floor == current.room.Floor)
+                        {
+                            /***********Cond 1.1.0)*************/
+                            if (next.room.Num > current.room.Num)
+                            {
+
+                                DataSwap(next, current);
+
+
+                            }
+                            /***********Cond 1.1.1)*************/
+
+                            else if (next.room.Num == current.room.Num)
+                            {
+                                current = current.next;
+                                next = current.next;
+
+
+                            }
+                            else return;
+
+                        }
+
+                        else
+                            DataSwap(next, current);
+                        current = current.next;
+                        next = current.next;
 
                     }
-
                     else
-                    DataSwap(next, current);
+                        DataSwap(next, current);
                     current = current.next;
                     next = current.next;
 
+
+
                 }
-                else
-                DataSwap(next, current);
-                current = current.next;
-                next = current.next;
-
-
 
             }
-        }
-
-
-
-        public void N_pop()
-        {
-            Node current = new Node();
-            current = head;
-
-            while(current!= null)
+            catch (NullReferenceException)
             {
-                current.north = Search(current.room.North_Neighbor);
-                current.south = Search(current.room.South_Neighbor);
-                current.east = Search(current.room.East_Neighbor);
-                current.west = Search(current.room.West_Neighbor);
-
-                current = current.next;
-
+                return;
             }
-
-
         }
+
+      
 
 
 
         public void DataSwap(Node one, Node two)
         {
-
             Room temp1 = new Room();
             Room temp2 = new Room();
 
@@ -168,8 +152,6 @@ namespace RoTSSR
 
             one.room = temp2;
             two.room = temp1;
-
-
         }
 
 
@@ -225,35 +207,43 @@ namespace RoTSSR
             if (head == null)
 
             {
-                Console.WriteLine("Error -- Linked List not initialized");
-                return head;
+                Console.WriteLine("Error -- Search, bool does not detect an initialized list");
+                return null;
 
             }
 
             Node current = head;
-            while (current != null)
+            try
             {
-
-                if (current.selected)
+                while (current != rear)
                 {
-                    /*
-                    Console.WriteLine("The Name is" + current.room.Name);
-                    Console.WriteLine("The North Neighbor is" + current.room.North_Neighbor);
-                    Console.WriteLine("The South Neighbor is" + current.room.South_Neighbor);
-                    Console.WriteLine("The East Neighbor is" + current.room.East_Neighbor);
-                    Console.WriteLine("The West Neighbor is" + current.room.West_Neighbor);
-                    */
-                    return current;
+
+
+                    if (current.selected)
+                    {
+                        /*
+                        Console.WriteLine("The Name is" + current.room.Name);
+                        Console.WriteLine("The North Neighbor is" + current.room.North_Neighbor);
+                        Console.WriteLine("The South Neighbor is" + current.room.South_Neighbor);
+                        Console.WriteLine("The East Neighbor is" + current.room.East_Neighbor);
+                        Console.WriteLine("The West Neighbor is" + current.room.West_Neighbor);
+                        */
+                        return current;
+                    }
+                    current = current.next;
+
+
+                    
+
+
                 }
-                current = current.next;
-
-
-                break;
-
-
+            }
+            catch(ArgumentNullException e)
+            {
+                return null;
             }
 
-            return current;
+            return null;
 
 
 
@@ -270,35 +260,40 @@ namespace RoTSSR
             if (head == null)
 
             {
-                Console.WriteLine("Error -- Linked List not initialized");
-                return head;
+                Console.WriteLine("Error -- Search X, Y, does not detect a  Linked List ");
+                return null;
 
             }
 
             Node current = head;
-            while (current != null)
+            while (current != rear)
             {
-
-                if (current.Xcord == x && current.Ycord == y)
+                try
                 {
-                    /*
-                    Console.WriteLine("The Name is" + current.room.Name);
-                    Console.WriteLine("The North Neighbor is" + current.room.North_Neighbor);
-                    Console.WriteLine("The South Neighbor is" + current.room.South_Neighbor);
-                    Console.WriteLine("The East Neighbor is" + current.room.East_Neighbor);
-                    Console.WriteLine("The West Neighbor is" + current.room.West_Neighbor);
-                    */
-                    return current;
+                    if (current.Xcord == x && current.Ycord == y)
+                    {
+                        /*
+                        Console.WriteLine("The Name is" + current.room.Name);
+                        Console.WriteLine("The North Neighbor is" + current.room.North_Neighbor);
+                        Console.WriteLine("The South Neighbor is" + current.room.South_Neighbor);
+                        Console.WriteLine("The East Neighbor is" + current.room.East_Neighbor);
+                        Console.WriteLine("The West Neighbor is" + current.room.West_Neighbor);
+                        */
+                        return current;
+                    }
+
+                    current = current.next;
+
                 }
-                current = current.next;
-
-
-                break;
+                catch(NullReferenceException e)
+                {
+                    return null;
+                }
 
 
             }
 
-            return current;
+            return null;
 
 
 
@@ -315,55 +310,48 @@ namespace RoTSSR
              * Once the linked list is determined to be populated, starting with the first node, the name variable of the room object is checked against the key argument. If theres a match a reference
              * to the node is returned. If there isn't, the list is iterated by 1.             
              *             
-               
-
             */
-
-        
-          
-
             Room room = new Room();
 
             if (head == null)
 
             {
-                Console.WriteLine("Error -- Linked List not initialized");
+                Console.WriteLine("Error -- Search string, does not detect an initialized list");
                 return head;
 
             }
 
             Node current = head;
-            while (current != null)
+            while (current != rear)
             {
-
-                if (current.room.Name == key)
+                try
                 {
-                    
-                   // Console.WriteLine("The Name is" + current.room.Name);
-                    /*
-                    Console.WriteLine("The North Neighbor is" + current.room.North_Neighbor);
-                    Console.WriteLine("The South Neighbor is" + current.room.South_Neighbor);
-                    Console.WriteLine("The East Neighbor is" + current.room.East_Neighbor);
-                    Console.WriteLine("The West Neighbor is" + current.room.West_Neighbor);
-                    */
-                    return current;
-                }
+                    Console.WriteLine("HERE GOES SEARCHING FOR" + key);
+                    if (current.room.Name == key)
+                    {
 
-                 if(current.room.Name == rear.room.Name)
+                        // Console.WriteLine("The Name is" + current.room.Name);
+                        /*
+                        Console.WriteLine("The North Neighbor is" + current.room.North_Neighbor);
+                        Console.WriteLine("The South Neighbor is" + current.room.South_Neighbor);
+                        Console.WriteLine("The East Neighbor is" + current.room.East_Neighbor);
+                        Console.WriteLine("The West Neighbor is" + current.room.West_Neighbor);
+                        */
+                        return current;
+                    }
+                    current = current.next;
+
+                   
+                   
+
+                }
+                catch(NullReferenceException e)
                 {
-                    Node temp = new Node();
-                    return temp;
-
+                    return null;
                 }
-
-                //Console.WriteLine("No match" + " " + key + "&" + " " + current.room.Name);
-
-                current = current.next;
-
 
             }
-
-            return current;
+            return null;
 
 
         }
@@ -385,8 +373,8 @@ namespace RoTSSR
             */
 
             Node node = new Node(room);
-            node.next = node;
-            node.previous = node; 
+            node.next = null;
+            node.previous = null; 
             head = node;
             rear = node;
 
@@ -419,19 +407,28 @@ namespace RoTSSR
 
         public void Rear_Add(Room room)
         {
-            if (room.Dk_retriever(room.Deck) == null)
+            
+            try
             {
+                if (head == null && rear == null)
+                {
+                    Start(room);
+                    return;
+                }
+                Node node = new Node(room);
+                Node end = rear;
 
-                return;
+               
+
+                end.next = node;
+                node.previous = end;
+                node.next = null;
+                rear = node;
             }
-
-            Node node = new Node(room);
-            Node end = rear;
-
-            end.next = node;
-            node.previous = end;
-            node.next = null;
-            rear = node;
+            catch(NullReferenceException e)
+            {
+                Console.WriteLine("ERROR --- ROOM IS NULL");
+            }
         }
 
         public void Delete(string Key)
