@@ -174,7 +174,7 @@ namespace RoTSSR
 
 
         {
-            Console.WriteLine("Head is " + " " + head.room.Name + "Rear is" + " " + rear.room.Name);
+            //Console.WriteLine("Head is " + " " + head.room.Name + "Rear is" + " " + rear.room.Name);
             Node n = new Node();
             Node p = new Node();
 
@@ -215,7 +215,7 @@ namespace RoTSSR
             Node current = head;
             try
             {
-                while (current != rear)
+                while (current != null)
                 {
 
 
@@ -266,7 +266,7 @@ namespace RoTSSR
             }
 
             Node current = head;
-            while (current != rear)
+            while (current != null)
             {
                 try
                 {
@@ -322,11 +322,11 @@ namespace RoTSSR
             }
 
             Node current = head;
-            while (current != rear)
+            while (current != null)
             {
                 try
                 {
-                    Console.WriteLine("HERE GOES SEARCHING FOR" + key);
+                    //Console.WriteLine("HERE GOES SEARCHING FOR" + key);
                     if (current.room.Name == key)
                     {
 

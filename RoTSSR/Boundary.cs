@@ -34,78 +34,21 @@ namespace RoTSSR
     {
 
 
-        private char Position;
-        private bool Open;
-        private bool Passable;
-        private bool Unlocked;
-        private bool Electrified;
+        public bool Locked { get; set; }
+        public bool Electric{ get; set; }
+        public bool Blocked { get; set; }
 
 
 
-        public void SetOpen(bool temp) { Open = temp; }
-        public void SetPosition(char P) { Position = P; }
-        public void SetPassable(bool temp) { Passable = temp; }
-        public void SetUnlocked(bool temp) { Unlocked = temp; }
-        public void SetElectrified(bool temp) { Electrified = temp; }
-
-        public void SetDoor()
+       Boundary()
         {
-
-            SetPassable(true);
-            SetUnlocked(false);
-            SetOpen(false);
+            Locked = false;
+            Electric = false;
+            Blocked = false;
+            
         }
 
-
-        public void SetBulkhead()
-        {
-
-            SetPassable(false);
-            SetOpen(false);
-            SetUnlocked(false);
-            SetElectrified(false);
-
-        }
-
-
-
-
-        public bool GetOpen() { return Open; }
-        public bool GetPassable() { return Passable; }
-        public bool GetLocked() { return Unlocked; }
-        public bool GetElectrified() { return Electrified; }
-        public char GetPosition() { return Position; }
-
-
-        public Boundary()
-        {
-
-            Position = 'N';
-            Open = false;
-            Passable = false;
-            Unlocked = false;
-            Electrified = false;
-
-        }
-
-        public Boundary(char Pos, bool O, bool P, bool L, bool E)
-        {
-
-            Position = Pos;
-            Open = O;
-            Passable = P;
-            Unlocked = L;
-            Electrified = E;
-
-
-        }
-
-        public Boundary(char Pos)
-        {
-
-            Position = Pos;
-        }
-
+        
       
 
 

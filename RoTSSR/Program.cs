@@ -67,9 +67,9 @@ namespace RoTSSR
 
             }
             */
-           
+            
             Node T_node = new Node();
-            T_node = Station.Llist.Search("B30");
+            T_node = Station.Llist.Search("B11");
             T_node.selected = true;
             //Station.Llist.N_pop();
             //Console.WriteLine(Station.Llist.Search("C315").room.Name);
@@ -81,38 +81,154 @@ namespace RoTSSR
 
 
 
-           
-            Station.Drawer("*");
-            String key = null;
-            key = Console.ReadLine();
-        
-            if(key == "W" || key == "w")
+             String ky;
+             Station.Drawer("*");
+             
+            bool quit = true;
+
+            //Console.WriteLine(ky);
+
+            
+            while (quit)
+                
             {
+                ky = Console.ReadKey().KeyChar.ToString();
                 T_node = Station.Llist.Search(true);
-                try
+
+                if (ky == "w")
                 {
-                    Console.WriteLine("Here:" + T_node.N_node.room.Name);
-                    T_node.N_node.selected = true;
-                    T_node.selected = false;
-                }
-                catch(NullReferenceException e)
-                {
-                    Console.WriteLine("NN: " + T_node.room.North_Neighbor);
-                    Console.WriteLine("SN: " + T_node.room.South_Neighbor);
-                    Console.WriteLine("EN: " + T_node.room.East_Neighbor);
-                    Console.WriteLine("WN: " + T_node.room.West_Neighbor);
-                    Console.WriteLine("ERROR --- NO W");
-                    Station.Drawer("*");
+                    //T_node = Station.Llist.Search(true);
+                    try
+                    {
+
+                        T_node.N_node.selected = true;
+                        // Console.WriteLine(" " + "Yo" + T_node.N_node.selected);
+                        T_node.selected = false;
+                        //Console.WriteLine(Station.Llist.Search(true).room.Name);
+                        //Console.WriteLine("All dat shit " + Station.Llist.Search(T_node.N_node.room.Name).Name);
+                        //Station.Drawer("*");
+                    }
+                    catch (NullReferenceException e)
+                    {
+
+                        Console.WriteLine("ERROR --- NO W");
+                        Station.Drawer("*");
+
+                    }
+                    //Console.Clear();
+                   // Station.Drawer("*");
+
 
                 }
-                //Console.Clear();
+
+                else if (ky == "s")
+                {
+                    T_node = Station.Llist.Search(true);
+                    try
+                    {
+
+                        T_node.S_node.selected = true;
+                        // Console.WriteLine(" " + "Yo" + T_node.N_node.selected);
+                        T_node.selected = false;
+                        //Console.WriteLine(Station.Llist.Search(true).room.Name);
+                        //Console.WriteLine("All dat shit " + Station.Llist.Search(T_node.N_node.room.Name).Name);
+                        //Station.Drawer("*");
+                    }
+                    catch (NullReferenceException e)
+                    {
+
+                        //Console.WriteLine("ERROR --- NO ");
+                        //Station.Drawer("*");
+
+                    }
+                    //Console.Clear();
+                   // Station.Drawer("*");
+
+
+                }
+
+                else if (ky == "d")
+                {
+                    //T_node = Station.Llist.Search(true);
+                    try
+                    {
+
+                        T_node.E_node.selected = true;
+                        // Console.WriteLine(" " + "Yo" + T_node.N_node.selected);
+                        T_node.selected = false;
+                        //Console.WriteLine(Station.Llist.Search(true).room.Name);
+                        //Console.WriteLine("All dat shit " + Station.Llist.Search(T_node.N_node.room.Name).Name);
+                        //Station.Drawer("*");
+                    }
+                    catch (NullReferenceException e)
+                    {
+
+                        //Console.WriteLine("ERROR --- NO ");
+                        //Station.Drawer("*");
+
+                    }
+                    //Console.Clear();
+                    // Station.Drawer("*");
+
+
+                }
+
+
+
+                else if (ky == "a")
+                {
+                    T_node = Station.Llist.Search(true);
+                    try
+                    {
+
+                        T_node.W_node.selected = true;
+                        // Console.WriteLine(" " + "Yo" + T_node.N_node.selected);
+                        T_node.selected = false;
+                        //Console.WriteLine(Station.Llist.Search(true).room.Name);
+                        //Console.WriteLine("All dat shit " + Station.Llist.Search(T_node.N_node.room.Name).Name);
+                        //Station.Drawer("*");
+                    }
+                    catch (NullReferenceException e)
+                    {
+
+                        //Console.WriteLine("ERROR --- NO ");
+                        //Station.Drawer("*");
+
+                    }
+                    //Console.Clear();
+                    // Station.Drawer("*");
+
+
+                }
+
+                else if(ky == "i")
+                {
+                    try
+                    {
+                        Console.WriteLine("North" + T_node.North_Neighbor);
+                        Console.WriteLine("South" + T_node.South_Neighbor);
+                        Console.WriteLine("East" + T_node.East_Neighbor);
+                        Console.WriteLine("West" + T_node.West_Neighbor);
+                    }
+                    catch (NullReferenceException e) { }
+
+
+
+                }
+
+
+
+                else if (ky == "q")
+                {
+                    quit = false;
+                    break;
+
+                }
+
                 Station.Drawer("*");
 
 
             }
-            
-            
-
 
             
          

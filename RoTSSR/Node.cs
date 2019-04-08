@@ -23,6 +23,7 @@ namespace RoTSSR
         public Room room;
         public Node(Room Room)
         {
+           
             room = Room;
             next = null;
             previous = null;
@@ -30,7 +31,7 @@ namespace RoTSSR
             S_node = null;
             E_node = null;
             W_node = null;
-
+            //Console.WriteLine("Activating Node:" + " " + room.Name);
         }
         public Node()
         {

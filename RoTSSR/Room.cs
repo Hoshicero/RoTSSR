@@ -38,31 +38,43 @@ namespace RoTSSR
 
 
 
-    public class Room 
+    public class Room
     {
+        public struct Neighbor
+        {
+            public String Name { get; set; }
+            public Boundary North { get; set; }
+            public Boundary South { get; set; }
+            public Boundary East { get; set;}
+            public Boundary West { get; set; }
 
-        
+        }
+
+
         public int Deck { get; set; } //The Deck this Room is on
         public int Num { get; set; } // The Room Number this room has.
         public int Floor { get; set;} //The Floor Number this Room is on.
-        public String Name { get; set;} // The Name of this Room{Deck + Floor + Room Number}.
-        
-        public String North_Neighbor { get; set; } //Neighbor to the North.
-        public String South_Neighbor { get; set; }
-        public String East_Neighbor { get; set; }
-        public String West_Neighbor { get; set; }
+        public String Name { get; set;} // The Name of this Room{Deck + Floor + Room Number}. 
+
+        public Neighbor North_Neighbor = new Neighbor();
+        public Neighbor South_Neighbor = new Neighbor();
+        public Neighbor East_Neighbor = new Neighbor();
+        public Neighbor West_Neighbor = new Neighbor();
+
+
         
 
         public Room (int num, int fl, int deck)
         {
-            North_Neighbor = null;
-            South_Neighbor = null;
-            East_Neighbor = null;
-            West_Neighbor = null;
+            North_Neighbor.Name = null;
+            South_Neighbor.Name = null;
+            East_Neighbor.Name = null;
+            West_Neighbor.Name = null;
             Num = num;
             Floor = fl;
             Deck = deck;
             Name = String.Concat(Dk_retriever(deck), fl, num);
+            //Console.WriteLine("Activating Room" + " " + Name);
         }
 
         public Room(){}
