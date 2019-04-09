@@ -47,6 +47,7 @@ namespace RoTSSR
             Creation();
             Roommaker(ref Llist);
             N_populator();
+            
 
             //Sortv1();
         }
@@ -61,7 +62,7 @@ namespace RoTSSR
             HolderRoom = Holder;
 
            // Console.WriteLine("Activating" + " " + HolderRoom.Name + " " + "In Nneighbor");
-            if (HolderRoom.North_Neighbor.Name == null || HolderRoom.North_Neighbor.Name == "X")
+            if (HolderRoom.North_Neighbor == null || HolderRoom.North_Neighbor == "X")
             {
 
                 //Console.WriteLine("Hello" + "\n" + HolderRoom.North_Neighbor);
@@ -71,7 +72,7 @@ namespace RoTSSR
 
                 if ((HolderRoom.Deck == Dk_min) && (HolderRoom.Floor == Fl_min))
                 {
-                    HolderRoom.North_Neighbor.Name = null;
+                    HolderRoom.North_Neighbor = null;
                     //Console.WriteLine("Activating Node:" + " " + room.Name + "'s" + " N Neighbor" + HolderRoom.North_Neighbor + " " + " Dk = min & Fl = min");
 
                     return null;
@@ -90,7 +91,7 @@ namespace RoTSSR
                 else if (HolderRoom.Floor == Fl_min)
                 {
 
-                    HolderRoom.North_Neighbor.Name = (String.Concat(Dk_retriever(HolderRoom.Deck - 1), Fl_max, HolderRoom.Num));
+                    HolderRoom.North_Neighbor = (String.Concat(Dk_retriever(HolderRoom.Deck - 1), Fl_max, HolderRoom.Num));
                     //Console.WriteLine("Activating Node:" + " " + room.Name + "'s" + " N Neighbor" + HolderRoom.North_Neighbor + " " + " Fl = min");
 
                     return String.Concat(Dk_retriever(HolderRoom.Deck - 1), Fl_max, HolderRoom.Num);
@@ -108,14 +109,14 @@ namespace RoTSSR
                     //Console.WriteLine("TAAAAg" + HolderRoom.Name + " " + HolderRoom.North_Neighbor);
 
                     //OTHERWISE YOUR NORTH NEIGHBOR CONSISTS OF YOUR DECK, YOUR FLOOR - 1, AND YOUR CURRENT ROOM NUMBER.
-                    HolderRoom.North_Neighbor.Name = String.Concat(Dk_retriever(HolderRoom.Deck), HolderRoom.Floor - 1, HolderRoom.Num);
+                    HolderRoom.North_Neighbor = String.Concat(Dk_retriever(HolderRoom.Deck), HolderRoom.Floor - 1, HolderRoom.Num);
                     return String.Concat(Dk_retriever(HolderRoom.Deck), HolderRoom.Floor - 1, HolderRoom.Num);
                     
                 }
             }
 
             else
-                HolderRoom.North_Neighbor.Name = String.Concat(Dk_retriever(HolderRoom.Deck), HolderRoom.Floor - 1, HolderRoom.Num);
+                HolderRoom.North_Neighbor = String.Concat(Dk_retriever(HolderRoom.Deck), HolderRoom.Floor - 1, HolderRoom.Num);
             return (String.Concat(Dk_retriever(HolderRoom.Deck), HolderRoom.Floor - 1, HolderRoom.Num));
 
 
@@ -125,7 +126,7 @@ namespace RoTSSR
 
         public String SneighborCalculations(ref Room HolderRoom)
         {
-            if (HolderRoom.South_Neighbor.Name == "X" || HolderRoom.South_Neighbor.Name == null)
+            if (HolderRoom.South_Neighbor == "X" || HolderRoom.South_Neighbor == null)
             {
 
                 /*IF YOU ARE THE LOWEST DECK ON THE LOWEST FLOOR, YOU HAVE NO SOUTH NEIGHBOR*/
@@ -133,7 +134,7 @@ namespace RoTSSR
                 {
 
                     
-                    HolderRoom.South_Neighbor.Name = null;
+                    HolderRoom.South_Neighbor = null;
 
                     return null;
 
@@ -142,18 +143,18 @@ namespace RoTSSR
                 /*IF YOU HAPPEN TO BE ON THE FLOOR OF A DECK RIGHT ABOVE THE TOP FLOOR OF ANOTHER DECK */
                 else if (HolderRoom.Floor == Fl_max)
                 {
-                    HolderRoom.South_Neighbor.Name = (String.Concat(Dk_retriever(HolderRoom.Deck + 1), Fl_min, HolderRoom.Num));
+                    HolderRoom.South_Neighbor = (String.Concat(Dk_retriever(HolderRoom.Deck + 1), Fl_min, HolderRoom.Num));
                     return String.Concat(Dk_retriever(HolderRoom.Deck + 1), Fl_min, HolderRoom.Num);
                 }
 
                 else
-                HolderRoom.South_Neighbor.Name = (String.Concat(Dk_retriever(HolderRoom.Deck), (HolderRoom.Floor + 1), HolderRoom.Num));
+                HolderRoom.South_Neighbor = (String.Concat(Dk_retriever(HolderRoom.Deck), (HolderRoom.Floor + 1), HolderRoom.Num));
                 return String.Concat(Dk_retriever(HolderRoom.Deck), (HolderRoom.Floor + 1), HolderRoom.Num);
 
             }
 
             else
-            HolderRoom.South_Neighbor.Name = (String.Concat(Dk_retriever(HolderRoom.Deck), (HolderRoom.Floor + 1), HolderRoom.Num));
+            HolderRoom.South_Neighbor = (String.Concat(Dk_retriever(HolderRoom.Deck), (HolderRoom.Floor + 1), HolderRoom.Num));
             return String.Concat(Dk_retriever(HolderRoom.Deck), (HolderRoom.Floor + 1), HolderRoom.Num);
         }
 
@@ -161,7 +162,7 @@ namespace RoTSSR
         public String WneighborCalculations(ref Room HolderRoom)
         {
 
-            if (HolderRoom.West_Neighbor.Name == "X" || HolderRoom.West_Neighbor.Name == null)
+            if (HolderRoom.West_Neighbor == "X" || HolderRoom.West_Neighbor == null)
             {
 
                 /*IF YOU ARE THE Last ROOM ON YOUR FLOOR, YOU HAVE NO West NEIGHBOR*/
@@ -169,20 +170,20 @@ namespace RoTSSR
                 {
 
 
-                    HolderRoom.West_Neighbor.Name = null;
+                    HolderRoom.West_Neighbor = null;
                     return null;
 
                 }
 
 
                 else
-                    HolderRoom.West_Neighbor.Name = (String.Concat(Dk_retriever(HolderRoom.Deck), HolderRoom.Floor, HolderRoom.Num + 1));
+                    HolderRoom.West_Neighbor = (String.Concat(Dk_retriever(HolderRoom.Deck), HolderRoom.Floor, HolderRoom.Num + 1));
                 return String.Concat(Dk_retriever(HolderRoom.Deck), HolderRoom.Floor, HolderRoom.Num + 1);
 
             }
             else
 
-            HolderRoom.West_Neighbor.Name = String.Concat(Dk_retriever(HolderRoom.Deck), HolderRoom.Floor, HolderRoom.Num + 1);
+            HolderRoom.West_Neighbor = String.Concat(Dk_retriever(HolderRoom.Deck), HolderRoom.Floor, HolderRoom.Num + 1);
             return String.Concat(Dk_retriever(HolderRoom.Deck), HolderRoom.Floor, HolderRoom.Num + 1);
 
         }
@@ -192,7 +193,7 @@ namespace RoTSSR
         {
 
 
-            if (HolderRoom.East_Neighbor.Name == "X" || HolderRoom.East_Neighbor.Name == null)
+            if (HolderRoom.East_Neighbor == "X" || HolderRoom.East_Neighbor == null)
             {
 
                 /*IF YOU ARE THE First ROOM ON YOUR FLOOR, YOU HAVE NO EAST NEIGHBOR*/
@@ -200,21 +201,21 @@ namespace RoTSSR
                 {
 
                     
-                    HolderRoom.East_Neighbor.Name = null;
+                    HolderRoom.East_Neighbor = null;
                     return null;
 
                 }
 
 
                 else
-                 HolderRoom.East_Neighbor.Name = (String.Concat(Dk_retriever(HolderRoom.Deck), HolderRoom.Floor, HolderRoom.Num - 1));
+                 HolderRoom.East_Neighbor = (String.Concat(Dk_retriever(HolderRoom.Deck), HolderRoom.Floor, HolderRoom.Num - 1));
                 return String.Concat(Dk_retriever(HolderRoom.Deck), HolderRoom.Floor, HolderRoom.Num - 1);
 
 
             }
 
             else
-            HolderRoom.East_Neighbor.Name = (String.Concat(Dk_retriever(HolderRoom.Deck), HolderRoom.Floor, HolderRoom.Num - 1));
+            HolderRoom.East_Neighbor = (String.Concat(Dk_retriever(HolderRoom.Deck), HolderRoom.Floor, HolderRoom.Num - 1));
             return String.Concat(Dk_retriever(HolderRoom.Deck), HolderRoom.Floor, HolderRoom.Num - 1);
 
 
@@ -232,18 +233,20 @@ namespace RoTSSR
 
                 try
                 {
-                current.North_Neighbor.Name = NneighborCalculations(ref current.room);
-                current.South_Neighbor.Name = SneighborCalculations(ref current.room);
+
+                    
+                current.North_Neighbor = NneighborCalculations(ref current.room);
+                current.South_Neighbor = SneighborCalculations(ref current.room);
                 //Console.WriteLine("South: " + current.South_Neighbor);
-                current.East_Neighbor.Name = EneighborCalculations(ref current.room);
+                current.East_Neighbor = EneighborCalculations(ref current.room);
                 //Console.WriteLine("East: " + current.East_Neighbor);
-                current.West_Neighbor.Name = WneighborCalculations(ref current.room);
+                current.West_Neighbor = WneighborCalculations(ref current.room);
                 //Console.WriteLine("West: " + current.West_Neighbor);
 
-                current.N_node = Llist.Search(current.North_Neighbor.Name);
-                current.S_node = Llist.Search(current.South_Neighbor.Name);
-                current.E_node = Llist.Search(current.East_Neighbor.Name);
-                current.W_node = Llist.Search(current.West_Neighbor.Name);
+                current.N_node = Llist.Search(current.North_Neighbor);
+                current.S_node = Llist.Search(current.South_Neighbor);
+                current.E_node = Llist.Search(current.East_Neighbor);
+                current.W_node = Llist.Search(current.West_Neighbor);
              
                     //Console.WriteLine("Node:" + " " + current.room.Name + " " + "North: " + current.N_node.room.Name);
                     //Console.WriteLine("Node:" + " " + current.room.Name + " " + "South: " + current.S_node.room.Name);
@@ -273,6 +276,7 @@ namespace RoTSSR
                 }
 
             }
+          
 
         }
 
@@ -556,8 +560,7 @@ namespace RoTSSR
                     //System.Console.WriteLine("ERROR ----");
 
                 }
-                
-
+            
 
 
 
@@ -569,7 +572,7 @@ namespace RoTSSR
                 //return;
             }
 
-
+          
 
         }
             
@@ -592,7 +595,7 @@ namespace RoTSSR
                     //Console.WriteLine(current.room.Name + " " + current.room.North_Neighbor);
 
                     // Console.WriteLine(current.room.Name);
-                    current.N_node = Llist.Search(current.room.North_Neighbor.Name);
+                    current.N_node = Llist.Search(current.room.North_Neighbor);
                     //System.Console.WriteLine("North_N" + " " + current.north.room.Name);
                     current = current.next;
                 }
@@ -606,7 +609,7 @@ namespace RoTSSR
                 {
                    //Console.WriteLine(current.room.Name);
 
-                    current.S_node = Llist.Search(current.room.South_Neighbor.Name);
+                    current.S_node = Llist.Search(current.room.South_Neighbor);
                     //System.Console.WriteLine("South_N" + " " + current.south.room.Name);
                     current = current.next;
                 }
@@ -621,7 +624,7 @@ namespace RoTSSR
                 {
                     //Console.WriteLine(current.room.Name + " " + current.room.East_Neighbor);
 
-                    current.E_node = Llist.Search(current.room.East_Neighbor.Name);
+                    current.E_node = Llist.Search(current.room.East_Neighbor);
                     //System.Console.WriteLine("East_N" + " " + current.east.room.Name);
                     current = current.next;
                 }
@@ -636,7 +639,7 @@ namespace RoTSSR
                 {
                     //Console.WriteLine(current.room.Name);
 
-                    current.W_node = Llist.Search(current.room.West_Neighbor.Name);
+                    current.W_node = Llist.Search(current.room.West_Neighbor);
                     //System.Console.WriteLine("West_N" + " " + current.west.room.Name);
                     current = current.next;
                 }
@@ -660,8 +663,305 @@ namespace RoTSSR
         }
 
 
+        /*Djikstra's Algorithm 
+         * 
+         * 1.) Mark all rooms as unvisited, create unvisited list.
+         * 2.) Assign each room a distance value. Set to zero for our initial node.
+         * 3.)
+         * 
+         * *
+         * 
+         *
+         
+             
+             */
+
+      
+
+       public void Distance(Node start, Node target)
+        {
+            //1.) Start with start
+            //2.) Consider target.
+            //3.) Current is equal to start. 
+            //4.) Run a boundary check on all node neighbors, nodes that are blocked are removed from consideration.
+            //5.) If the target's Deck is higher than current, look towards the south[current = current.S_Node].                 
+            //6.) If the target's Deck is lower than current, look towards the north[current = current.N_Node].
+            //7.) If the target's Deck is the same as current's deck:
+            //7.a) If the target's Floor is the same as current:
+            //a.)If the target's room is less than start, look east.
+            //b.)If the target's room is greater than start, look west.
+            //7.b) If the target's floor is greater than start, look south.
+            //7.c) If the target's floor is less than start look north.
+            bool NBound = false;
+            bool SBound = false;
+            bool EBound = false;
+            bool WBound = false;
+
+
+            Node current = new Node();
+            current = start;
+            System.Console.WriteLine("Starting with" + " " + current.room.Name + " " + "Ending with" + target.room.Name);
+            while (current != target)
+            {
+                try {
+                    
+                        
+                    if (target.room.Deck > current.room.Deck)
+                    {
+                        Console.WriteLine("Deck:" + " " + target.room.Name + " > " + current.room.Name);
+                        Console.WriteLine("Going" + " " + " " + current.room.Name + "to" + current.S_node.room.Name);
+                        current = current.S_node;
+                    }
+                    else if (target.room.Deck < current.room.Deck)
+                    {
+                        
+                        Console.WriteLine("Deck:" + " " + target.room.Name + " < " + current.room.Name);
+                        Console.WriteLine("Going" + " " + " " + current.room.Name + "to" + current.N_node.room.Name);
+
+                        current = current.N_node;
+                    }
+                    else if (target.room.Deck == current.room.Deck)
+
+                    {
+
+
+                        Console.WriteLine("Deck:" + " " + target.room.Name + "(" + target.room.Deck + ")" + " = " + current.room.Name + "(" + current.room.Deck + ")");
+                        if (target.room.Floor == current.room.Floor)
+                        {
+
+                            //Console.WriteLine("Deck:" + " " + target.room.Name + " == " + current.room.Name + " " + "Floor ==");
+
+
+                            if (target.room.Num > current.room.Num)
+                            {
+                                Console.WriteLine("Deck:" + " " + target.room.Name + " == " + current.room.Name + " " + "Floor ==" + " " + " Num > Num");
+                                Console.WriteLine("Going" + " " + " " + current.room.Name + "to" + current.W_node.room.Name);
+
+
+                                current = current.W_node;
+                            }
+                            else if (target.room.Num < current.room.Num)
+                            {
+                                Console.WriteLine("Deck:" + " " + target.room.Name + " == " + current.room.Name + " " + "Floor ==" + " " + " TNum < CNum");
+                                Console.WriteLine("Going" + " " + " " + current.room.Name + "to" + current.E_node.room.Name);
+
+
+                                current = current.E_node;
+                            }
+
+                        }
+                        else if (target.room.Floor > current.room.Floor)
+                        {
+                            Console.WriteLine("Deck:" + " " + target.room.Name + " = " + current.room.Name + " " + "tFloor > cFloor");
+                            Console.WriteLine("Going" + " " + " " + current.room.Name + "to" + current.S_node.room.Name);
+
+
+                            current = current.S_node;
+                        }
+                        else if (target.room.Floor < current.room.Floor)
+                        {
+                            Console.WriteLine("Deck:" + " " + target.room.Name + " = " + current.room.Name + " " + "tFloor < cFloor");
+                            Console.WriteLine("Going" + " " + " " + current.room.Name +  "to" +  current.N_node.room.Name);
+
+                            current = current.N_node;
+                        }
+
+
+
+
+                    }
+                    
+
+
+                }
+                catch (ArgumentNullException)
+                {
+
+                }
+            }
+         
+
+        }
+
+
+        public void Move (Node Startpoint, Node Endpoint)
+        {
+
+            if (Endpoint != null)
+            {
+                Startpoint.selected = false;
+                Endpoint.selected = true;
+
+            }
+
+        }
+
+     
+        
+
+
+        public void KeyListener()
+        {
+            String ky = null; 
+            bool quit = false;
+            Node T_node = new Node();
+
+           
+
+            while (quit == false)
+
+            {
+                T_node = Llist.Search(true);
+                ky = Console.ReadKey().KeyChar.ToString();
+               
+
+                if (ky == "w")
+                {
+
+                    //T_node = Station.Llist.Search(true);
+                    try
+                    {
+
+                        Move(T_node, T_node.N_node);
+                        //T_node.N_node.selected = true;
+                        // Console.WriteLine(" " + "Yo" + T_node.N_node.selected);
+                        //T_node.selected = false;
+                        ////Console.WriteLine(Station.Llist.Search(true).room.Name);
+                        //Console.WriteLine("All dat shit " + Llist.Search(T_node.N_node.room.Name).Name);
+                        //Station.Drawer("*");
+                    }
+                    catch (NullReferenceException e)
+                    {
+
+                        Console.WriteLine("ERROR --- NO W");
+                        Drawer("*");
+
+                    }
+                    //Console.Clear();
+                    // Station.Drawer("*");
+
+
+                }
+
+                else if (ky == "s")
+                {
+                    T_node = Llist.Search(true);
+                    try
+                    {
+                        Move(T_node, T_node.S_node);
+
+                        //T_node.S_node.selected = true;
+                        // Console.WriteLine(" " + "Yo" + T_node.N_node.selected);
+                        //T_node.selected = false;
+                        //Console.WriteLine(Station.Llist.Search(true).room.Name);
+                        //Console.WriteLine("All dat shit " + Station.Llist.Search(T_node.N_node.room.Name).Name);
+                        //Station.Drawer("*");
+                    }
+                    catch (NullReferenceException e)
+                    {
+
+                        //Console.WriteLine("ERROR --- NO ");
+                        //Station.Drawer("*");
+
+                    }
+                    //Console.Clear();
+                    // Station.Drawer("*");
+
+
+                }
+
+                else if (ky == "d")
+                {
+                    //T_node = Station.Llist.Search(true);
+                    try
+                    {
+                        Move(T_node, T_node.E_node);
+
+                        //T_node.E_node.selected = true;
+                        // Console.WriteLine(" " + "Yo" + T_node.N_node.selected);
+                        // T_node.selected = false;
+                        //Console.WriteLine(Station.Llist.Search(true).room.Name);
+                        //Console.WriteLine("All dat shit " + Station.Llist.Search(T_node.N_node.room.Name).Name);
+                        //Station.Drawer("*");
+                    }
+                    catch (NullReferenceException e)
+                    {
+
+                        //Console.WriteLine("ERROR --- NO ");
+                        //Station.Drawer("*");
+
+                    }
+                    //Console.Clear();
+                    // Station.Drawer("*");
+
+
+                }
+
+
+
+                else if (ky == "a")
+                {
+                    T_node = Llist.Search(true);
+                    try
+                    {
+                        Move(T_node, T_node.W_node);
+
+                        //T_node.W_node.selected = true;
+                        // Console.WriteLine(" " + "Yo" + T_node.N_node.selected);
+                        //T_node.selected = false;
+                        //Console.WriteLine(Station.Llist.Search(true).room.Name);
+                        //Console.WriteLine("All dat shit " + Station.Llist.Search(T_node.N_node.room.Name).Name);
+                        //Station.Drawer("*");
+                    }
+                    catch (NullReferenceException e)
+                    {
+
+                        //Console.WriteLine("ERROR --- NO ");
+                        //Station.Drawer("*");
+
+                    }
+                    //Console.Clear();
+                    // Station.Drawer("*");
+
+
+                }
+
+                else if (ky == "i")
+                {
+                    try
+                    {
+                        Console.WriteLine("North" + T_node.North_Neighbor);
+                        Console.WriteLine("South" + T_node.South_Neighbor);
+                        Console.WriteLine("East" + T_node.East_Neighbor);
+                        Console.WriteLine("West" + T_node.West_Neighbor);
+                    }
+                    catch (NullReferenceException e) { }
+
+
+
+                }
+
+
+
+                else if (ky == "q")
+                {
+                    quit = true;
+                    
+
+                }
+
+
+
+                Drawer("*");
+
+            }
+            return;
+        }
+
+
+
     }
- 
+
 
 
 

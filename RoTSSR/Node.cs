@@ -44,14 +44,7 @@ namespace RoTSSR
         }
 
         ~Node() { }
-        /*
-        public void N_Node(Room room, Node next, Node previous)
-        {
-            this.room = room;
-            this.next = next;
-            this.previous = previous;
-        }
-        */
+    
 
         public bool Hasnext()
         {

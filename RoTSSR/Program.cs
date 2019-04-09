@@ -67,10 +67,10 @@ namespace RoTSSR
 
             }
             */
-            
-            Node T_node = new Node();
-            T_node = Station.Llist.Search("B11");
-            T_node.selected = true;
+
+            // Node T_node = new Node();
+            //T_node = Station.Llist.Search("B11");
+            //T_node.selected = true;
             //Station.Llist.N_pop();
             //Console.WriteLine(Station.Llist.Search("C315").room.Name);
             //System.Console.WriteLine(current.room.Name);
@@ -78,159 +78,22 @@ namespace RoTSSR
             //System.Console.WriteLine(T_node.room.Name);
             //System.Console.WriteLine(T_node.next.room.Name);
             //System.Console.WriteLine(Station.Llist.head.next.next.room.Name);
+            Node Help = new Node();
+            Node Please = new Node();
+            Help = Station.Llist.Search("A15");
+            Please = Station.Llist.Search("C30");
+            Station.Distance(Help, Please);
 
 
+             //String ky = Console.ReadKey.
+             //Station.Drawer("*");
 
-             String ky;
-             Station.Drawer("*");
-             
-            bool quit = true;
+            //Station.KeyListener();
 
             //Console.WriteLine(ky);
 
-            
-            while (quit)
-                
-            {
-                ky = Console.ReadKey().KeyChar.ToString();
-                T_node = Station.Llist.Search(true);
 
-                if (ky == "w")
-                {
-                    //T_node = Station.Llist.Search(true);
-                    try
-                    {
-
-                        T_node.N_node.selected = true;
-                        // Console.WriteLine(" " + "Yo" + T_node.N_node.selected);
-                        T_node.selected = false;
-                        //Console.WriteLine(Station.Llist.Search(true).room.Name);
-                        //Console.WriteLine("All dat shit " + Station.Llist.Search(T_node.N_node.room.Name).Name);
-                        //Station.Drawer("*");
-                    }
-                    catch (NullReferenceException e)
-                    {
-
-                        Console.WriteLine("ERROR --- NO W");
-                        Station.Drawer("*");
-
-                    }
-                    //Console.Clear();
-                   // Station.Drawer("*");
-
-
-                }
-
-                else if (ky == "s")
-                {
-                    T_node = Station.Llist.Search(true);
-                    try
-                    {
-
-                        T_node.S_node.selected = true;
-                        // Console.WriteLine(" " + "Yo" + T_node.N_node.selected);
-                        T_node.selected = false;
-                        //Console.WriteLine(Station.Llist.Search(true).room.Name);
-                        //Console.WriteLine("All dat shit " + Station.Llist.Search(T_node.N_node.room.Name).Name);
-                        //Station.Drawer("*");
-                    }
-                    catch (NullReferenceException e)
-                    {
-
-                        //Console.WriteLine("ERROR --- NO ");
-                        //Station.Drawer("*");
-
-                    }
-                    //Console.Clear();
-                   // Station.Drawer("*");
-
-
-                }
-
-                else if (ky == "d")
-                {
-                    //T_node = Station.Llist.Search(true);
-                    try
-                    {
-
-                        T_node.E_node.selected = true;
-                        // Console.WriteLine(" " + "Yo" + T_node.N_node.selected);
-                        T_node.selected = false;
-                        //Console.WriteLine(Station.Llist.Search(true).room.Name);
-                        //Console.WriteLine("All dat shit " + Station.Llist.Search(T_node.N_node.room.Name).Name);
-                        //Station.Drawer("*");
-                    }
-                    catch (NullReferenceException e)
-                    {
-
-                        //Console.WriteLine("ERROR --- NO ");
-                        //Station.Drawer("*");
-
-                    }
-                    //Console.Clear();
-                    // Station.Drawer("*");
-
-
-                }
-
-
-
-                else if (ky == "a")
-                {
-                    T_node = Station.Llist.Search(true);
-                    try
-                    {
-
-                        T_node.W_node.selected = true;
-                        // Console.WriteLine(" " + "Yo" + T_node.N_node.selected);
-                        T_node.selected = false;
-                        //Console.WriteLine(Station.Llist.Search(true).room.Name);
-                        //Console.WriteLine("All dat shit " + Station.Llist.Search(T_node.N_node.room.Name).Name);
-                        //Station.Drawer("*");
-                    }
-                    catch (NullReferenceException e)
-                    {
-
-                        //Console.WriteLine("ERROR --- NO ");
-                        //Station.Drawer("*");
-
-                    }
-                    //Console.Clear();
-                    // Station.Drawer("*");
-
-
-                }
-
-                else if(ky == "i")
-                {
-                    try
-                    {
-                        Console.WriteLine("North" + T_node.North_Neighbor);
-                        Console.WriteLine("South" + T_node.South_Neighbor);
-                        Console.WriteLine("East" + T_node.East_Neighbor);
-                        Console.WriteLine("West" + T_node.West_Neighbor);
-                    }
-                    catch (NullReferenceException e) { }
-
-
-
-                }
-
-
-
-                else if (ky == "q")
-                {
-                    quit = false;
-                    break;
-
-                }
-
-                Station.Drawer("*");
-
-
-            }
-
-            
+       
          
             /*
             WriteAt("A444", 5, 0);
