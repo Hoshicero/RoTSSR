@@ -30,28 +30,5 @@ namespace RoTSSR
  *//////////////
 
 {
-    public class Boundary
-    {
 
-
-        public bool Locked { get; set; }
-        public bool Electric{ get; set; }
-        public bool Blocked { get; set; }
-
-
-
-       Boundary()
-        {
-            Locked = false;
-            Electric = false;
-            Blocked = false;
-            
-        }
-
-        
-      
-
-
-
-    }
 }

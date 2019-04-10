@@ -40,15 +40,18 @@ namespace RoTSSR
 
     public class Room
     {
-        public struct Bounds
+        public class Boundary
         {
+            public bool Locked { get; set; }
+            public bool Electric { get; set; }
+            public bool Blocked { get; set; }
            
-            public Boundary North { get; set;}
-            public Boundary South { get; set;}
-            public Boundary East { get; set;}
-            public Boundary West { get; set;}
-
         }
+       
+           
+          
+
+        
 
 
         public int Deck { get; set; } //The Deck this Room is on
@@ -60,10 +63,14 @@ namespace RoTSSR
         public String South_Neighbor {get; set;}
         public String East_Neighbor {get; set;} 
         public String West_Neighbor {get; set;}
-        public Bounds Boundaries = new Bounds();
+
+        public Boundary North_Bound { get; set; }
+        public Boundary South_Bound { get; set; }
+        public Boundary East_Bound { get; set; }
+        public Boundary West_Bound { get; set; }
 
 
-        
+
 
         public Room (int num, int fl, int deck)
         {
