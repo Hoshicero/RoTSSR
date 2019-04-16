@@ -40,11 +40,17 @@ namespace RoTSSR
 
     public class Room
     {
-        public class Boundary
+        public class Boundary : Object
         {
             public bool Locked { get; set; }
             public bool Electric { get; set; }
             public bool Blocked { get; set; }
+            public Boundary() { Locked = false; Electric = false; Blocked = false; }
+
+            public void Locker() { Locked = true; }
+            public void Blocker() { Locked = true; }
+            public void Unlocker() { Locked = false; }
+            public void Unblocker() { Locked = false; }
            
         }
        
@@ -64,10 +70,10 @@ namespace RoTSSR
         public String East_Neighbor {get; set;} 
         public String West_Neighbor {get; set;}
 
-        public Boundary North_Bound { get; set; }
-        public Boundary South_Bound { get; set; }
-        public Boundary East_Bound { get; set; }
-        public Boundary West_Bound { get; set; }
+        public Boundary North_Bound = new Boundary();
+        public Boundary South_Bound = new Boundary();
+        public Boundary East_Bound = new Boundary();
+        public Boundary West_Bound = new Boundary();
 
 
 
