@@ -63,10 +63,10 @@ namespace RoTSSR
 
         public StationCreator() { }
 
-        public String NneighborCalculations(ref Room Holder)
+        public String NneighborCalculations(ref Room_Node Holder)
 
         {
-            Room HolderRoom = new Room();
+            Room_Node HolderRoom = new Room_Node();
             HolderRoom = Holder;
 
             // Console.WriteLine("Activating" + " " + HolderRoom.Name + " " + "In Nneighbor");
@@ -132,7 +132,7 @@ namespace RoTSSR
         }
 
 
-        public String SneighborCalculations(ref Room HolderRoom)
+        public String SneighborCalculations(ref Room_Node HolderRoom)
         {
             if (HolderRoom.South_Neighbor == "X" || HolderRoom.South_Neighbor == null)
             {
@@ -167,7 +167,7 @@ namespace RoTSSR
         }
 
 
-        public String WneighborCalculations(ref Room HolderRoom)
+        public String WneighborCalculations(ref Room_Node HolderRoom)
         {
 
             if (HolderRoom.West_Neighbor == "X" || HolderRoom.West_Neighbor == null)
@@ -197,7 +197,7 @@ namespace RoTSSR
         }
 
 
-        public String EneighborCalculations(ref Room HolderRoom)
+        public String EneighborCalculations(ref Room_Node HolderRoom)
         {
 
 
@@ -295,7 +295,7 @@ namespace RoTSSR
                     for (int z = 0; z <= Rm_perfloor; z++)
                     {
                         //Console.WriteLine(x + " " + y + " " + z);
-                        Llist.Rear_Add(new Room((z), y, x));
+                        Llist.Rear_Add(new Room_Node((z), y, x));
 
 
                     }
@@ -326,7 +326,7 @@ namespace RoTSSR
         /*
         public void PrintNodes()
         {
-            List<Room> columns = new List<Room>();
+            List<Room_Node> columns = new List<Room_Node>();
             int tableWidth = this.Rm_max;
 
             int temp = 0;
@@ -367,7 +367,7 @@ namespace RoTSSR
             
             string row = "|";
 
-            foreach (Room column in columns)
+            foreach (Room_Node column in columns)
             {
 
 
@@ -816,8 +816,8 @@ namespace RoTSSR
 
                                         if (target.room.Num > current.room.Num)
                                         {
-                                            Console.WriteLine("Comparing Room Numbers:....");
-                                            Console.WriteLine(target.room.Name + "'s" + "  " + "Room number is of a higher level than" + " " + current.room.Name);
+                                            Console.WriteLine("Comparing Room_Node Numbers:....");
+                                            Console.WriteLine(target.room.Name + "'s" + "  " + "Room_Node number is of a higher level than" + " " + current.room.Name);
                                             Console.WriteLine("\n");
 
                                             Console.WriteLine("Traveling to" + " " + current.W_node.room.Name + " " + "from: " + " " + current.room.Name + "as a result ");
@@ -846,7 +846,7 @@ namespace RoTSSR
                                     if (target.room.Num < current.room.Num)
                                     {
                                             Console.WriteLine("Comparing Rooms:....");
-                                            Console.WriteLine(target.room.Name + "'s" + "  " + "Room number is of a lower value than" + " " + current.room.Name);
+                                            Console.WriteLine(target.room.Name + "'s" + "  " + "Room_Node number is of a lower value than" + " " + current.room.Name);
                                             Console.WriteLine("\n");
                                             Console.WriteLine("Traveling to" + " " + current.E_node.room.Name + " " + "from: " + " " + current.room.Name + "as a result ");
                                             Console.WriteLine("\n");

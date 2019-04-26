@@ -6,66 +6,48 @@ using System.Threading.Tasks;
 
 namespace RoTSSR
 {
-    public class Node:Room
+ public abstract class Node<T>
     {
 
 
-        public Node previous { get; set; }
-        public Node next { get; set; }
-        public int Xcord { get; set;}
-        public int Ycord { get; set;}
-        public bool selected { get; set; } //Whether or not this Room is selected, subject to change. 
-        public Node N_node { get; set;}
-        public Node S_node { get; set;}
-        public Node E_node { get; set;}
-        public Node W_node { get; set;}
+        public T Previous { get; set; }
+        public T Next { get; set; }
+        public T Data { get; set; }
+        public Node() { }
+        public T Xcord { get; set; }
+        public T Ycord { get; set; }
 
-        public Room room;
-        public Node(Room Room)
-        {
-           
-            room = Room;
-            next = null;
-            previous = null;
-            N_node = null;
-            S_node = null;
-            E_node = null;
-            W_node = null;
-            //Console.WriteLine("Activating Node:" + " " + room.Name);
-        }
-        public Node()
-        {
-            next = null;
-            previous = null;
-            N_node = null;
-            S_node = null;
-            E_node = null;
-            W_node = null;
-        }
-
-        ~Node() { }
-    
-
-        public bool Hasnext()
-        {
-            if (this.next != null)
-            {
-                return true;
-            }
-            else
-                return false;
-        }
-
-        public bool Hasprevious()
-        {
-            if (this.previous != null)
-            {
-                return true;
-            }
-            else
-                return false;
-        }
 
 
     }
+
+
+    public class Room_Node : Node<Room_Node>
+    {
+    
+        public Room room { get; set; }
+        public Room_Node N_node { get; set; }
+        public Room_Node S_node { get; set; }
+        public Room_Node E_node { get; set; }
+        public Room_Node W_node { get; set; }
+        public Room_Node(Room rm) { room = rm;}
+        public Room_Node() { }
+        public LinkedList<Occu_Node> Occupancies;
+        ~Room_Node() { }
+    }
+
+
+    public class Occu_Node : Node<Occu_Node>
+    {
+       // public Occu_Node Next { get; set;}
+       // public Occu_Node Previous { get; set;}
+       public new Entity Data { get; set; }
+    }
+
+
+
+
 }
+
+
+

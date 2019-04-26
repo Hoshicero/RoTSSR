@@ -32,7 +32,7 @@ namespace RoTSSR
 
 
 
-             Node T_node = new Node();
+             Room_Node T_node = new Room_Node();
              T_node = Station.Llist.Search("C25");
              T_node.selected = true;
           

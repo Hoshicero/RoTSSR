@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace RoTSSR
 {
-    /* The Room class is a container for the information of a particular room.
+    /* The Room_Node class is a container for the information of a particular room.
      * 
      * ******Variables******
      * 
@@ -11,11 +11,11 @@ namespace RoTSSR
      *  RoomType <-> THe RoomType variable holds a single int representation of one of the six RoomTypes: '0' = Accessway, '1' = Accomodations,
      * '2' = Corridor, '3' = Industrial, '4' = Service.
      * 
-     *  Name <-> The Name variable holds the ID of the Room's Name.
+     *  Name <-> The Name variable holds the ID of the Room_Node's Name.
      * 
-     *
      * 
-     *  Next_U\D\L\R <-> The Next_* variables of type String store the ID of a neighboring Room specific to the implicit rooms adjacency to   
+     * 
+     *  Next_U\D\L\R <-> The Next_* variables of type String store the ID of a neighboring Room_Node specific to the implicit rooms adjacency to   
      * that particular neighbor: 'U' = Up, 'D' = Down, 'L' = Left, 'R' = Right.
      * 
      *  Up, Down, Left, Right <-> These variables are of an object class named boundary, and refer to each of the four locational
@@ -38,48 +38,53 @@ namespace RoTSSR
 
 
 
-    public class Room
+    public class Room : Object
     {
         public class Boundary : Object
         {
             public bool Locked { get; set; }
+            public String Position { get; set; }
             public bool Electric { get; set; }
             public bool Blocked { get; set; }
             public Boundary() { Locked = false; Electric = false; Blocked = false; }
-
+            public Boundary(String pos) { Locked = false; Electric = false; Blocked = false; Position = pos; }
             public void Locker() { Locked = true; }
             public void Blocker() { Locked = true; }
             public void Unlocker() { Locked = false; }
             public void Unblocker() { Locked = false; }
-           
         }
-       
-           
-          
 
-        
+        public int Deck { get; set; } //The Deck this Room_Node is on
+        public int Num { get; set; } // The Room_Node Number this room has.
+        public int Floor { get; set; } //The Floor Number this Room_Node is on.
+        public String Name { get; set; } // The Name of this Room_Node{Deck + Floor + Room_Node Number}. 
+        public String North_Neighbor { get; set; }
+        public String South_Neighbor { get; set; }
+        public String East_Neighbor { get; set; }
+        public String West_Neighbor { get; set; }
 
-
-        public int Deck { get; set; } //The Deck this Room is on
-        public int Num { get; set; } // The Room Number this room has.
-        public int Floor { get; set;} //The Floor Number this Room is on.
-        public String Name { get; set;} // The Name of this Room{Deck + Floor + Room Number}. 
-
-        public String North_Neighbor {get; set;}
-        public String South_Neighbor {get; set;}
-        public String East_Neighbor {get; set;} 
-        public String West_Neighbor {get; set;}
-
+        public Boundary[] Bounds = new Boundary[3];
         public Boundary North_Bound = new Boundary();
         public Boundary South_Bound = new Boundary();
         public Boundary East_Bound = new Boundary();
         public Boundary West_Bound = new Boundary();
 
-
-
-
-        public Room (int num, int fl, int deck)
+        public Room()
         {
+            Bounds[0] = new Boundary("North");
+            Bounds[1] = new Boundary("South");
+            Bounds[2] = new Boundary("East");
+            Bounds[3] = new Boundary("West");
+        }
+
+        public Room(int num, int fl, int deck)
+        {
+
+            Bounds[0] = new Boundary("North");
+            Bounds[1] = new Boundary("South");
+            Bounds[2] = new Boundary("East");
+            Bounds[3] = new Boundary("West");
+
             North_Neighbor = null;
             South_Neighbor = null;
             East_Neighbor = null;
@@ -88,12 +93,9 @@ namespace RoTSSR
             Floor = fl;
             Deck = deck;
             Name = String.Concat(Dk_retriever(deck), fl, num);
-            //Console.WriteLine("Activating Room" + " " + Name);
+            //Console.WriteLine("Activating Room_Node" + " " + Name);
         }
 
-        public Room(){}
-
-       ~Room() { }
 
         public String Dk_retriever(int num)
         {
@@ -185,12 +187,28 @@ namespace RoTSSR
 
     }
 
+
+
+
 }
-    
 
 
+/*
+public String Print_Occupancies()
+{
+    Node current = new Node();
+    current = Occupancies.head;
+    String Final = null;
 
- 
+    while (current != null)
+    {
+        Final.Concat(Final, current.room.)
+
+            }
+}
+*/
+
+
 
 
 
