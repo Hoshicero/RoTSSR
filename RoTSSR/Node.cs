@@ -39,9 +39,11 @@ namespace RoTSSR
 
     public class Occu_Node : Node<Occu_Node>
     {
-       // public Occu_Node Next { get; set;}
-       // public Occu_Node Previous { get; set;}
-       public new Entity Data { get; set; }
+        // public Occu_Node Next { get; set;}
+        // public Occu_Node Previous { get; set;}
+        public Entity<String> entity;
+        public Occu_Node() { }
+        public Occu_Node(Entity<String> N_ent) { entity = N_ent; }
     }
 
 

@@ -53,9 +53,9 @@ namespace RoTSSR
     public abstract void Rear_Add(T Node);
     public abstract void Front_Add(T Node);
     public abstract void Delete();
-    public abstract T Search(bool select);
-    public abstract T Search(int x, int y);
-    public abstract T Search(String input);
+   // public  T Search(bool select);
+   // public  T Search(int x, int y);
+  //  public  T Search(String input);
     public abstract void Start(T Node);
     public LinkedList() { }
 
@@ -63,7 +63,9 @@ namespace RoTSSR
 
     public class OccuList : LinkedList<Occu_Node>
     {
-        public override String printList()
+        public OccuList() { }
+        public OccuList(Occu_Node Node) { head = Node; rear = Node; }
+        public  String printList()
         {
             String output = null;
             Occu_Node n = new Occu_Node();
@@ -74,7 +76,7 @@ namespace RoTSSR
 
          while(n != null)
             {
-                output = String.Concat(output, n.Data.ID);
+                output = String.Concat(output, n.Data.entity.ID);
                 try
                 {
                     n = n.Next;
@@ -85,21 +87,85 @@ namespace RoTSSR
                 }
             }
             return output;
+        }
+
+        public void Start(Occu_Node Node)
+        {
+            
+            head = Node;
+            rear = Node;
+            head.Next = rear;
+            head.Previous = head;
+            
+        }
+        public void Front_Add(Occu_Node Node)
+        {
+            Occu_Node Front = new Occu_Node();
+            Front = head;
+
+            Front.Previous = Node;
+            Node.Next = Front;
+            Node.Previous = null;
+            head = Node;
 
         }
 
+        public void Rear_Add(Occu_Node Node)
+        {
+            try
+            {
+                if (head == null && rear == null)
+                {
+                    Start(Node);
+                    return;
+                }
 
+                Occu_Node end = new Occu_Node();
+                end = rear;
+                Node.Previous = end;
+                Node.Next = null;
+                end.Next = Node;
+                rear = Node;
+            }
+            catch (NullReferenceException e)
+            {
+                Console.WriteLine("ERROR --- ROOM IS NULL");
+
+            }
 
     }
+        public Occu_Node Search(String Input)
+        {
+            Occu_Node current = new Occu_Node();
+            try
+            {
+                current = head;
 
+                while (Input != current.Data.entity.ID)
+                {
+                    try
+                    {
+                        current = current.Next;
+                    }
+                    catch (ArgumentNullException)
+                    {
+                        return null;
+                    }
+                }
+            }
+            catch (ArgumentNullException)
+            {
+                return null;
+            }
 
-
-
+            return current;
+        }
 public class RoomList : LinkedList<Room_Node>
     {
         public Room_Node head { get; set; }
         public Room_Node rear { get; set; }
         public RoomList(Room_Node Node) { head = Node; rear = Node;}
+        public RoomList() { }
 
 
         public void printList()
@@ -127,7 +193,7 @@ public class RoomList : LinkedList<Room_Node>
 
             while (n != null)
             {
-                Console.WriteLine("Printing.....");
+                Console.WriteLine("Printing");
                 Console.WriteLine(n.room.Name + " ");
                 //Console.WriteLine("previous is" + " " + n.previous.room.Name + "\n");
                 //Console.WriteLine("next is" + " " + n.next.room.Name + "\n");
@@ -289,27 +355,20 @@ public class RoomList : LinkedList<Room_Node>
 
         }
 
-        public void Start(Room room)
+        public void Start(Room_Node Node)
         /* Title: Start
          * Arguments: room
          * Type: Void
          * Summary: The start function begins the linked list.              
-
-
         */
         {
-            /*
-             if (room.Dk_retriever(room.Deck) == null)
-             {
-                 return;
-             }
-             */
 
-            Room_Node node = new Room_Node(room);
-            node.Next = null;
-            node.Previous = null;
-            head = node;
-            rear = node;
+
+                rear = Node;
+                head = Node;
+                rear.Previous = head;
+
+               
 
             //Console.WriteLine("Leaving start and and the head equals" + head.room.GetName());
 
@@ -338,7 +397,7 @@ public class RoomList : LinkedList<Room_Node>
             //Console.WriteLine("Okay I've replaced the head, my  next node is" + head.next.room.GetName());
         }
 
-        public void Rear_Add(Room room)
+        public void Rear_Add(Room_Node room)
         {
 
             try
@@ -348,15 +407,15 @@ public class RoomList : LinkedList<Room_Node>
                     Start(room);
                     return;
                 }
-                Room_Node node = new Room_Node(room);
-                Room_Node end = rear;
+                    Room_Node end = new Room_Node();
+                    end = rear;
 
 
 
-                end.Next = node;
-                node.Previous = end;
-                node.Next = null;
-                rear = node;
+                end.Next = room;
+                room.Previous = end;
+                room.Next = null;
+                rear = room;
             }
             catch (NullReferenceException e)
             {
