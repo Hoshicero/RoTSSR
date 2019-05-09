@@ -27,44 +27,64 @@ namespace RoTSSR
         {
 
             StationCreator Station = new StationCreator(50, 3, 3);
+            Occu_Node Occu = new Occu_Node();
+            Occu.Occupant.ID = "fsuif";
+            String node = "C35";
+            Room_Node test = Station.Llist.Search(node);
+            test.Occupancies.Start(Occu);
+            
+           // Station.Llist.Search(node).Occupancies.Start(Occu);
+           // Station.Llist.Search(node).Occupancies.Front_Add(new Occu_Node("F"));
+          //  Station.Llist.Search(node).Occupancies.PrintList();
+           /*
+            try
+            {
+                  //Console.WriteLine("East" + Station.Llist.Search(node).E_node.room.Name);
+                  Console.WriteLine("West" + Station.Llist.Search(node).W_node.room.Name);
+                  //Console.WriteLine("South" + Station.Llist.Search(node).S_node.room.Name);
+                  Console.WriteLine("North" + Station.Llist.Search(node).N_node.room.Name);
+            }
+            catch (NullReferenceException)
+            {
+                
+            }
+            */
 
-           
+            //Station.Llist.printList();
+
+            //  Room_Node T_node = new Room_Node();
+            //  T_node = Station.Llist.Search("C25");
+            //T_node.selected = true;
 
 
 
-             Room_Node T_node = new Room_Node();
-             T_node = Station.Llist.Search("C25");
-             T_node.selected = true;
-          
 
-         
-        
-            Node Help = new Node();
-            Node Please = new Node();
-      
-            Help = Station.Llist.Search("A15");
-            Please = Station.Llist.Search("C30");
+            //  Node Help = new Node();
+            //  Node Please = new Node();
 
-           // Help.East_Bound.Blocked = true;
+            // Help = Station.Llist.Search("A15");
+            //   Please = Station.Llist.Search("C30");
+
+            // Help.East_Bound.Blocked = true;
             //Help.West_Bound.Blocked = true;
-            Help.North_Bound.Blocked = true;
-            Help.South_Bound.Blocked = true;
+            //  Help.North_Bound.Blocked = true;
+            //  Help.South_Bound.Blocked = true;
 
-            Console.WriteLine("South Bound ==" + " " + Help.South_Bound.Blocked);
-            Console.WriteLine(Station.Llist.Search("A15").South_Bound.Blocked);
-            Station.Llist.Distance2(Help, Please);
+            // Console.WriteLine("South Bound ==" + " " + Help.South_Bound.Blocked);
+            //   Console.WriteLine(Station.Llist.Search("A15").South_Bound.Blocked);
+            //  Station.Llist.Distance2(Help, Please);
 
 
-         
-             //Station.Drawer("*");
+
+            //Station.Drawer("*");
 
             // Station.KeyListener();
 
 
 
-       
-         
-           
+
+
+
 
 
 

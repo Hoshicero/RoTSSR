@@ -71,19 +71,19 @@ namespace RoTSSR
 
         public Room()
         {
-            Bounds[0] = new Boundary("North");
-            Bounds[1] = new Boundary("South");
-            Bounds[2] = new Boundary("East");
-            Bounds[3] = new Boundary("West");
+           // Bounds[0] = new Boundary("North");
+           // Bounds[1] = new Boundary("South");
+           // Bounds[2] = new Boundary("East");
+            //Bounds[3] = new Boundary("West");
         }
 
         public Room(int num, int fl, int deck)
         {
 
-            Bounds[0] = new Boundary("North");
-            Bounds[1] = new Boundary("South");
-            Bounds[2] = new Boundary("East");
-            Bounds[3] = new Boundary("West");
+           // Bounds[0] = new Boundary("North");
+           // Bounds[1] = new Boundary("South");
+          //  Bounds[2] = new Boundary("East");
+          //  Bounds[3] = new Boundary("West");
 
             North_Neighbor = null;
             South_Neighbor = null;

@@ -52,7 +52,7 @@ namespace RoTSSR
     //public abstract T printList();
     public abstract void Rear_Add(T Node);
     public abstract void Front_Add(T Node);
-    public abstract void Delete();
+    public abstract void Delete(String key);
    // public  T Search(bool select);
    // public  T Search(int x, int y);
   //  public  T Search(String input);
@@ -63,42 +63,42 @@ namespace RoTSSR
 
     public class OccuList : LinkedList<Occu_Node>
     {
+
+        public Occu_Node head { get; set; }
+        public Occu_Node rear { get; set; }
         public OccuList() { }
         public OccuList(Occu_Node Node) { head = Node; rear = Node; }
-        public  String printList()
+        public void  PrintList()
         {
-            String output = null;
+            
             Occu_Node n = new Occu_Node();
-            Occu_Node p = new Occu_Node();
 
-            p = rear;
             n = head;
 
-         while(n != null)
+            while (n != null)
             {
-                output = String.Concat(output, n.Data.entity.ID);
+                Console.WriteLine(n.Occupant.ID);
                 try
                 {
                     n = n.Next;
                 }
                 catch (ArgumentNullException)
                 {
-
+                    continue;
                 }
             }
-            return output;
+            return;
         }
-
-        public void Start(Occu_Node Node)
+        public override void Start(Occu_Node Node)
         {
-            
+
             head = Node;
             rear = Node;
             head.Next = rear;
             head.Previous = head;
-            
+
         }
-        public void Front_Add(Occu_Node Node)
+        public override void Front_Add(Occu_Node Node)
         {
             Occu_Node Front = new Occu_Node();
             Front = head;
@@ -109,8 +109,7 @@ namespace RoTSSR
             head = Node;
 
         }
-
-        public void Rear_Add(Occu_Node Node)
+        public override void Rear_Add(Occu_Node Node)
         {
             try
             {
@@ -133,7 +132,7 @@ namespace RoTSSR
 
             }
 
-    }
+        }
         public Occu_Node Search(String Input)
         {
             Occu_Node current = new Occu_Node();
@@ -141,7 +140,7 @@ namespace RoTSSR
             {
                 current = head;
 
-                while (Input != current.Data.entity.ID)
+                while (Input != current.Occupant.ID)
                 {
                     try
                     {
@@ -160,6 +159,69 @@ namespace RoTSSR
 
             return current;
         }
+        public override void Delete(string Key)
+        {
+            //Room_Node room = new Room_Node();
+            Occu_Node current = head;
+
+            if (current == head && current == rear)
+            {
+                return;
+            }
+
+            while (current != null)
+            {
+
+                if (current.Occupant.ID == Key)
+                {
+
+                    //Base Case
+
+                    if (head == null)
+                    {
+                        return;
+                    }
+
+                    //If node to be deleted is head node
+
+                    if (head == current)
+                    {
+
+                        head = current.Next;
+
+                    }
+
+                    //If node to be deleted is rear node
+                    if (rear == current)
+                    {
+                        rear = current.Previous;
+
+                    }
+                    //Change next if Node to be deleted is not the last node
+                    if (current.Next != null)
+                    {
+
+                        current.Next.Previous = current.Next;
+
+                    }
+
+                    if (current.Previous != null)
+                    {
+
+                        current.Previous.Next = current.Next;
+                    }
+                    return;
+                }
+
+                //Console.WriteLine("Here advancing the linker");
+
+                current = current.Next;
+
+            }
+
+        }
+
+    }
 public class RoomList : LinkedList<Room_Node>
     {
         public Room_Node head { get; set; }
@@ -204,7 +266,7 @@ public class RoomList : LinkedList<Room_Node>
         }
 
 
-
+/*
         public Room_Node Search(bool selected)
         {
             Room_Node room = new Room_Node();
@@ -222,18 +284,18 @@ public class RoomList : LinkedList<Room_Node>
             {
                 while (current != null)
                 {
-                    if (current.Occupancies.Search("h"))
+                    if (current.Search("h"))
                     {
-                        /*
+                        
                         Console.WriteLine("The Name is" + current.room.Name);
                         Console.WriteLine("The North Neighbor is" + current.room.North_Neighbor);
                         Console.WriteLine("The South Neighbor is" + current.room.South_Neighbor);
                         Console.WriteLine("The East Neighbor is" + current.room.East_Neighbor);
                         Console.WriteLine("The West Neighbor is" + current.room.West_Neighbor);
-                        */
+                        
                         return current;
                     }
-                    current = current.next;
+                    current = current.Next;
                 }
             }
             catch (ArgumentNullException e)
@@ -247,7 +309,7 @@ public class RoomList : LinkedList<Room_Node>
 
 
         }
-
+    */
 
         public Room_Node Search(int x, int y)
         {
@@ -309,7 +371,7 @@ public class RoomList : LinkedList<Room_Node>
              * to the node is returned. If there isn't, the list is iterated by 1.             
              *             
             */
-            Room_Node room = new Room_Node();
+            //Room_Node room = new Room_Node();
             /*
               if (head == null)
 
@@ -320,13 +382,14 @@ public class RoomList : LinkedList<Room_Node>
               }
               */
 
-            Room_Node current = head;
+            Room_Node current = new Room_Node();
+            current = head;
             while (current != null)
             {
                 try
                 {
                     //Console.WriteLine("HERE GOES SEARCHING FOR" + key);
-                    if (current.room.Name == key)
+                    if (String.Equals(current.room.Name, key))
                     {
 
                         // Console.WriteLine("The Name is" + current.room.Name);
@@ -338,7 +401,7 @@ public class RoomList : LinkedList<Room_Node>
                         */
                         return current;
                     }
-                    current = current.next;
+                    current = current.Next;
 
 
 
@@ -346,16 +409,18 @@ public class RoomList : LinkedList<Room_Node>
                 }
                 catch (NullReferenceException e)
                 {
-                    return head;
+                    continue;
                 }
 
             }
-            return head;
+            return new Room_Node("null");
 
 
         }
 
-        public void Start(Room_Node Node)
+        
+
+        public override void Start(Room_Node Node)
         /* Title: Start
          * Arguments: room
          * Type: Void
@@ -376,7 +441,7 @@ public class RoomList : LinkedList<Room_Node>
 
 
 
-        public void Front_Add(Room room)
+        public override void Front_Add(Room_Node room)
         {
             /*
             if (room.Dk_retriever(room.Deck) == null)
@@ -385,7 +450,7 @@ public class RoomList : LinkedList<Room_Node>
             }
             */
 
-            Room_Node node = new Room_Node(room);
+            Room_Node node = new Room_Node();
             Room_Node Header = new Room_Node();
             Header = head;
 
@@ -397,7 +462,7 @@ public class RoomList : LinkedList<Room_Node>
             //Console.WriteLine("Okay I've replaced the head, my  next node is" + head.next.room.GetName());
         }
 
-        public void Rear_Add(Room_Node room)
+        public override void  Rear_Add(Room_Node room)
         {
 
             try
@@ -423,7 +488,7 @@ public class RoomList : LinkedList<Room_Node>
             }
         }
 
-        public void Delete(string Key)
+        public override void Delete(string Key)
         {
 
             //Room_Node room = new Room_Node();
@@ -488,7 +553,7 @@ public class RoomList : LinkedList<Room_Node>
         }
 
 
-
+        /*
         public void Distance2(Room_Node start, Room_Node target)
         {
             //1.) Start with start
@@ -503,11 +568,11 @@ public class RoomList : LinkedList<Room_Node>
             //b.)If the target's room is greater than start, look west.
             //7.b) If the target's floor is greater than start, look south.
             //7.c) If the target's floor is less than start look north.
-            /*
+            
              1.) Iterate through nodes, determine which "sides" of nodes are inaccesible.
              2.) The sides themselves have to be interactable.
              3.) A possible array of sides?                     
-             */
+             
             bool N_trigger = false;
             bool S_trigger = false;
             bool E_trigger = false;
@@ -819,8 +884,9 @@ public class RoomList : LinkedList<Room_Node>
 
             }
         }
+        */
 
-
+/*
         public void Move2(Room_Node Startpoint, Room_Node Endpoint)
         {
 
@@ -832,7 +898,7 @@ public class RoomList : LinkedList<Room_Node>
             }
 
         }
-
+*/
         public bool present (Room_Node node)
         {
             if (Search(node.room.Name) == node)

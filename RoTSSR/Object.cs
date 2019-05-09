@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace RoTSSR
 {
-    public abstract class Object
+    public interface Obj
     {
-        public String ID { get; set; }
+         
 
 
     }

@@ -1,7 +1,7 @@
 ﻿using System;
 namespace RoTSSR
 {
-    public class Screen_Draw : LinkedList
+    public class Screen_Draw 
     {
 
         protected static int origRow;
