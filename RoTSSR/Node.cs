@@ -31,7 +31,7 @@ namespace RoTSSR
         public Room_Node S_node { get; set; }
         public Room_Node E_node { get; set; }
         public Room_Node W_node { get; set; }
-        public OccuList Occupancies { get; set;}
+        public OccuList Occupancies = new OccuList();
         public Room_Node(Room rm) { room = rm; ID = rm.Name;}
         public Room_Node(String empty) { N_node = null; S_node = null; E_node = null; W_node = null; room = null;}
         public Room_Node()

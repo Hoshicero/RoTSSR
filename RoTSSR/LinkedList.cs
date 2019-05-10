@@ -68,14 +68,26 @@ namespace RoTSSR
         public Occu_Node rear { get; set; }
         public OccuList() { }
         public OccuList(Occu_Node Node) { head = Node; rear = Node; }
-        public void  PrintList()
+        public int Length_of()
         {
-            
+            Occu_Node current = new Occu_Node();
+            int x = 0;
+
+            current = head;
+
+            while (current != null)
+            {
+                x++;
+            }
+
+            return x;
+        }
+
+        public void  PrintList()
+        {  
             Occu_Node n = new Occu_Node();
-
             n = head;
-
-            while (n != null)
+            do
             {
                 Console.WriteLine(n.Occupant.ID);
                 try
@@ -84,18 +96,17 @@ namespace RoTSSR
                 }
                 catch (ArgumentNullException)
                 {
-                    continue;
+                    break;
                 }
             }
-            return;
+            while (n != null);
+     
+          return;
         }
         public override void Start(Occu_Node Node)
         {
-
             head = Node;
-            rear = Node;
             head.Next = rear;
-            head.Previous = head;
 
         }
         public override void Front_Add(Occu_Node Node)
@@ -235,9 +246,7 @@ public class RoomList : LinkedList<Room_Node>
          * Type: Void           
          * Class Summary: The printList function operates by establishing references to the rear and head locations on the Linked list.
          * From there it starts at the top of the list (head) and so long as the head isn't null, it will print the name of the room and then
-         * iterate further down the list.             
-
-
+         * iterate further down the list.     
 
          */
 

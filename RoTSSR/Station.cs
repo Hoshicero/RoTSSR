@@ -180,7 +180,7 @@ namespace RoTSSR
 
             }
             else
-            HolderRoom.W_node = Llist.Search(String.Concat(HolderRoom.room.Dk_retriever(HolderRoom.room.Deck), HolderRoom.room.Floor, HolderRoom.room.Num - 1)));
+            HolderRoom.W_node = Llist.Search((String.Concat(HolderRoom.room.Dk_retriever(HolderRoom.room.Deck), HolderRoom.room.Floor, HolderRoom.room.Num - 1)));
             return;
 
         }

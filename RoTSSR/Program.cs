@@ -27,15 +27,20 @@ namespace RoTSSR
         {
 
             StationCreator Station = new StationCreator(50, 3, 3);
-            Occu_Node Occu = new Occu_Node();
-            Occu.Occupant.ID = "fsuif";
             String node = "C35";
+            Occu_Node Occu = new Occu_Node("P");
+           // Occu.Occupant.ID = "fsuif";
             Room_Node test = Station.Llist.Search(node);
             test.Occupancies.Start(Occu);
+            test.Occupancies.Front_Add(new Occu_Node("F"));
+            test.Occupancies.Front_Add(new Occu_Node("F"));
+            test.Occupancies.Front_Add(new Occu_Node("F"));
+            test.Occupancies.Front_Add(new Occu_Node("F"));
+            test.Occupancies.Delete("P");
+            test.Occupancies.PrintList(); 
+            //test.Occupancies.Start(Occu);
             
-           // Station.Llist.Search(node).Occupancies.Start(Occu);
-           // Station.Llist.Search(node).Occupancies.Front_Add(new Occu_Node("F"));
-          //  Station.Llist.Search(node).Occupancies.PrintList();
+        
            /*
             try
             {
