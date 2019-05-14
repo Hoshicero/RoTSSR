@@ -59,13 +59,182 @@ namespace RoTSSR
     public abstract void Start(T Node);
     public LinkedList() { }
 
-}
+    }
+
+
+    public class EntList : LinkedList<EntNode>
+    {
+        public EntList() { }
+
+        public override void Front_Add(EntNode Node)
+        {
+            EntNode Front = new EntNode();
+            Front = head;
+            Front.Previous = Node;
+            Node.Next = Front;
+            Node.Previous = null;
+            head = Node;
+
+        }
+
+        public override void Rear_Add(EntNode Node)
+        {
+            try
+            {
+                if (head == null && rear == null)
+                {
+                    Start(Node);
+                    return;
+                }
+                EntNode end = new EntNode();
+                end = rear;
+                Node.Previous = end;
+                Node.Next = null;
+                end.Next = Node;
+                rear = Node;
+            }
+            catch (NullReferenceException e)
+            {
+                Console.WriteLine("ERROR --- ROOM IS NULL");
+            }
+
+        }
+
+        public override void Delete(string Key)
+        {
+            //Room_Node room = new Room_Node();
+            EntNode current = new EntNode();
+                current = head;
+
+            if (current == head && current == rear)
+            {
+                return;
+            }
+
+            while (current != null)
+            {
+
+                if (current.Ent.ID == Key)
+                {
+
+                    //Base Case
+
+                    if (head == null)
+                    {
+                        return;
+                    }
+
+                    //If node to be deleted is head node
+
+                    if (head == current)
+                    {
+
+                        head = current.Next;
+
+                    }
+
+                    //If node to be deleted is rear node
+                    if (rear == current)
+                    {
+                        rear = current.Previous;
+
+                    }
+                    //Change next if Node to be deleted is not the last node
+                    if (current.Next != null)
+                    {
+
+                        current.Next.Previous = current.Next;
+
+                    }
+
+                    if (current.Previous != null)
+                    {
+
+                        current.Previous.Next = current.Next;
+                    }
+                    return;
+                }
+
+                //Console.WriteLine("Here advancing the linker");
+
+                current = current.Next;
+
+            }
+
+        }
+
+        public EntNode Search(String Input)
+        {
+
+            EntNode current = new EntNode();
+            current = head;
+           
+            if (head == null)
+            {
+                return current;
+            }
+
+            while (Input.Equals(current.Ent.ID) == false)
+            {
+                try
+                {
+                    current = current.Next;
+                }
+                catch (ArgumentNullException p)
+                {
+                    Console.WriteLine(p.Message);
+                    Console.WriteLine(p.StackTrace);
+                    break;
+                }
+
+            }
+
+            return current;
+        }
+
+        public override void Start(EntNode Node)
+        {
+            head = Node;
+            rear = Node;
+            head.Next = rear;
+            rear.Previous = head;
+
+
+        }
+
+        public void PrintList()
+        {
+            EntNode n = new EntNode();
+            n = head;
+            do
+            {
+                Console.WriteLine(n.Ent.ID);
+                try
+                {
+                    n = n.Next;
+                }
+                catch (ArgumentNullException)
+                {
+                    break;
+                }
+            }
+            while (n != null);
+
+            return;
+        }
+
+    }
+
+
+
+
+
 
     public class OccuList : LinkedList<Occu_Node>
     {
 
-        public Occu_Node head { get; set; }
-        public Occu_Node rear { get; set; }
+       //public Occu_Node head { get; set; }
+        //public Occu_Node rear { get; set; }
         public OccuList() { }
         public OccuList(Occu_Node Node) { head = Node; rear = Node; }
         public int Length_of()
@@ -106,7 +275,10 @@ namespace RoTSSR
         public override void Start(Occu_Node Node)
         {
             head = Node;
+            rear = Node;
             head.Next = rear;
+            rear.Previous = head;
+           
 
         }
         public override void Front_Add(Occu_Node Node)
@@ -126,6 +298,7 @@ namespace RoTSSR
             {
                 if (head == null && rear == null)
                 {
+                    Console.WriteLine("Here!");
                     Start(Node);
                     return;
                 }
@@ -146,30 +319,34 @@ namespace RoTSSR
         }
         public Occu_Node Search(String Input)
         {
-            Occu_Node current = new Occu_Node();
-            try
-            {
-                current = head;
 
-                while (Input != current.Occupant.ID)
+            Occu_Node current = new Occu_Node();
+            current = head;
+            //current = head;
+            if (head == null)
+            {
+                return current;
+            }
+            
+                while (Input.Equals(current.Occupant.ID) == false)
                 {
                     try
                     {
                         current = current.Next;
                     }
-                    catch (ArgumentNullException)
+                    catch (ArgumentNullException p)
                     {
-                        return null;
+                        Console.WriteLine(p.Message);
+                        Console.WriteLine(p.StackTrace);
+                        break;
                     }
-                }
-            }
-            catch (ArgumentNullException)
-            {
-                return null;
-            }
 
-            return current;
-        }
+                }
+            
+                return current;
+            }
+         
+        
         public override void Delete(string Key)
         {
             //Room_Node room = new Room_Node();
@@ -235,8 +412,8 @@ namespace RoTSSR
     }
 public class RoomList : LinkedList<Room_Node>
     {
-        public Room_Node head { get; set; }
-        public Room_Node rear { get; set; }
+       // public Room_Node head { get; set; }
+       // public Room_Node rear { get; set; }
         public RoomList(Room_Node Node) { head = Node; rear = Node;}
         public RoomList() { }
 
@@ -320,6 +497,17 @@ public class RoomList : LinkedList<Room_Node>
         }
     */
 
+        public Room_Node Occu_Search()
+        {
+            Room_Node current = new Room_Node();
+
+            current = rear;
+
+            while(current != null)
+            {
+                current.Occupancies.Search
+            }
+        }
         public Room_Node Search(int x, int y)
         {
 

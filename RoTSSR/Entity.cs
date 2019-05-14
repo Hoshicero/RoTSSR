@@ -6,20 +6,20 @@ using System.Threading.Tasks;
 
 namespace RoTSSR
 {
-   public abstract class Entity  : Obj
+   public class Entity  : Obj
     {
-        public abstract String ID { get; set;}
+        public String ID { get; set;}
     }
 
     public class Player : Entity
     {
-        public override string ID { get; set; }
+       //public override string ID { get; set; }
         public Player() { ID = "Player"; }
 
     }
     public class Foe : Entity
     {
-        public override string ID { get; set; }
+       // public override string ID { get; set; }
         public Foe() { ID = "Foe"; }
 
     }

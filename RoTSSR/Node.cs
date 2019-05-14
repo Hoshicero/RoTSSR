@@ -32,6 +32,7 @@ namespace RoTSSR
         public Room_Node E_node { get; set; }
         public Room_Node W_node { get; set; }
         public OccuList Occupancies = new OccuList();
+
         public Room_Node(Room rm) { room = rm; ID = rm.Name;}
         public Room_Node(String empty) { N_node = null; S_node = null; E_node = null; W_node = null; room = null;}
         public Room_Node()
@@ -39,14 +40,15 @@ namespace RoTSSR
 
 
         }
+
         ~Room_Node() { }
     }
 
 
     public class Occu_Node : Node<Occu_Node>
     {
-        public Occu_Node Next { get; set;}
-        public Occu_Node Previous { get; set;}
+        //public Occu_Node Next { get; set;}
+        //public Occu_Node Previous { get; set;}
         public Entity Occupant { get; set;}
         public Occu_Node() { }
         public Occu_Node(String en)
@@ -60,6 +62,11 @@ namespace RoTSSR
                 Occupant = new Foe();
             }
         }
+    }
+
+    public class EntNode : Node<EntNode>
+    {
+      public  Entity Ent { get; set; }
     }
 
 
