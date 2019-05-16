@@ -96,6 +96,7 @@ namespace RoTSSR
             catch (NullReferenceException e)
             {
                 Console.WriteLine("ERROR --- ROOM IS NULL");
+                return;
             }
 
         }
@@ -256,20 +257,15 @@ namespace RoTSSR
         {  
             Occu_Node n = new Occu_Node();
             n = head;
-            do
+            int count = 0;
+            while (n != null)
             {
+                
                 Console.WriteLine(n.Occupant.ID);
-                try
-                {
-                    n = n.Next;
-                }
-                catch (ArgumentNullException)
-                {
-                    break;
-                }
+               // Console.WriteLine(count++);
+                n = n.Next;
+                 
             }
-            while (n != null);
-     
           return;
         }
         public override void Start(Occu_Node Node)
@@ -283,68 +279,52 @@ namespace RoTSSR
         }
         public override void Front_Add(Occu_Node Node)
         {
-            Occu_Node Front = new Occu_Node();
-            Front = head;
-
-            Front.Previous = Node;
-            Node.Next = Front;
-            Node.Previous = null;
+            if(head == null)
+            {
+                head = Node;
+                head.Next = rear;
+                return;
+            }
+            Node.Next = head;
+            head.Previous = Node;
+            Node.Previous = head.Previous;
             head = Node;
-
         }
         public override void Rear_Add(Occu_Node Node)
         {
-            try
-            {
-                if (head == null && rear == null)
+                if (rear == null)
                 {
-                    Console.WriteLine("Here!");
-                    Start(Node);
+                    rear = Node;
+                    rear.Previous = head;
                     return;
-                }
-
-                Occu_Node end = new Occu_Node();
-                end = rear;
-                Node.Previous = end;
-                Node.Next = null;
-                end.Next = Node;
+                } 
+                Node.Previous = rear;
+                rear.Next = Node;
+                Node.Next = rear.Next;
                 rear = Node;
-            }
-            catch (NullReferenceException e)
-            {
-                Console.WriteLine("ERROR --- ROOM IS NULL");
-
-            }
-
+            Console.WriteLine
         }
         public Occu_Node Search(String Input)
         {
 
             Occu_Node current = new Occu_Node();
-            current = head;
-            //current = head;
-            if (head == null)
-            {
-                return current;
-            }
-            
-                while (Input.Equals(current.Occupant.ID) == false)
-                {
-                    try
-                    {
-                        current = current.Next;
-                    }
-                    catch (ArgumentNullException p)
-                    {
-                        Console.WriteLine(p.Message);
-                        Console.WriteLine(p.StackTrace);
-                        break;
-                    }
+            current = rear;
 
+            while (current != null)
+            {
+
+                if (Input.Equals(current.Occupant.ID))
+                {
+                    return current;
                 }
-            
-                return current;
+                else
+                { 
+                    current = current.Previous;
+                }
+               
             }
+                return null;
+        }
          
         
         public override void Delete(string Key)
@@ -409,6 +389,73 @@ namespace RoTSSR
 
         }
 
+        public void Delete(Occu_Node Key)
+        {
+            //Room_Node room = new Room_Node();
+            Occu_Node current = head;
+            
+
+            if (current == head && current == rear)
+            {
+                return;
+            }
+
+            while (current != null)
+            {
+
+                if (current == Key)
+                {
+
+                    //Base Case
+
+                    if (head == null)
+                    {
+                        return;
+                    }
+
+                    //If node to be deleted is head node
+
+                    if (head == current)
+                    {
+                        current = head.Next;
+                        current.Previous = null;
+                        head.Next = null;
+                        head.Previous = null;
+                        head = current;
+
+                        return;
+                    }
+
+                    //If node to be deleted is rear node
+                   if(rear == current)
+                    {
+                        current = rear.Previous;
+                        current.Next = null;
+                        rear.Previous = null;
+                        rear = current;
+
+                        return;
+                        
+                    }
+
+                    else
+                    {
+                        current.Next.Previous = current.Previous;
+                        current.Previous.Next = current.Next;
+                        current.Next = null;
+                        current.Previous = null;
+                        return;
+                    }
+                    
+                }
+
+                
+
+                current = current.Next;
+
+            }
+
+        }
     }
 public class RoomList : LinkedList<Room_Node>
     {
@@ -424,12 +471,8 @@ public class RoomList : LinkedList<Room_Node>
          * Class Summary: The printList function operates by establishing references to the rear and head locations on the Linked list.
          * From there it starts at the top of the list (head) and so long as the head isn't null, it will print the name of the room and then
          * iterate further down the list.     
-
          */
-
-
-        {
-            
+        { 
             //Console.WriteLine("Head is " + " " + head.room.Name + "Rear is" + " " + rear.room.Name);
             Room_Node n = new Room_Node();
             Room_Node p = new Room_Node();
@@ -497,16 +540,26 @@ public class RoomList : LinkedList<Room_Node>
         }
     */
 
-        public Room_Node Occu_Search()
+        public Room_Node Occu_Search(String key)
         {
             Room_Node current = new Room_Node();
+            Occu_Node keyValue = new Occu_Node();
 
             current = rear;
 
             while(current != null)
             {
-                current.Occupancies.Search
+                keyValue = current.Occupancies.Search(key);
+
+                if(keyValue != null)
+                {
+                    return current;
+                }
+
+                else
+                current = current.Previous;
             }
+            return null; 
         }
         public Room_Node Search(int x, int y)
         {
@@ -557,7 +610,7 @@ public class RoomList : LinkedList<Room_Node>
 
         }
 
-        public Room_Node Search(String key)
+        public  Room_Node  Search(String key)
         {
             /* Title: Search
              * Return: Node           
@@ -624,16 +677,10 @@ public class RoomList : LinkedList<Room_Node>
          * Summary: The start function begins the linked list.              
         */
         {
-
-
-                rear = Node;
-                head = Node;
-                rear.Previous = head;
-
-               
-
-            //Console.WriteLine("Leaving start and and the head equals" + head.room.GetName());
-
+            rear = Node;
+            head = Node;
+            head.Next = rear;
+            rear.Previous = head;
         }
 
 
@@ -1083,19 +1130,26 @@ public class RoomList : LinkedList<Room_Node>
         }
         */
 
-/*
-        public void Move2(Room_Node Startpoint, Room_Node Endpoint)
+
+        public void Occu_Pass( Room_Node Startpoint,   Room_Node Endpoint,  Occu_Node Passenger)
         {
 
-            if (Endpoint != null)
+            try
             {
-                Startpoint.selected = false;
-                Endpoint.selected = true;
+                if (Endpoint != null && Startpoint != null)
+                {
+                    Endpoint.Occupancies.Rear_Add(Passenger);
+                    Startpoint.Occupancies.Delete(Passenger);
+                }
+            }
+            catch (ArgumentNullException)
+            {
 
+                Console.WriteLine("Occu_Pass has failed.");
             }
 
         }
-*/
+
         public bool present (Room_Node node)
         {
             if (Search(node.room.Name) == node)

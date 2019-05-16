@@ -29,12 +29,28 @@ namespace RoTSSR
             StationCreator Station = new StationCreator(50, 3, 3);
             
             String node = "A30";
+            String node2 = "C20";
             Occu_Node Occu = new Occu_Node("P");
-            //Occu.Occupant.ID = "fsuif";
+            Room_Node  Start = new  Room_Node();
+            Room_Node  Stop = new  Room_Node();
+
+            
+             //Start = Station.Llist.Search(node);
+            //Stop = Station.Llist.Search(node2);
+            Occu.Occupant.ID = "fsuif";
+           // Start.Occupancies.Start(Occu);
+            //Start.Occupancies.Rear_Add(new Occu_Node("P"));
             //Room_Node test = Station.Llist.Search(node);
-            Station.Llist.Search(node).Occupancies.Start(Occu);
-            Station.Llist.Search(node).Occupancies.Rear_Add(new Occu_Node("P"));
-            Station.Llist.Search(node).Occupancies.Rear_Add(new Occu_Node("F"));
+            //Station.Llist.Search(node2).Occupancies.Start(Occu);
+            Station.Llist.Search(node2).Occupancies.Front_Add(new Occu_Node("P"));
+            Station.Llist.Search(node2).Occupancies.Rear_Add(new Occu_Node("F"));
+            Station.Llist.Search(node2).Occupancies.PrintList();
+            Station.Llist.Search(node).Occupancies.Rear_Add(Occu);
+            //Station.Llist.Search(node).Occupancies.Delete("fsuif");
+            //Console.WriteLine(Station.Llist.Occu_Search("fsuif").ID);
+            //Station.Llist.Search(node2).Occupancies.PrintList();
+            //Station.Llist.Occu_Pass(Station.Llist.Search(node), Station.Llist.Search(node2), Start.Occupancies.Search("fsuif"));
+            //Console.WriteLine(Station.Llist.Occu_Search("fsuif").room.Name);
             //Console.WriteLine(Station.Llist.Search("A15").Occupancies.Search("Player").Occupant.ID);
             //Console.WriteLine(Station.Llist.Search("C35").Occupancies.Search("Foe").Occupant.ID);
             //Console.WriteLine(Station.Llist.Search("C35").Occupancies.Search("Blow").Occupant.ID);
@@ -93,7 +109,7 @@ namespace RoTSSR
             //Station.Llist.printList();
 
 
-               Station.Drawer("*");
+            //Station.Drawer("*");
             // Station.KeyListener();
 
 
@@ -107,7 +123,7 @@ namespace RoTSSR
 
 
 
-            
+
 
             Console.Read();
 

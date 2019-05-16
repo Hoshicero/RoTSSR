@@ -851,7 +851,7 @@ namespace RoTSSR
 
                 */
 
-
+/*
         
                 public void Move(Occu_Node enty, Room_Node Endpoint)
                 {
@@ -1027,7 +1027,7 @@ namespace RoTSSR
                 }
 
 
-                *
+             */
 
         /*
                 public Boundary BoundCheck(char cardinal, Node desired)
